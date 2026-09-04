@@ -1,0 +1,1211 @@
+{
+ "version": "1.8.4",
+ "generated": "2026-08-28",
+ "components": {
+  "Accordion": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Accordion component",
+   "tags": [
+    "components"
+   ]
+  },
+  "AccordionGroup": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "AccordionGroup component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Animation": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Animation component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Arrow": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Arrow component",
+   "tags": [
+    "components"
+   ]
+  },
+  "AutoScroll": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "AutoScroll component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Avatar": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Avatar component",
+   "tags": [
+    "components"
+   ]
+  },
+  "AvatarGroup": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "AvatarGroup component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Badge": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Badge component",
+   "tags": [
+    "components"
+   ]
+  },
+  "BlobFx": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "BlobFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Banner": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "Banner component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Background": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Background component",
+   "tags": [
+    "components"
+   ]
+  },
+  "BlockQuote": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "BlockQuote component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Button": {
+   "group": "components",
+   "purpose": "Button component",
+   "tags": [
+    "components"
+   ]
+  },
+  "MatrixFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "MatrixFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "WeatherFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "WeatherFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Carousel": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Carousel component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Swiper": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Swiper component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Card": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Card component",
+   "tags": [
+    "components"
+   ]
+  },
+  "CursorCard": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "CursorCard component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Cursor": {
+   "group": "components",
+   "purpose": "Cursor component",
+   "tags": [
+    "components"
+   ]
+  },
+  "CountFx": {
+   "group": "components",
+   "purpose": "CountFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "CountdownFx": {
+   "group": "components",
+   "purpose": "CountdownFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Column": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Column component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Checkbox": {
+   "group": "components",
+   "extends": [
+    "InteractiveDetails"
+   ],
+   "purpose": "Checkbox component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Chip": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Chip component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ColorInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "ColorInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "CompareImage": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "CompareImage component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ContextMenu": {
+   "group": "components",
+   "purpose": "ContextMenu component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DateInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "DateInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DatePicker": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "DatePicker component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DateRangeInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "DateRangeInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DateRangePicker": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "DateRangePicker component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DialogProvider": {
+   "group": "components",
+   "purpose": "DialogProvider component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Dialog": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Dialog component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Dropdown": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Dropdown component",
+   "tags": [
+    "components"
+   ]
+  },
+  "DropdownWrapper": {
+   "group": "components",
+   "purpose": "DropdownWrapper component",
+   "tags": [
+    "components"
+   ]
+  },
+  "EmojiPicker": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "EmojiPicker component",
+   "tags": [
+    "components"
+   ]
+  },
+  "EmojiPickerDropdown": {
+   "group": "components",
+   "extends": [
+    "DropdownWrapper"
+   ],
+   "purpose": "EmojiPickerDropdown component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Fade": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Fade component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Feedback": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Feedback component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Flex": {
+   "group": "components",
+   "purpose": "Flex component",
+   "tags": [
+    "components"
+   ]
+  },
+  "FlipFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "FlipFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "GlitchFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "GlitchFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Grid": {
+   "group": "components",
+   "purpose": "Grid component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Heading": {
+   "group": "components",
+   "purpose": "Heading component",
+   "tags": [
+    "components"
+   ]
+  },
+  "HoloFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "HoloFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Hover": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Hover component",
+   "tags": [
+    "components"
+   ]
+  },
+  "HoverCard": {
+   "group": "components",
+   "extends": [
+    "Animation",
+    "Flex"
+   ],
+   "purpose": "HoverCard component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Icon": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Icon component",
+   "tags": [
+    "components"
+   ]
+  },
+  "IconButton": {
+   "group": "components",
+   "purpose": "IconButton component",
+   "tags": [
+    "components"
+   ]
+  },
+  "InfiniteScroll": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "InfiniteScroll component",
+   "tags": [
+    "components"
+   ]
+  },
+  "InlineCode": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "InlineCode component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Input": {
+   "group": "components",
+   "purpose": "Input component",
+   "tags": [
+    "components"
+   ]
+  },
+  "InteractiveDetails": {
+   "group": "components",
+   "purpose": "InteractiveDetails component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Kbd": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Kbd component",
+   "tags": [
+    "components"
+   ]
+  },
+  "LetterFx": {
+   "group": "components",
+   "purpose": "LetterFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Line": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Line component",
+   "tags": [
+    "components"
+   ]
+  },
+  "List": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "List component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ListItem": {
+   "group": "components",
+   "purpose": "ListItem component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Logo": {
+   "group": "components",
+   "purpose": "Logo component",
+   "tags": [
+    "components"
+   ]
+  },
+  "LogoCloud": {
+   "group": "components",
+   "extends": [
+    "Grid"
+   ],
+   "purpose": "LogoCloud component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Mask": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Mask component",
+   "tags": [
+    "components"
+   ]
+  },
+  "MasonryGrid": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "MasonryGrid component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Media": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Media component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Modal": {
+   "group": "components",
+   "purpose": "Modal component",
+   "tags": [
+    "components"
+   ]
+  },
+  "NavIcon": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "NavIcon component",
+   "tags": [
+    "components"
+   ]
+  },
+  "NumberInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "NumberInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "OgCard": {
+   "group": "components",
+   "extends": [
+    "Card",
+    "Flex"
+   ],
+   "purpose": "OgCard component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Option": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Option component",
+   "tags": [
+    "components"
+   ]
+  },
+  "OTPInput": {
+   "group": "components",
+   "purpose": "OTPInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Particle": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Particle component",
+   "tags": [
+    "components"
+   ]
+  },
+  "PasswordInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "PasswordInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ProgressBar": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "ProgressBar component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Pulse": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Pulse component",
+   "tags": [
+    "components"
+   ]
+  },
+  "RadioButton": {
+   "group": "components",
+   "extends": [
+    "InteractiveDetails"
+   ],
+   "purpose": "RadioButton component",
+   "tags": [
+    "components"
+   ]
+  },
+  "RevealFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "RevealFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Row": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Row component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Scroller": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Scroller component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ScrollContainer": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "ScrollContainer component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ScrollToTop": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "ScrollToTop component",
+   "tags": [
+    "components"
+   ]
+  },
+  "SegmentedControl": {
+   "group": "components",
+   "extends": [
+    "Scroller",
+    "Flex"
+   ],
+   "purpose": "SegmentedControl component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Select": {
+   "group": "components",
+   "extends": [
+    "Input",
+    "DropdownWrapper"
+   ],
+   "purpose": "Select component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ShineFx": {
+   "group": "components",
+   "purpose": "ShineFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Skeleton": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Skeleton component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Slider": {
+   "group": "components",
+   "purpose": "Slider component",
+   "tags": [
+    "components"
+   ]
+  },
+  "SmartLink": {
+   "group": "components",
+   "purpose": "SmartLink component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Spinner": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Spinner component",
+   "tags": [
+    "components"
+   ]
+  },
+  "SplitView": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "SplitView component",
+   "tags": [
+    "components"
+   ]
+  },
+  "StatusIndicator": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "StatusIndicator component",
+   "tags": [
+    "components"
+   ]
+  },
+  "StylePanel": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "StylePanel component",
+   "tags": [
+    "components"
+   ]
+  },
+  "StyleOverlay": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "StyleOverlay component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Switch": {
+   "group": "components",
+   "extends": [
+    "InteractiveDetails"
+   ],
+   "purpose": "Switch component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Table": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Table component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Tag": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Tag component",
+   "tags": [
+    "components"
+   ]
+  },
+  "TagInput": {
+   "group": "components",
+   "extends": [
+    "Input"
+   ],
+   "purpose": "TagInput component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Text": {
+   "group": "components",
+   "purpose": "Text component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Textarea": {
+   "group": "components",
+   "purpose": "Textarea component",
+   "tags": [
+    "components"
+   ]
+  },
+  "TiltFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "TiltFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Timeline": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "Timeline component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Toast": {
+   "group": "components",
+   "purpose": "Toast component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Toaster": {
+   "group": "components",
+   "purpose": "Toaster component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ToggleButton": {
+   "group": "components",
+   "purpose": "ToggleButton component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Tooltip": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "Tooltip component",
+   "tags": [
+    "components"
+   ]
+  },
+  "TypeFx": {
+   "group": "components",
+   "purpose": "TypeFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "ThemeSwitcher": {
+   "group": "components",
+   "extends": [
+    "Row",
+    "Flex"
+   ],
+   "purpose": "ThemeSwitcher component",
+   "tags": [
+    "components"
+   ]
+  },
+  "User": {
+   "group": "components",
+   "purpose": "User component",
+   "tags": [
+    "components"
+   ]
+  },
+  "UserMenu": {
+   "group": "components",
+   "extends": [
+    "User",
+    "DropdownWrapper"
+   ],
+   "purpose": "UserMenu component",
+   "tags": [
+    "components"
+   ]
+  },
+  "CelebrationFx": {
+   "group": "components",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "CelebrationFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "FadingLettersFx": {
+   "group": "components",
+   "purpose": "FadingLettersFx component",
+   "tags": [
+    "components"
+   ]
+  },
+  "Kbar": {
+   "group": "modules",
+   "purpose": "Kbar component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "MobileMegaMenu": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "MobileMegaMenu component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "MegaMenu": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "MegaMenu component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "HeadingNav": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "HeadingNav component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "HeadingLink": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "HeadingLink component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "ChartHeader": {
+   "group": "modules",
+   "extends": [
+    "Column",
+    "Flex"
+   ],
+   "purpose": "ChartHeader component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "ChartStatus": {
+   "group": "modules",
+   "purpose": "ChartStatus component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "LinearGradient": {
+   "group": "modules",
+   "purpose": "LinearGradient component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "RadialGradient": {
+   "group": "modules",
+   "purpose": "RadialGradient component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "BarChart": {
+   "group": "modules",
+   "extends": [
+    "BarChart.impl",
+    "interfaces",
+    "Flex"
+   ],
+   "purpose": "BarChart component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "LineChart": {
+   "group": "modules",
+   "extends": [
+    "LineChart.impl",
+    "interfaces",
+    "Flex"
+   ],
+   "purpose": "LineChart component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "PieChart": {
+   "group": "modules",
+   "extends": [
+    "PieChart.impl",
+    "interfaces",
+    "Flex"
+   ],
+   "purpose": "PieChart component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "LineBarChart": {
+   "group": "modules",
+   "extends": [
+    "LineBarChart.impl",
+    "interfaces",
+    "Flex"
+   ],
+   "purpose": "LineBarChart component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "DataTooltip": {
+   "group": "modules",
+   "purpose": "DataTooltip component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "Legend": {
+   "group": "modules",
+   "purpose": "Legend component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "RadialGauge": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "RadialGauge component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "LinearGauge": {
+   "group": "modules",
+   "extends": [
+    "Flex"
+   ],
+   "purpose": "LinearGauge component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "CodeBlock": {
+   "group": "modules",
+   "extends": [
+    "CodeBlock.impl",
+    "Flex"
+   ],
+   "purpose": "CodeBlock component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "MediaUpload": {
+   "group": "modules",
+   "extends": [
+    "MediaUpload.impl",
+    "Flex"
+   ],
+   "purpose": "MediaUpload component",
+   "tags": [
+    "modules"
+   ]
+  },
+  "Schema": {
+   "group": "modules",
+   "purpose": "Schema component",
+   "tags": [
+    "modules"
+   ]
+  }
+ }
+}

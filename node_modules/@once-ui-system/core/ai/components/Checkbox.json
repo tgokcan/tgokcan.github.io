@@ -1,0 +1,14 @@
+{
+ "name": "Checkbox",
+ "group": "components",
+ "extends": [
+  "InteractiveDetails"
+ ],
+ "props": {
+  "isChecked": "boolean",
+  "isIndeterminate": "boolean = false",
+  "onToggle": "() => void",
+  "hoverable": "boolean = true"
+ },
+ "mixinsRef": []
+}
