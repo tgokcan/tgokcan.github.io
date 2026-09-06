@@ -163,7 +163,7 @@ const about: About = {
   /* // TODO: Buraya ikonlu kayar tech stack ekle */
   technical: { 
     display: true, // set to false to hide this section
-    title: "",
+    title: "Technical Skills",
     skills: [
       
     ],

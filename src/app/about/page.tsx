@@ -293,7 +293,6 @@ export default function About() {
                 variant="display-strong-s"
                 marginBottom="40"
               >
-                {about.technical.title}
               </Heading>
               <Column fillWidth gap="l">
               <TechStackCloud />
