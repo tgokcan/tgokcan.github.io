@@ -1,0 +1,49 @@
+---
+title: "Bilgi Teknolojileri Güvenliği: Göründüğünden Daha Kişisel Bir Mesele"
+publishedAt: "2026-09-06"
+image: "/images/gallery/img-03.jpg"
+summary: "Şifre yöneticisi kurmakla başlayan merakım, beni bilgi güvenliğinin aslında teknik değil, alışkanlık meselesi olduğu sonucuna götürdü."
+tag: "Bilgi Güvenliği"
+---
+
+## Bir e-posta ile başladı her şey
+
+Geçen yıl staj yaptığım şirkette IT ekibindeydim ve çalışanlara yönelik bir "phishing testi" hazırlayıp göndermek bize düştü. Kargo şirketinden gelmiş gibi görünen bir e-posta kurguladık: "Paketiniz gümrükte bekliyor, teslimat bilgilerinizi güncelleyin." Sonuçları izlerken şaşırdım açıkçası -ofiste en az beş kişi o linke tıkladı, bazıları da bilgilerini doldurmaya bile başlamıştı. Ekip olarak sonuçları raporlarken fark ettim ki bilgi güvenliği dediğimiz şey, çoğu zaman sandığımız gibi karmaşık algoritmalar ya da gizli saldırı teknikleri değil; sadece bir insanın o üç saniyelik dikkatsizliği. Ve o dikkatsizliği yönetmek, teknik bir çözümden çok, doğru tasarlanmış bir test ve devamında yapılan eğitimle mümkün oluyor.
+
+Yeni mezun biri olarak iş başvurularına hazırlanırken bu konuyu araştırmaya başladığımda, aslında ne kadar az şey bildiğimi de gördüm. Bu yazıda, öğrendiklerimi kendi cümlelerimle, teknik bir ders kitabı gibi değil, biraz daha "bunu ben de anlamaya çalışıyorum" havasında paylaşmak istiyorum.
+
+## Peki bilgi güvenliği tam olarak ne demek?
+
+Kısaca: bir kurumun ya da kişinin dijital varlıklarını -verilerini, sistemlerini, itibarını- yetkisiz erişime, değişikliğe veya yok edilmeye karşı korumak. Ama bu tanım biraz soğuk kalıyor bence. Daha somut hâliyle şöyle düşünülebilir: şirketinizin müşteri veritabanı, çalışanların e-postaları, hatta üretim hattındaki bir makinenin kontrol sistemi bile bu "korunması gereken şeyler" listesine giriyor. Fabrikalarda staj yapmış biri olarak şunu da eklemek isterim: OT (operasyonel teknoloji) tarafı, yani üretim hattındaki PLC'ler ve SCADA sistemleri, genelde bu konuşmaların dışında kalıyor ama saldırganlar için giderek daha cazip bir hedef hâline geliyor.
+
+## En sık karşılaşılan tehditler
+
+Araştırdıkça gördüm ki, saldırı türleri sürekli değişse de bazı klasikler hiç eskimiyor:
+
+- **Oltalama (phishing):** Yukarıda anlattığım örnek gibi. İnsan faktörünü hedef alıyor, teknik değil psikolojik bir saldırı aslında.
+- **Fidye yazılımı (ransomware):** Verilerinizi şifreleyip parasını istiyorlar. 2021'deki Colonial Pipeline olayı bunun ne kadar ciddi sonuçlara yol açabileceğini gösterdi; bir boru hattı, siber saldırı yüzünden günlerce durdu.
+- **Zayıf ya da tekrar kullanılan şifreler:** Bu kadar basit bir şey hâlâ en büyük açıklardan biri. Herkes biliyor ama yine de aynı şifreyi beş farklı hesapta kullanan bir tanıdığım mutlaka vardır, sizin de vardır muhtemelen.
+- **Güncellenmemiş yazılımlar:** "Sonra güncellerim" dediğimiz o pencere, aslında saldırganlara açık kapı bırakmak demek.
+
+## Bireysel olarak neler yapılabilir?
+
+Burada abartılı, "hacker gibi düşün" tarzı tavsiyeler vermeyeceğim. Gerçekçi ve uygulanabilir birkaç şey var sadece:
+
+Şifre yöneticisi kullanmak, düşündüğünüzden daha az zahmetli. Ben Bitwarden'i denedim, kurulumu on dakikamı aldı ve o günden beri her hesabım için farklı, rastgele üretilmiş bir şifrem var. İki adımlı doğrulamayı (2FA) açmak da benzer şekilde ufak bir alışkanlık değişikliği ama saldırı yüzeyini ciddi oranda daraltıyor.
+
+Bir de şu var: e-postadaki linke tıklamadan önce göndereni kontrol etmek. Kulağa çok bariz geliyor ama işin garibi, aciliyet hissi yaratan mesajlar (örneğin "hesabınız 24 saat içinde kapatılacak") mantığımızı devre dışı bırakıyor. O yüzden asıl savunma bazen teknik değil, "bir dakika dur" diyebilmek.
+
+## Kurumlar için biraz daha farklı bir tablo
+
+Şirket ölçeğinde işler değişiyor tabii. Burada işin insan tarafı kadar süreç tarafı da önem kazanıyor:
+
+- Düzenli güvenlik farkındalık eğitimleri (yukarıdaki phishing testi gibi), çünkü en güçlü güvenlik duvarı bile bir çalışanın şifresini paylaşmasına engel olamıyor.
+- Yedekleme stratejisi -ve bu yedeklerin gerçekten geri yüklenebilir olduğunu test etmek. Yedek almak yetmiyor, o yedeğin işe yaradığından emin olmak gerekiyor.
+- Erişim yetkilerini "en az yetki" prensibiyle sınırlamak. Herkesin her şeye erişebildiği bir sistemde, tek bir hesabın ele geçirilmesi bütün şirketi riske atabiliyor.
+- Küçük ve orta ölçekli üretim şirketlerinde -ki başvuru yapmayı düşündüğüm yerler genelde böyle- IT güvenliği çoğu zaman ikinci planda kalıyor, bütçe önceliği üretime veriliyor. Bu anlaşılır ama uzun vadede pahalıya patlayan bir tercih.
+
+## Son olarak
+
+Bilgi güvenliğini öğrenmeye yeni başlayan biri olarak şunu fark ettim: bu alan, insanları korkutmak için değil, biraz daha dikkatli ve bilinçli olmayı teşvik etmek için var. Mükemmel bir güvenlik diye bir şey yok zaten; olsa olsa saldırganın işini yeterince zorlaştırmak var. Ve bu, çoğu zaman sandığımızdan çok daha ulaşılabilir bir hedef.
+
+Bu konuda daha fazla şey öğrendikçe, muhtemelen bu yazıya geri dönüp güncelleyeceğim. Şimdilik, en azından şifre yöneticinizi kurmuş olun -bu kadarı bile büyük fark yaratıyor.
