@@ -141,7 +141,7 @@ const effects: EffectsConfig = {
 };
 
 const mailchimp: MailchimpConfig = {
-  action: "https://url/subscribe/post?parameters",
+  action: "https://tolgabektas.dev/subscribe/post?parameters",
   effects: {
     mask: {
       cursor: true,
