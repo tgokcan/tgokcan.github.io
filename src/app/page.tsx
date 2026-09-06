@@ -97,7 +97,7 @@ export default function Home() {
                     size="m"
                   />
                 )}
-                {about.title}
+                About - {person.name}
               </Row>
             </Button>
           </RevealFx>
