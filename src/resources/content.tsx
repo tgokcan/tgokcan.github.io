@@ -50,8 +50,8 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
+  title: `Tolga Bektas - Fullstack & DevOps Generalist`,
+  description: `Tolga Bektas is a Fullstack & DevOps Generalist based in Türkiye, specializing in backend development and enterprise solutions.`,
   headline: <>Building bridges between logic and code</>,
   featured: {
     display: false,
@@ -73,7 +73,6 @@ const home: Home = {
       I'm {person.firstName}, a {person.role.toLowerCase()} {"      "}
       <br/><br></br>
     <ContinuousHeadingTheme  />
-    {/* // TODO: Buraya kayar metin ekle */}
     </>
   ),
 };
@@ -81,8 +80,8 @@ const home: Home = {
 const about: About = {
   path: "/about",
   label: "About",
-  title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  title: `About – ${person.name} | ${person.role}`,
+  description: `Meet ${person.name}, ${person.role} from ${person.location} specializing in backend development and enterprise solutions.`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -175,7 +174,7 @@ const blog: Blog = {
   path: "/blog",
   label: "Blog",
   title: "Writing about technology and my journal...",
-  description: `Read what ${person.name} has been up to recently`,
+  description: `A collection of articles and journal entries by ${person.name} on software development, enterprise solutions, and personal insights.`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
 };
@@ -184,7 +183,7 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
+  description: `A showcase of ${person.name}'s work and projects in software development and enterprise solutions.`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
