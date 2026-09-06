@@ -1,6 +1,9 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Line, Row, Text } from "@once-ui-system/core";
-
+import { AuroraText } from "@/components/ui/aurora-text"
+import { MorphingText } from "@/components/ui/morphing-text";
+import { ContinuousHeading } from "@/components/ui/morphing-aurora-text";
+import { ContinuousHeadingTheme } from "@/components/ui/morphing-aurora-text";
 const person: Person = {
   firstName: "Tolga",
   lastName: "Bektas",
@@ -68,9 +71,9 @@ const home: Home = {
   subline: (
     <>
       I'm {person.firstName}, a {person.role.toLowerCase()} {"      "}
-      <br>
-      </br>
-     <br></br> <Text as="span" size="xl" weight="strong"> Continuous Development</Text>  {/* // TODO: Buraya kayar metin ekle */}
+      <br/><br></br>
+    <ContinuousHeadingTheme  />
+    {/* // TODO: Buraya kayar metin ekle */}
     </>
   ),
 };
@@ -160,53 +163,10 @@ const about: About = {
   
   /* // TODO: Buraya ikonlu kayar tech stack ekle */
   technical: { 
-    display: false, // set to false to hide this section
-    title: "Technical skills",
+    display: true, // set to false to hide this section
+    title: "",
     skills: [
-      {
-        title: "Figma",
-        description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
-        ),
-        tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-        ],
-      },
-      {
-        title: "Next.js",
-        description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
-        ),
-        tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
+      
     ],
   },
 };

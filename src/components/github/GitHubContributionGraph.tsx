@@ -1,10 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Column, Heading, Text } from "@once-ui-system/core";
 import { fetchContributions, getGitHubUsername } from "@/lib/github";
 import { ContributionGraph } from "./ContributionGraph";
 
-export async function GitHubContributionGraph() {
-  const data = await fetchContributions();
+type ContributionData = Awaited<ReturnType<typeof fetchContributions>>;
+
+export function GitHubContributionGraph() {
+  const [data, setData] = useState<ContributionData | null>(null);
+  const [loading, setLoading] = useState(true);
   const username = getGitHubUsername();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchContributions()
+      .then((result) => {
+        if (isMounted) setData(result);
+      })
+      .catch((error) => {
+        console.error("GitHub contribution verisi çekilemedi:", error);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <Column fillWidth gap="m" paddingX="l">
+        <Text variant="body-default-s" onBackground="neutral-weak">
+          Loading contribution graph...
+        </Text>
+      </Column>
+    );
+  }
 
   if (!data || data.contributions.length === 0) {
     return null;
