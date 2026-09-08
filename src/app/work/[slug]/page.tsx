@@ -97,7 +97,7 @@ export default async function Project({
           <Text variant="label-strong-m">Projects</Text>
         </SmartLink>
         <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-          {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+          {formatDate(post.metadata.publishedAt, false, "en-US")}
         </Text>
         <Heading variant="display-strong-m">{post.metadata.title}</Heading>
       </Column>

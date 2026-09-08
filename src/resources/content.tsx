@@ -17,7 +17,7 @@ const person: Person = {
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about technology and journal entries</>,
 };
@@ -248,8 +248,8 @@ export function getLocalizedContent(locale: ContentLocale) {
     social,
     newsletter: {
       ...newsletter,
-      title: <>Tolga&apos;nın bültenine abone olun</>,
-      description: <>Teknoloji ve kişisel notlar hakkında haftalık bültenim</>,
+      title: <>Bültenime abone olun</>,
+      description: <>Teknoloji ve kişisel notlar</>,
     },
     home: {
       ...home,

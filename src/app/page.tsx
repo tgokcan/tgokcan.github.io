@@ -15,6 +15,7 @@ import { home, about, person, baseURL, routes, getLocalizedContent } from "@/res
 import { Mailchimp } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { Posts } from "@/components/blog/Posts";
+import Post from "@/components/blog/Post";
 
 export async function generateMetadata({ params }: { params?: Promise<{ lang?: "tr" | "en" }> } = {}) {
   const { lang = "en" } = (await params) || {};
@@ -107,31 +108,15 @@ export default async function Home({ params }: { params?: Promise<{ lang?: "tr" 
           </RevealFx>
         </Column>
       </Column>
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
+      <RevealFx translateY="16" delay={0.6} fillWidth horizontal="center" paddingTop="32">
+      <Text as="h2" id="recent-posts" variant="heading-strong-xl" marginBottom="24">
+        {lang === "tr" ? "Son yazılar" : "Recent posts"}
+      </Text>
       </RevealFx>
-      {routes["/blog"] && (
-        <Column fillWidth gap="24" marginBottom="l">
-          <Row fillWidth paddingRight="64">
-            <Line maxWidth={48} />
-          </Row>
-          <Row fillWidth gap="24" marginTop="40" s={{ direction: "column" }}>
-            <Row flex={1} paddingLeft="l" paddingTop="24">
-              <Heading as="h2" variant="display-strong-xs" wrap="balance">
-                Latest from the blog
-              </Heading>
-            </Row>
-            <Row flex={3} paddingX="20">
-              <Posts range={[1, 2]} columns="2" />
-            </Row>
-          </Row>
-          <Row fillWidth paddingLeft="64" horizontal="end">
-            <Line maxWidth={48} />
-          </Row>
-        </Column>
-      )}
-      <Projects range={[2]} />
-      <Mailchimp />
+      <RevealFx translateY="16" delay={0.8} fillWidth horizontal="center" paddingTop="32">
+        <Posts range={[1, 6]} lang={lang} />
+      </RevealFx>
+      
     </Column>
   );
 }

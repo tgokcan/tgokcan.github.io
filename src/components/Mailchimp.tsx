@@ -14,7 +14,9 @@ function debounce<T extends (...args: any[]) => void>(func: T, delay: number): T
   }) as T;
 }
 
-export const Mailchimp: React.FC<React.ComponentProps<typeof Column>> = ({ ...flex }) => {
+type NewsletterCopy = { title: React.ReactNode; description: React.ReactNode };
+
+export const Mailchimp: React.FC<React.ComponentProps<typeof Column> & { newsletterCopy?: NewsletterCopy }> = ({ newsletterCopy, ...flex }) => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [touched, setTouched] = useState<boolean>(false);
@@ -107,10 +109,10 @@ export const Mailchimp: React.FC<React.ComponentProps<typeof Column>> = ({ ...fl
       />
       <Column maxWidth="xs" horizontal="center">
         <Heading marginBottom="s" variant="display-strong-xs">
-          {newsletter.title}
+          {newsletterCopy?.title ?? newsletter.title}
         </Heading>
         <Text wrap="balance" marginBottom="l" variant="body-default-l" onBackground="neutral-weak">
-          {newsletter.description}
+          {newsletterCopy?.description ?? newsletter.description}
         </Text>
       </Column>
       <form

@@ -6,6 +6,7 @@ import { socialSharing } from "@/resources";
 interface ShareSectionProps {
   title: string;
   url: string;
+  locale?: "tr" | "en";
 }
 
 interface SocialPlatform {
@@ -74,7 +75,7 @@ const socialPlatforms: Record<string, SocialPlatform> = {
   },
 };
 
-export function ShareSection({ title, url }: ShareSectionProps) {
+export function ShareSection({ title, url, locale = "en" }: ShareSectionProps) {
   const { addToast } = useToast();
   // Don't render if sharing is disabled
   if (!socialSharing.display) {
@@ -86,13 +87,13 @@ export function ShareSection({ title, url }: ShareSectionProps) {
       await navigator.clipboard.writeText(url);
       addToast({
         variant: "success",
-        message: "Link copied to clipboard",
+        message: locale === "tr" ? "Bağlantı panoya kopyalandı" : "Link copied to clipboard",
       });
     } catch (err) {
       console.error('Failed to copy: ', err);
       addToast({
         variant: "danger",
-        message: "Failed to copy link",
+        message: locale === "tr" ? "Bağlantı kopyalanamadı" : "Failed to copy link",
       });
     }
   };
@@ -106,7 +107,7 @@ export function ShareSection({ title, url }: ShareSectionProps) {
   return (
     <Row fillWidth center gap="16" marginTop="32" marginBottom="16">
       <Text variant="label-default-m" onBackground="neutral-weak">
-        Share this post:
+        {locale === "tr" ? "Bu yazıyı paylaş:" : "Share this post:"}
       </Text>
       <Row data-border="rounded" gap="16" horizontal="center" wrap>
         {enabledPlatforms.map((platform, index) => (

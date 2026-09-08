@@ -14,7 +14,7 @@ import {
   Media,
   Line,
 } from "@once-ui-system/core";
-import { baseURL, about, blog, person } from "@/resources";
+import { baseURL, about, blog, person, getLocalizedContent } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { getPosts } from "@/utils/utils";
 import { Metadata } from "next";
@@ -42,6 +42,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const routeParams = await params;
   const { lang } = routeParams;
+  const { blog: localizedBlog } = getLocalizedContent(lang);
   const slugPath = Array.isArray(routeParams.slug)
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
@@ -67,6 +68,7 @@ export default async function Blog({
 }) {
   const routeParams = await params;
   const { lang } = routeParams;
+  const { blog: localizedBlog } = getLocalizedContent(lang);
   const slugPath = Array.isArray(routeParams.slug)
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
@@ -92,7 +94,7 @@ export default async function Blog({
           <Schema
             as="blogPosting"
             baseURL={baseURL}
-            path={`${blog.path}/${post.slug}`}
+            path={`/${lang}${blog.path}/${post.slug}`}
             title={post.metadata.title}
             description={post.metadata.summary}
             datePublished={post.metadata.publishedAt}
@@ -109,11 +111,12 @@ export default async function Blog({
           />
           <Column maxWidth="s" gap="16" horizontal="center" align="center">
 
-            <SmartLink href={`/blog?lang=${lang}`}>
-              <Text variant="label-strong-m">Blog</Text>
+            <SmartLink href={`/${lang}/blog`}>
+              <Text variant="label-strong-m">{localizedBlog.label}</Text>
             </SmartLink>
             <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-              {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+              {post.metadata.publishedAt &&
+                formatDate(post.metadata.publishedAt, false, lang === "tr" ? "tr-TR" : "en-US")}
             </Text>
             <Heading variant="display-strong-m">{post.metadata.title}</Heading>
             {post.metadata.subtitle && (
@@ -154,13 +157,14 @@ export default async function Blog({
           
           <ShareSection 
             title={post.metadata.title} 
-            url={`${baseURL}${blog.path}/${post.slug}`} 
+            url={`${baseURL}/${lang}${blog.path}/${post.slug}`}
+            locale={lang}
           />
 
           <Column fillWidth gap="40" horizontal="center" marginTop="40">
             <Line maxWidth="40" />
             <Text as="h2" id="recent-posts" variant="heading-strong-xl" marginBottom="24">
-              Recent posts
+              {lang === "tr" ? "Son yazılar" : "Recent posts"}
             </Text>
             <Posts
               exclude={[post.slug]}

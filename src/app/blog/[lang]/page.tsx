@@ -26,7 +26,7 @@ export default async function LocalizedBlog({
   params: Promise<{ lang: Lang }>;
 }) {
   const { lang } = await params;
-  const { blog: localizedBlog } = getLocalizedContent(lang);
+  const { blog: localizedBlog, newsletter } = getLocalizedContent(lang);
 
   return (
     <Column maxWidth="m" paddingTop="24">
@@ -36,7 +36,7 @@ export default async function LocalizedBlog({
       <Column fillWidth flex={1} gap="40">
         <Posts range={[1, 1]} thumbnail lang={lang} />
         <Posts range={[2, 3]} columns="2" thumbnail direction="column" lang={lang} />
-        <Mailchimp marginBottom="l" />
+        <Mailchimp marginBottom="l" newsletterCopy={newsletter} />
         <Heading as="h2" variant="heading-strong-xl" marginLeft="l">
           {lang === "en" ? "Earlier posts" : "Önceki yazılar"}
         </Heading>
