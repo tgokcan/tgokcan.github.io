@@ -238,4 +238,55 @@ const gallery: Gallery = {
   ],
 };
 
+export type ContentLocale = "tr" | "en";
+
+export function getLocalizedContent(locale: ContentLocale) {
+  if (locale === "en") return { person, social, newsletter, home, about, blog, work, gallery };
+
+  return {
+    person: { ...person, locale: "tr" },
+    social,
+    newsletter: {
+      ...newsletter,
+      title: <>Tolga&apos;nın bültenine abone olun</>,
+      description: <>Teknoloji ve kişisel notlar hakkında haftalık bültenim</>,
+    },
+    home: {
+      ...home,
+      label: "Ana Sayfa",
+      title: `Tolga Bektas - Fullstack & DevOps Genelisti`,
+      description: `Tolga Bektas, backend geliştirme ve kurumsal çözümler konusunda uzmanlaşmış bir Fullstack & DevOps Genelistidir.`,
+      headline: <>Mantık ile kod arasında köprüler kuruyorum</> ,
+      subline: <>Ben {person.firstName}, {person.role.toLowerCase()} olarak çalışıyorum.</>,
+    },
+    about: {
+      ...about,
+      label: "Hakkımda",
+      title: `Hakkımda – ${person.name} | ${person.role}`,
+      description: `${person.name}, ${person.location} merkezli ${person.role}. Backend geliştirme ve kurumsal çözümler üzerine çalışıyor.`,
+      intro: {
+        ...about.intro,
+        title: "Giriş",
+        description: <p>Tolga, karmaşık problemleri ölçeklenebilir kurumsal çözümlere dönüştürmeye odaklanan Türkiye merkezli bir <Text as="span" size="xl" weight="strong">Fullstack & DevOps Genelistidir</Text>.</p>,
+      },
+      work: { ...about.work, title: "İş Deneyimi" },
+      studies: { ...about.studies, title: "Eğitim" },
+      technical: { ...about.technical, title: "Teknik Yetkinlikler" },
+    },
+    blog: {
+      ...blog,
+      label: "Blog",
+      title: "Teknoloji ve kişisel notlar",
+      description: `${person.name} tarafından yazılım geliştirme, kurumsal çözümler ve kişisel deneyimler üzerine yazılar.`,
+    },
+    work: {
+      ...work,
+      label: "Çalışmalar",
+      title: `Projeler – ${person.name}`,
+      description: `${person.name} tarafından geliştirilen yazılım ve kurumsal çözüm projeleri.`,
+    },
+    gallery: { ...gallery, label: "Galeri", title: `Fotoğraf galerisi – ${person.name}`, description: `${person.name} tarafından oluşturulan fotoğraf koleksiyonu` },
+  };
+}
+
 export { person, social, newsletter, home, about, blog, work, gallery };

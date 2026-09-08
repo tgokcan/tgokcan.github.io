@@ -12,44 +12,48 @@ import {
   Schema,
   Row,
 } from "@once-ui-system/core";
-import { baseURL, about, person, social } from "@/resources";
+import { baseURL, about, person, social, getLocalizedContent } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 import React from "react";
 import { TechStackCloud } from "@/components/about/TechStackCloud";
 
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params?: Promise<{ lang?: "tr" | "en" }> } = {}) {
+  const { lang = "en" } = (await params) || {};
+  const { about: localizedAbout } = getLocalizedContent(lang);
   return Meta.generate({
-    title: about.title,
-    description: about.description,
+    title: localizedAbout.title,
+    description: localizedAbout.description,
     baseURL: baseURL,
     image: `/api/og/generate?title=${encodeURIComponent(about.title)}`,
     path: about.path,
   });
 }
 
-export default function About() {
+export default async function About({ params }: { params?: Promise<{ lang?: "tr" | "en" }> }) {
+  const { lang = "en" } = (await params) || {};
+  const { about: localizedAbout } = getLocalizedContent(lang);
   const structure = [
     {
-      title: about.intro.title,
-      display: about.intro.display,
+      title: localizedAbout.intro.title,
+      display: localizedAbout.intro.display,
       items: [],
     },
     {
-      title: about.work.title,
-      display: about.work.display,
-      items: about.work.experiences.map((experience) => experience.company),
+      title: localizedAbout.work.title,
+      display: localizedAbout.work.display,
+      items: localizedAbout.work.experiences.map((experience) => experience.company),
     },
     {
-      title: about.studies.title,
-      display: about.studies.display,
-      items: about.studies.institutions.map((institution) => institution.name),
+      title: localizedAbout.studies.title,
+      display: localizedAbout.studies.display,
+      items: localizedAbout.studies.institutions.map((institution) => institution.name),
     },
     {
-      title: about.technical.title,
-      display: about.technical.display,
-      items: about.technical.skills.map((skill) => skill.title),
+      title: localizedAbout.technical.title,
+      display: localizedAbout.technical.display,
+      items: localizedAbout.technical.skills.map((skill) => skill.title),
     },
   ];
   return (
@@ -57,8 +61,8 @@ export default function About() {
       <Schema
         as="webPage"
         baseURL={baseURL}
-        title={about.title}
-        description={about.description}
+        title={localizedAbout.title}
+        description={localizedAbout.description}
         path={about.path}
         image={`/api/og/generate?title=${encodeURIComponent(about.title)}`}
         author={{
@@ -67,7 +71,7 @@ export default function About() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      {about.tableOfContent.display && (
+      {localizedAbout.tableOfContent.display && (
         <Column
           left="0"
           style={{ top: "50%", transform: "translateY(-50%)" }}
@@ -76,11 +80,11 @@ export default function About() {
           gap="32"
           s={{ hide: true }}
         >
-          <TableOfContents structure={structure} about={about} />
+          <TableOfContents structure={structure} about={localizedAbout} />
         </Column>
       )}
       <Row fillWidth s={{ direction: "column"}} horizontal="center">
-        {about.avatar.display && (
+        {localizedAbout.avatar.display && (
           <Column
             className={styles.avatar}
             top="64"
@@ -200,13 +204,13 @@ export default function About() {
             )}
           </Column>
 
-          {about.intro.display && (
+          {localizedAbout.intro.display && (
             <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl">
-              {about.intro.description}
+              {localizedAbout.intro.description}
             </Column>
           )}
 
-          {about.work.display && (
+          {localizedAbout.work.display && (
             <>
               <Heading as="h2" id={about.work.title} variant="display-strong-s" marginBottom="m">
                 {about.work.title}
@@ -265,7 +269,7 @@ export default function About() {
             </>
           )}
 
-          {about.studies.display && (
+          {localizedAbout.studies.display && (
             <>
               <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
                 {about.studies.title}
@@ -285,7 +289,7 @@ export default function About() {
             </>
           )}
 
-          {about.technical.display && (
+          {localizedAbout.technical.display && (
             <>
               <Heading
                 as="h2"

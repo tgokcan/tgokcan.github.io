@@ -22,24 +22,31 @@ import React from "react";
 import { Posts } from "@/components/blog/Posts";
 import { ShareSection } from "@/components/blog/ShareSection";
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "blog", "posts"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+type Lang = "tr" | "en";
+
+export async function generateStaticParams(): Promise<
+  { lang: Lang; slug: string }[]
+> {
+  return (["tr", "en"] as Lang[]).flatMap((lang) =>
+    getPosts(["src", "app", "blog", "posts", lang]).map((post) => ({
+      lang,
+      slug: post.slug,
+    })),
+  );
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string | string[] }>;
+  params: Promise<{ lang: Lang; slug: string | string[] }>;
 }): Promise<Metadata> {
   const routeParams = await params;
+  const { lang } = routeParams;
   const slugPath = Array.isArray(routeParams.slug)
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "blog", "posts"]);
+  const posts = getPosts(["src", "app", "blog", "posts", lang]);
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -49,17 +56,24 @@ export async function generateMetadata({
     description: post.metadata.summary,
     baseURL: baseURL,
     image: post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
-    path: `${blog.path}/${post.slug}`,
+    path: `${blog.path}/${lang}/${post.slug}`,
   });
 }
 
-export default async function Blog({ params }: { params: Promise<{ slug: string | string[] }> }) {
+export default async function Blog({
+  params,
+}: {
+  params: Promise<{ lang: Lang; slug: string | string[] }>;
+}) {
   const routeParams = await params;
+  const { lang } = routeParams;
   const slugPath = Array.isArray(routeParams.slug)
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "blog", "posts"]).find((post) => post.slug === slugPath);
+  let post = getPosts(["src", "app", "blog", "posts", lang]).find(
+    (post) => post.slug === slugPath,
+  );
 
   if (!post) {
     notFound();
@@ -94,7 +108,8 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
             }}
           />
           <Column maxWidth="s" gap="16" horizontal="center" align="center">
-            <SmartLink href="/blog">
+
+            <SmartLink href={`/blog?lang=${lang}`}>
               <Text variant="label-strong-m">Blog</Text>
             </SmartLink>
             <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
@@ -147,7 +162,14 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
             <Text as="h2" id="recent-posts" variant="heading-strong-xl" marginBottom="24">
               Recent posts
             </Text>
-            <Posts exclude={[post.slug]} range={[1, 2]} columns="2" thumbnail direction="column" />
+            <Posts
+              exclude={[post.slug]}
+              range={[1, 2]}
+              columns="2"
+              thumbnail
+              direction="column"
+              lang={lang}
+            />
           </Column>
           <ScrollToHash />
         </Column>

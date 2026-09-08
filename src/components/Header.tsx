@@ -44,6 +44,20 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const locale = pathname.startsWith("/en") ? "en" : "tr";
+  const targetLocale = locale === "en" ? "tr" : "en";
+  const localizedPath = pathname.replace(/^\/(tr|en)/, "") || "/";
+  const isBlogRoute =
+    pathname === "/blog" ||
+    pathname.startsWith("/blog/") ||
+    pathname === "/tr/blog" ||
+    pathname.startsWith("/tr/blog/") ||
+    pathname === "/en/blog" ||
+    pathname.startsWith("/en/blog/");
+  const languagePath = pathname.replace(/^\/(tr|en)/, "") || "/blog";
+  const languageHref = languagePath.startsWith("/blog")
+    ? `/${targetLocale}${languagePath}`
+    : `/${targetLocale}/blog`;
 
   return (
     <>
@@ -133,7 +147,7 @@ export const Header = () => {
                   <Row s={{ hide: true }}>
                     <ToggleButton
                       prefixIcon="book"
-                      href="/blog"
+                      href="/en/blog"
                       label={blog.label}
                       selected={pathname.startsWith("/blog")}
                     />
@@ -141,10 +155,20 @@ export const Header = () => {
                   <Row hide s={{ hide: false }}>
                     <ToggleButton
                       prefixIcon="book"
-                      href="/blog"
+                      href="/tr/blog"
                       selected={pathname.startsWith("/blog")}
                     />
                   </Row>
+                </>
+              )}
+              {isBlogRoute && (
+                <>
+                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
+                  <ToggleButton
+                    prefixIcon="globe"
+                    href={languageHref}
+                    label={targetLocale.toUpperCase()}
+                  />
                 </>
               )}
               {routes["/gallery"] && (

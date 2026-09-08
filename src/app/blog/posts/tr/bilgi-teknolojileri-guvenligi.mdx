@@ -1,0 +1,73 @@
+---
+title: "Bilgi Güvenliği Neden Sandığınızdan Daha Kişisel Bir Mesele?"
+publishedAt: "2026-09-06"
+image: "/images/gallery/bilgi-teknolojileri-guvenligi.png"
+summary: "Bilgi güvenliği genellikle karmaşık teknik sistemler olarak algılanır, ama işin özü çoğu zaman basit alışkanlıklara dayanır. Sık karşılaşılan tehditleri ve hem bireysel hem kurumsal düzeyde alınabilecek somut önlemleri ele aldık."
+tag: "Bilgi Güvenliği"
+translationSlug: "information-technologies-security"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün bilgi güvenliğinin neden göründüğünden çok daha kişisel bir mesele olduğu konusu hakkında konuşacağız.
+
+## Bilgi güvenliği tam olarak ne demek?
+
+Kısaca: bir kurumun ya da kişinin dijital varlıklarını -verilerini, sistemlerini, itibarını- yetkisiz erişime, değişikliğe veya yok edilmeye karşı korumak anlamına geliyor. Ama bu tanım biraz soyut kalıyor. Daha somut hâliyle şöyle düşünülebilir: bir şirketin müşteri veritabanı, çalışanların e-postaları, hatta üretim hattındaki bir makinenin kontrol sistemi bile bu "korunması gereken şeyler" listesine giriyor. Özellikle üretim tesislerinde OT (operasyonel teknoloji) tarafı, yani PLC'ler ve SCADA sistemleri, güvenlik konuşmalarının çoğu zaman dışında kalıyor ama saldırganlar için giderek daha cazip bir hedef hâline geliyor.
+
+## En sık karşılaşılan tehditler
+
+Saldırı türleri sürekli değişse de bazı klasikler hiç eskimiyor:
+
+- **Oltalama (phishing):** Sahte bir e-posta ya da mesajla kişiyi kandırıp bilgi sızdırmasını sağlamak. İnsan faktörünü hedef alıyor, teknik değil psikolojik bir saldırı aslında. Kargo teslimatı, banka bildirimi ya da hesap güvenliği uyarısı gibi aciliyet hissi yaratan senaryolar en yaygın tuzaklardan.
+- **Fidye yazılımı (ransomware):** Verileri şifreleyip fidye talep etme yöntemi. 2021'deki Colonial Pipeline saldırısı bunun ne kadar ciddi sonuçlara yol açabileceğini gösteren en bilinen örneklerden biri; bir boru hattı, siber saldırı yüzünden günlerce durmuştu.
+- **Zayıf ya da tekrar kullanılan şifreler:** Basit görünse de hâlâ en büyük güvenlik açıklarından biri. Aynı şifrenin birden fazla hesapta kullanılması, tek bir sızıntının domino etkisi yaratmasına yol açabiliyor.
+- **Güncellenmemiş yazılımlar:** Ertelenen güncellemeler, bilinen açıkların saldırganlara açık kapı bırakması anlamına geliyor.
+
+## Bireysel düzeyde alınabilecek önlemler
+
+Karmaşık teknik bilgi gerektirmeyen, uygulanması kolay birkaç adım var:
+
+**Şifre yöneticisi kullanmak.** -*2026 yılında şifrelerinizi Excel'e yazıyorsanız, hemen şimdi okumayı bırakıp yavaşça laptop kapağınızı kapatın ve elinize bir A4 kağıdı alıp şifrelerinizi kağıda yazın.*- Her hesap için farklı, rastgele üretilmiş bir şifre kullanmayı pratik hale getiriyor. Kurulumu genellikle on dakikadan kısa sürüyor. 
+- örn. Apple Passwords, KeePass vb.
+
+**İki adımlı doğrulamayı (2FA) açmak.** Küçük bir alışkanlık değişikliği olsa da saldırı yüzeyini ciddi oranda daraltıyor. 
+- örn. Google Authenticator, Microsoft Authenticator vb. 
+
+**E-postadaki linke tıklamadan önce göndereni kontrol etmek.** Kulağa bariz gelse de, aciliyet hissi yaratan mesajlar (örneğin "hesabınız 24 saat içinde kapatılacak") mantıklı değerlendirmeyi devre dışı bırakabiliyor. Asıl savunma çoğu zaman teknik değil, bir an durup değerlendirebilmek.
+
+## Ben ne yapıyorum? 
+
+*Öncelikle ben çok 'kasmıyorum' çünkü bu işin aslında basit bir matematiği var. Zaten başlıca yapılması gerekenleri bildiğiniz sürece - bireysel düzeyde alınabilecek önlemler -  herhangi bir sorun yaşayabilmeniz için ya 'biri' ya da President of USA olmanız lazım.*
+
+- Şirket maili ile bir yerlere kayıt olmuyorum. 
+Bu sayede şirket mailime gelecek tek mailin benim iş arkadaşlarımdan gelecek olduğunu biliyorum. (Yine de bazı phising yöntemlerinde iş arkadaşınız kılığında oltalanıyorsunuz)
+
+- Güvenli bulmadığım ama gerçekten de kayıt olmam gereken yerlere kişisel bilgilerimin bulunabileceği ya da anlaşılabileceği bir email yazmıyorum. (isim.soyisim@example.com yerine Crazy_Boy_6161@example.com kullanıyorum)
+
+- İki adımlı doğrulamayı özellikle mail ve bankacılık uygulamalarında SMS yerine authenticator uygulamasıyla (Authy, Google Authenticator vb.) yapıyorum çünkü SIM swap denen bir şey var ve telefon numaranız sandığınız kadar güvenli değil.
+
+- Şifrelerimi Excel'e yazmıyorum (Zaten Excel'e yazanlar bir önceki bölümde okumayı bırakıp A4'e geçtiler), hepsini bir şifre yöneticisine (KeePass vb.) bırakıyorum. Tek ezberlediğim şey o yöneticinin ana şifresi. 
+
+- "Bu link gerçekten bankamdan mı geldi?" diye şüphelendiğim anlarda linke tıklamak yerine ilgili siteye tarayıcıdan elle giriyorum. İki saniye sürüyor ama işi garantiye alıyor.
+
+- Sosyal medya hesaplarımda konum paylaşımını kapalı tutuyorum, özellikle gerçek zamanlı "şu an buradayım" tarzı paylaşımlardan kaçınıyorum.
+
+- Herkese açık Wi-Fi'a bağlandığımda bankacılık ya da hassas bilgi gerektiren hiçbir işlem yapmıyorum; zaten hotspot kullanımım aşırı nadir, çünkü güvenli değil, normal şartlarda mobil veri kullanıyorum. 
+
+*Görüldüğü gibi bunların hiçbiri paranoyakça önlemler değil, sadece birkaç dakikanızı alacak küçük alışkanlıklar.* 
+
+
+
+##### Devam edelim..
+
+## Kurumsal düzeyde farklı bir tablo
+
+Şirket ölçeğinde işin süreç tarafı da en az insan tarafı kadar önem kazanıyor:
+
+1. **Düzenli güvenlik farkındalık eğitimleri** — en güçlü teknik önlem bile bir çalışanın şifresini paylaşmasına engel olamıyor, bu yüzden periyodik phishing simülasyonları ve eğitimler kritik önem taşıyor.
+2. **Test edilmiş yedekleme stratejisi** — yedek almak yetmiyor, o yedeğin gerçekten geri yüklenebilir olduğunu düzenli olarak test etmek gerekiyor.
+3. **"En az yetki" prensibi** — herkesin her şeye erişebildiği bir sistemde, tek bir hesabın ele geçirilmesi tüm kurumu riske atabiliyor.
+4. **Küçük ve orta ölçekli üretim şirketlerinde önceliklendirme** — bu ölçekteki işletmelerde IT güvenliği çoğu zaman ikinci planda kalıyor, bütçe önceliği üretime veriliyor. Kısa vadede anlaşılır bir tercih olsa da uzun vadede maliyeti çok daha yüksek olabiliyor.
+
+## Sonuç
+
+Bilgi güvenliği, insanları korkutmak için değil, biraz daha dikkatli ve bilinçli davranmayı teşvik etmek için var. Mükemmel bir güvenlik diye bir şey yok; olsa olsa saldırganın işini yeterince zorlaştırmak mümkün. Ve bu hedef, çoğu zaman sanıldığından çok daha ulaşılabilir: bir şifre yöneticisi kurmak ve iki adımlı doğrulamayı açmak bile başlı başına büyük bir fark yaratıyor.

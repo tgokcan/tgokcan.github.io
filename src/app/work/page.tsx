@@ -1,27 +1,31 @@
 import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
-import { baseURL, about, person, work } from "@/resources";
+import { baseURL, about, person, work, getLocalizedContent } from "@/resources";
 import { GitHubRepos } from "@/components/work/GitHubRepos";
 import { GitHubContributionGraph } from "@/components/github/GitHubContributionGraph";
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params?: Promise<{ lang?: "tr" | "en" }> } = {}) {
+  const { lang = "en" } = (await params) || {};
+  const { work: localizedWork } = getLocalizedContent(lang);
   return Meta.generate({
-    title: work.title,
-    description: work.description,
+    title: localizedWork.title,
+    description: localizedWork.description,
     baseURL: baseURL,
     image: `/api/og/generate?title=${encodeURIComponent(work.title)}`,
     path: work.path,
   });
 }
 
-export default function Work() {
+export default async function Work({ params }: { params?: Promise<{ lang?: "tr" | "en" }> }) {
+  const { lang = "en" } = (await params) || {};
+  const { work: localizedWork } = getLocalizedContent(lang);
   return (
     <Column maxWidth="m" paddingTop="24" gap="xl">
       <Schema
         as="webPage"
         baseURL={baseURL}
         path={work.path}
-        title={work.title}
-        description={work.description}
+        title={localizedWork.title}
+        description={localizedWork.description}
         image={`/api/og/generate?title=${encodeURIComponent(work.title)}`}
         author={{
           name: person.name,
@@ -30,7 +34,7 @@ export default function Work() {
         }}
       />
       <Heading marginBottom="l" variant="heading-strong-xl" align="center">
-        {work.title}
+        {localizedWork.title}
       </Heading>
       <GitHubContributionGraph />
       <GitHubRepos />

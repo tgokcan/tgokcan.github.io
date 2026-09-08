@@ -9,6 +9,7 @@ export {
   work,
   gallery,
 } from "./content";
+export { getLocalizedContent } from "./content";
 
 export {
   display,

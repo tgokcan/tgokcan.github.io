@@ -6,16 +6,17 @@ import { person } from "@/resources";
 
 interface PostProps {
   post: any;
+  lang?: 'tr' | 'en';
   thumbnail: boolean;
   direction?: "row" | "column";
 }
 
-export default function Post({ post, thumbnail, direction }: PostProps) {
+export default function Post({ post, lang, thumbnail, direction }: PostProps) {
   return (
     <Card
       fillWidth
       key={post.slug}
-      href={`/blog/${post.slug}`}
+      href={`/${lang}/blog/${post.slug}`}
       transition="micro-medium"
       direction={direction}
       border="transparent"
