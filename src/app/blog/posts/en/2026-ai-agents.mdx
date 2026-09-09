@@ -1,0 +1,56 @@
+---
+title: "What Are AI Agents? The Rise of Autonomous AI Systems"
+publishedAt: "2026-09-10"
+image: "/images/gallery/ai-ajanlari.png"
+summary: "Going beyond chatbots that produce a single response, 'AI agents' can now plan and carry out multi-step tasks on their own. We looked at what this technology is, how it works, and which risks are worth paying attention to."
+tag: "Artificial Intelligence"
+translationSlug: "2026-ai-ajanlari"
+---
+
+I'm Tolga, a software developer with an interest in digital literacy. Today we're talking about one of the most discussed topics in software right now: AI agents, also known as agentic AI.
+
+## What is an AI agent?
+
+A classic AI chatbot produces a single response to a single question: you ask, it answers, the interaction ends there. An AI agent works differently — it takes a goal, breaks it down into multiple steps, evaluates the outcome of each step, and updates its plan as needed to complete the task on its own. It can carry out a chain of actions — browsing a website, editing a file, calling an API, verifying a result — without a human stepping in between each one.
+
+Put simply: a classic AI model tells you what needs to be done; an AI agent does it itself.
+
+## How does this technology work?
+
+Most AI agents are built from a few core components working together:
+
+- **A planning layer:** the mechanism that breaks a given goal down into smaller, manageable subtasks.
+- **Tool use:** the agent's ability to call a search engine, a code execution environment, a file system, or an API.
+- **Memory:** the ability to carry information gathered in earlier steps forward into later ones.
+- **An evaluation loop:** checking whether the outcome of a step actually matches the goal, and revising the plan if it doesn't.
+
+With these components, an AI agent can take a request like "find and fix this bug," scan the relevant codebase, locate the source of the issue, propose a fix, test that fix, and report the result — all from a single instruction, working through each step without waiting for human approval along the way.
+
+## Where is it being used?
+
+The use cases for AI agents are expanding quickly:
+
+1. **Software development:** bug detection across a codebase, automated test writing, and keeping documentation up to date.
+2. **Customer service:** support systems that can resolve a request end to end, not just provide information but actually take action.
+3. **Data analysis:** automating the process of taking raw data, processing it, analyzing it, and turning it into a report.
+4. **Business process automation:** agents that connect multiple systems (email, calendar, databases) and take over repetitive tasks.
+
+## Risks worth paying attention to
+
+The ability to act autonomously comes with some serious responsibilities:
+
+- **Unclear boundaries of authority.** When it isn't clearly defined which actions an agent can take on its own, it can end up performing unexpected or unwanted operations.
+- **Compounding errors.** In a multi-step task, a small mistake made early on can carry forward and grow larger with each subsequent step.
+- **Lack of transparency.** Tracing why an agent made a particular decision can be far more complex than tracing a single response.
+- **Security vulnerabilities.** Content coming from external sources (web pages, documents) manipulating the agent — techniques known as prompt injection — poses a serious risk, especially for agents that use external tools.
+
+## Ways to reduce these risks
+
+- **Define clear boundaries of authority** — decide upfront which actions the agent can take without approval, and which require a human sign-off.
+- **Keep human oversight on critical actions** — leave final approval to a person for irreversible actions, such as deleting data or making a payment.
+- **Logging and traceability** — record every step the agent takes so it can be audited afterward.
+- **Use a limited, well-tested set of tools** — keep the tools available to the agent restricted to what's actually needed.
+
+## Conclusion
+
+AI agents are the clearest example yet of AI shifting from a tool that "answers questions" to a system that "carries out tasks." This shift carries real potential for efficiency in business processes, but the responsibility and risk that come with autonomous action shouldn't be overlooked. The soundest approach is rolling out these systems within clear boundaries, in ways that remain traceable and auditable.

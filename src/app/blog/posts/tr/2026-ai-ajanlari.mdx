@@ -1,0 +1,55 @@
+---
+title: "AI Ajanları (Agentic AI) Nedir? Otonom Yapay Zeka Sistemlerinin Yükselişi"
+publishedAt: "2026-09-10"
+image: "/images/gallery/ai-ajanlari.png"
+summary: "Tek seferlik yanıt üreten sohbet botlarının ötesine geçen 'AI ajanları', artık çok adımlı görevleri kendi başına planlayıp yürütebiliyor. Bu teknolojinin ne olduğunu, nasıl çalıştığını ve hangi risklere dikkat edilmesi gerektiğini ele aldık."
+tag: "Yapay Zeka"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün yazılım dünyasının son dönemdeki en çok konuşulan konularından biri olan AI ajanları (agentic AI) konusu hakkında konuşacağız.
+
+## AI ajanı nedir?
+
+Klasik bir yapay zeka sohbet botu, kendisine sorulan bir soruya tek seferlik bir yanıt üretir: soru gelir, cevap döner, etkileşim biter. AI ajanı ise bundan farklı çalışır — kendisine verilen bir hedefi, birden fazla adıma bölerek, her adımın sonucunu değerlendirerek ve gerektiğinde planını güncelleyerek kendi başına tamamlamaya çalışır. Bir web sitesinde gezinmek, bir dosyayı düzenlemek, bir API'ye istek atmak, bir sonucu doğrulamak gibi eylemleri art arda, insan müdahalesi olmadan gerçekleştirebilir.
+
+Basitçe özetlemek gerekirse: klasik bir yapay zeka modeli "ne yapılması gerektiğini söyler", bir AI ajanı ise "o işi kendisi yapar".
+
+## Bu teknoloji nasıl çalışıyor?
+
+AI ajanlarının çoğu, birkaç temel bileşenin bir araya gelmesiyle çalışıyor:
+
+- **Planlama katmanı:** Verilen hedefi daha küçük, yönetilebilir alt görevlere bölen mekanizma.
+- **Araç kullanımı (tool use):** Ajanın bir arama motorunu, bir kod çalıştırma ortamını, bir dosya sistemini ya da bir API'yi çağırabilmesi.
+- **Hafıza (memory):** Önceki adımlarda elde edilen bilgiyi sonraki adımlarda kullanabilme yeteneği.
+- **Değerlendirme döngüsü:** Bir adımın sonucunun hedefe uygun olup olmadığını kontrol edip, gerekirse planı yeniden düzenleme.
+
+Bu bileşenler sayesinde bir AI ajanı, örneğin "bu hatayı bul ve düzelt" gibi bir talebi alıp, önce ilgili kod tabanını tarayabilir, hatanın kaynağını tespit edebilir, bir düzeltme önerebilir, bu düzeltmeyi test edebilir ve sonucu raporlayabilir — tüm bunları tek bir komutla, adım adım insan onayı beklemeden yapabilir.
+
+## Hangi alanlarda kullanılıyor?
+
+AI ajanlarının kullanım alanı hızla genişliyor:
+
+1. **Yazılım geliştirme:** Kod tabanında hata tespiti, otomatik test yazımı, dokümantasyon güncellemesi gibi görevler.
+2. **Müşteri hizmetleri:** Bir talebi uçtan uca çözebilen, sadece bilgi veren değil aynı zamanda işlem yapabilen destek sistemleri.
+3. **Veri analizi:** Ham veriyi işleyip, analiz edip, rapor haline getirme sürecinin otomatikleştirilmesi.
+4. **İş süreçleri otomasyonu:** Birden fazla sistemi (e-posta, takvim, veri tabanı) birbirine bağlayan, tekrarlayan görevleri devralan ajanlar.
+
+## Dikkat edilmesi gereken riskler
+
+Otonom hareket edebilme yeteneği, beraberinde bazı ciddi sorumluluklar da getiriyor:
+
+- **Yetki sınırlarının belirsizliği.** Bir ajanın hangi eylemleri kendi başına yapabileceği net şekilde tanımlanmadığında, beklenmedik ya da istenmeyen işlemler gerçekleştirebilir.
+- **Hata birikimi.** Çok adımlı bir görevde erken bir adımda yapılan küçük bir hata, sonraki adımlara taşınarak büyüyebilir.
+- **Şeffaflık eksikliği.** Bir ajanın neden belirli bir kararı aldığını izlemek, tek seferlik bir yanıttan çok daha karmaşık olabiliyor.
+- **Güvenlik açıkları.** Dış kaynaklardan (web sayfaları, dokümanlar) gelen içeriklerin ajanı manipüle edebilmesi (prompt injection gibi teknikler), özellikle araç kullanan ajanlarda ciddi bir risk oluşturuyor.
+
+## Bu riskleri azaltmanın yolları
+
+- **Net yetki sınırları tanımlamak** — ajanın hangi eylemleri onay almadan yapabileceğini, hangilerinde insan onayı gerektiğini baştan belirlemek.
+- **Kritik işlemlerde insan denetimini korumak** — özellikle geri alınamaz eylemlerde (veri silme, ödeme yapma gibi) son onayı insana bırakmak.
+- **Günlükleme ve izlenebilirlik** — ajanın attığı her adımı kayıt altına alarak, sonradan denetlenebilir hale getirmek.
+- **Sınırlı ve test edilmiş araç setleri kullanmak** — ajana verilen araç sayısını gerçekten ihtiyaç duyulanlarla sınırlı tutmak.
+
+## Sonuç
+
+AI ajanları, yapay zekanın "soruları yanıtlayan" bir araçtan "görevleri yürüten" bir sisteme dönüşmesinin en somut örneği. Bu dönüşüm iş süreçlerinde ciddi bir verimlilik potansiyeli taşısa da, otonom hareket kabiliyetinin getirdiği sorumluluk ve risklerin göz ardı edilmemesi gerekiyor. En sağlıklı yaklaşım, bu sistemleri belirli sınırlar içinde, izlenebilir ve denetlenebilir şekilde devreye almaktan geçiyor.
