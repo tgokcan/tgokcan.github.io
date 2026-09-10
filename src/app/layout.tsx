@@ -49,6 +49,8 @@ export default async function RootLayout({
       )}
     >
       <head>
+        <script async src={ `"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4076949095034264"
+     crossorigin="anonymous"`}></script>
         <script
           id="theme-init"
           dangerouslySetInnerHTML={{
