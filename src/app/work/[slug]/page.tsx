@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";
+import fs from "fs";
+import path from "path";
 import { getPosts } from "@/utils/utils";
 import {
   Meta,
@@ -22,10 +23,18 @@ import { Metadata } from "next";
 import { Projects } from "@/components/work/Projects";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const projectsPath = path.join(process.cwd(), "src", "app", "work", "projects");
+
+  if (!fs.existsSync(projectsPath)) {
+    return [{ slug: "__empty" }];
+  }
+
   const posts = getPosts(["src", "app", "work", "projects"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const postsWithContent = posts.filter((post) => post.content?.trim());
+
+  return postsWithContent.length > 0
+    ? postsWithContent.map((post) => ({ slug: post.slug }))
+    : [{ slug: "__empty" }];
 }
 
 export async function generateMetadata({
@@ -38,10 +47,13 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
+  const projectsPath = path.join(process.cwd(), "src", "app", "work", "projects");
+  if (!fs.existsSync(projectsPath)) return {};
+
   const posts = getPosts(["src", "app", "work", "projects"]);
   let post = posts.find((post) => post.slug === slugPath);
 
-  if (!post) return {};
+  if (!post?.content?.trim()) return {};
 
   return Meta.generate({
     title: post.metadata.title,
@@ -62,11 +74,12 @@ export default async function Project({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
+  const projectsPath = path.join(process.cwd(), "src", "app", "work", "projects");
+  if (!fs.existsSync(projectsPath)) return null;
+
   let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post?.content?.trim()) return null;
 
   const avatars =
     post.metadata.team?.map((person) => ({
