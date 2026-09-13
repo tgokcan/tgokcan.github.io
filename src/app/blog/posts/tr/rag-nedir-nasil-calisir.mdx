@@ -1,0 +1,67 @@
+---
+title: "RAG (Retrieval-Augmented Generation) Nedir, Nasıl Çalışır?"
+publishedAt: "2026-09-14"
+image: "/images/gallery/rag-nedir-nasil-calisir.png"
+summary: "Büyük dil modellerinin güncel ve doğru bilgiyle konuşmasını sağlayan RAG mimarisini; çalışma prensibini, avantajlarını ve gerçek dünya kullanım alanlarını inceliyoruz."
+tag: "Yapay Zeka"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün Retrieval-Augmented Generation (RAG) konusu hakkında konuşacağız.
+
+## RAG Nedir?
+
+Büyük dil modelleri (LLM'ler), eğitildikleri veri setinin ötesinde bir bilgiye doğrudan erişemez. Bir modelin eğitim kesim tarihinden sonra yaşanan gelişmeleri bilmemesi ya da şirket içi, özel bir dokümana dair soruları yanıtlayamaması bu yüzdendir. Retrieval-Augmented Generation, yani "erişim destekli üretim", tam olarak bu boşluğu kapatmak için geliştirilmiş bir mimaridir.
+
+Basitçe tanımlamak gerekirse RAG, bir dil modelini harici bir bilgi kaynağına (veritabanı, doküman koleksiyonu, web sayfaları vb.) bağlayarak, modelin cevap üretmeden önce ilgili bilgiyi bu kaynaktan "arayıp getirmesini" sağlayan bir yaklaşımdır. Model, yalnızca ezberlediği bilgiyle değil, sorguya özel olarak getirilen güncel ve doğrulanabilir verilerle de cevap üretir.
+
+## Neden Önemli?
+
+Klasik bir LLM'in iki temel sınırlaması vardır: bilgisi belli bir tarihte donar ve elindeki bilgiyi doğrulama imkânı yoktur. Bu da iki soruna yol açar:
+
+- **Güncellik sorunu:** Model, eğitim sonrası gelişen olaylardan haberdar olamaz.
+- **Halüsinasyon riski:** Model, bilmediği bir konuda bile kendinden emin, ama yanlış cevaplar üretebilir.
+
+RAG, modele cevap vermeden önce "önce araştır, sonra konuş" prensibini kazandırarak bu iki sorunu büyük ölçüde azaltır. Böylece hem daha güncel hem de kaynağa dayalı, doğrulanabilir yanıtlar elde edilir.
+
+## RAG Nasıl Çalışır?
+
+RAG mimarisi genel olarak dört aşamadan oluşur:
+
+### 1. İndeksleme (Indexing)
+
+Öncelikle kaynak dokümanlar (PDF, web sayfası, veritabanı kayıtları vb.) anlamlı parçalara (chunk) bölünür. Her parça, embedding modeli adı verilen özel bir model aracılığıyla sayısal bir vektöre dönüştürülür. Bu vektörler, metnin anlamsal karşılığını sayılarla ifade eder.
+
+### 2. Saklama (Vector Store)
+
+Üretilen bu vektörler, benzerlik araması yapabilen özel veritabanlarında (vektör veritabanları) saklanır. Bu veritabanları, iki vektör arasındaki anlamsal yakınlığı hızlı bir şekilde hesaplayabilecek şekilde tasarlanmıştır.
+
+### 3. Erişim (Retrieval)
+
+Kullanıcı bir soru sorduğunda, bu soru da aynı embedding modeliyle vektöre çevrilir. Ardından vektör veritabanında bu sorguya anlamsal olarak en yakın parçalar aranır ve en alakalı sonuçlar getirilir.
+
+### 4. Üretim (Generation)
+
+Son adımda, getirilen bu ilgili metin parçaları, kullanıcının sorusuyla birlikte dil modeline bir bağlam (context) olarak sunulur. Model, artık sadece kendi eğitim verisine değil, bu taze bilgiye dayanarak cevabını oluşturur.
+
+## Nerelerde Kullanılır?
+
+RAG mimarisi, özellikle şu senaryolarda ciddi avantaj sağlar:
+
+- **Kurumsal bilgi asistanları:** Şirket içi dokümantasyon, politika ve prosedürler üzerinden soru-cevap yapan sistemler.
+- **Müşteri destek chatbot'ları:** Ürün kılavuzlarına ve sıkça sorulan sorulara dayalı, güncel destek sağlayan asistanlar.
+- **Hukuki ve akademik araştırma araçları:** Büyük hacimli doküman setleri içinde hızlı ve kaynaklı arama yapılmasını sağlayan sistemler.
+- **Kod dokümantasyon asistanları:** Bir yazılım kütüphanesinin güncel dokümantasyonuna dayanarak doğru kod önerileri sunan araçlar.
+
+## Avantajları ve Sınırlamaları
+
+RAG'ın sunduğu en büyük avantaj, modeli yeniden eğitmeye (fine-tuning) gerek kalmadan bilgi tabanının güncellenebilmesidir. Kaynak dokümanlar değiştiğinde, sadece vektör veritabanı güncellenir; modelin kendisine dokunmaya gerek kalmaz. Bu da hem maliyet hem de esneklik açısından büyük bir kazanımdır.
+
+Öte yandan RAG'ın da sınırları vardır. Erişim adımında ilgisiz veya düşük kaliteli parçaların getirilmesi, modelin yanlış yönlendirilmesine sebep olabilir. Bu yüzden chunk'lama stratejisi, embedding modelinin kalitesi ve vektör veritabanının performansı, sistemin genel başarısını doğrudan etkiler.
+
+## Ben Ne Yapıyorum?
+
+Şimdi gelelim işin "ben ne haltlar karıştırıyorum" kısmına. RAG'la ilk tanıştığımda kafamda şöyle bir şey vardı: "Model zaten her şeyi biliyor, niye bir de kütüphaneye gönderiyoruz?" Meğer büyük dil modeli de tıpkı sınavdan bir gece önce çalışan öğrenci gibiymiş; bir sürü şey öğreniyor ama en güncel notu almamış oluyor. RAG da o an devreye girip "dur kanka, önce doğru kaynağa bak, sonra konuş" diyen o arkadaşın rolünü üstleniyor.
+
+Bursa'da büyümüş biri olarak söylemeden geçemeyeceğim: bizim burada "önce sor, sonra konuş" felsefesi zaten kanda var, kimse çarşıda ipe sapa gelmez bilgiyle atıp tutmaz, önce esnafa bir danışılır. RAG mimarisini anlarken de kafamda hep bu benzetme oldu — model de tıpkı mahalledeki gibi, konuşmadan önce bir komşuya (vektör veritabanına) soruyor.
+
+Şu anda kendi projelerimde RAG mimarilerini denerken en çok kafa yorduğum konu, chunk boyutunu tutturmak oldu. Ne çok küçük parçalayıp bağlamı kaybetmek istiyorum, ne de koca bir dokümanı tek parça atıp modeli boğmak. Tıpkı simidi ortadan ikiye bölmek gibi düşünün; fazla ince keserseniz simit dağılır, fazla kalın keserseniz ağza sığmaz. O dengeyi bulana kadar epey deneme yanılma yaptım, ama sonuçta iş yürüyor — model artık gerçekten "bilmediği" bir şeyi uydurmak yerine, gidip önce soruyor.

@@ -1,0 +1,68 @@
+---
+title: "What Is RAG (Retrieval-Augmented Generation) and How Does It Work?"
+publishedAt: "2026-09-14"
+image: "/images/gallery/rag-nedir-nasil-calisir.png"
+summary: "Exploring the RAG architecture that lets large language models talk with up-to-date, accurate information — how it works, its advantages, and real-world use cases."
+tag: "AI"
+translationSlug: "rag-nedir-nasil-calisir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about Retrieval-Augmented Generation (RAG).
+
+## What Is RAG?
+
+Large language models (LLMs) can't directly access anything beyond the data they were trained on. That's why a model has no knowledge of events after its training cutoff, and why it struggles to answer questions about private, internal documents it never saw during training. Retrieval-Augmented Generation was built specifically to close this gap.
+
+Put simply, RAG is an architecture that connects a language model to an external knowledge source — a database, a document collection, web pages, and so on — so the model can "look up" relevant information before generating an answer. Instead of relying solely on what it memorized during training, the model produces its response using fresh, verifiable data retrieved specifically for that query.
+
+## Why Does It Matter?
+
+A classic LLM has two fundamental limitations: its knowledge freezes at a certain date, and it has no way to verify what it "knows." This leads to two problems:
+
+- **Staleness:** The model has no awareness of anything that happened after training.
+- **Hallucination risk:** The model can produce confident-sounding answers even when it doesn't actually know the answer.
+
+RAG mitigates both problems by giving the model a "research first, answer second" approach. The result is answers that are both more current and grounded in verifiable sources.
+
+## How Does RAG Work?
+
+The RAG architecture generally consists of four stages:
+
+### 1. Indexing
+
+Source documents (PDFs, web pages, database records, etc.) are first split into meaningful chunks. Each chunk is converted into a numerical vector using a specialized embedding model. These vectors represent the semantic meaning of the text as numbers.
+
+### 2. Storage (Vector Store)
+
+The resulting vectors are stored in specialized databases capable of similarity search — vector databases. These databases are designed to quickly compute the semantic closeness between two vectors.
+
+### 3. Retrieval
+
+When a user asks a question, that question is converted into a vector using the same embedding model. The vector database is then searched for the chunks that are semantically closest to the query, and the most relevant results are retrieved.
+
+### 4. Generation
+
+In the final step, the retrieved text chunks are passed to the language model along with the user's question as context. The model then generates its answer based not just on its training data, but on this freshly retrieved information.
+
+## Where Is RAG Used?
+
+The RAG architecture offers a significant advantage in scenarios such as:
+
+- **Enterprise knowledge assistants:** Systems that answer questions based on internal documentation, policies, and procedures.
+- **Customer support chatbots:** Assistants that provide up-to-date support based on product manuals and FAQs.
+- **Legal and academic research tools:** Systems that enable fast, source-backed search across large document sets.
+- **Code documentation assistants:** Tools that offer accurate code suggestions based on a software library's current documentation.
+
+## Advantages and Limitations
+
+The biggest advantage RAG offers is that the knowledge base can be updated without retraining (fine-tuning) the model. When source documents change, only the vector database needs updating — the model itself doesn't need to be touched. This is a major win in terms of both cost and flexibility.
+
+That said, RAG has its limits too. If the retrieval step surfaces irrelevant or low-quality chunks, it can actively mislead the model. That's why the chunking strategy, the quality of the embedding model, and the performance of the vector database all directly affect the overall success of the system.
+
+## What Am I Up To?
+
+Now for the "what am I actually doing with this" part. When I first came across RAG, my initial reaction was: "The model already knows everything, why are we sending it to a library too?" Turns out a large language model is a lot like a student who crammed the night before an exam — it knows plenty, but it hasn't caught up on the latest notes. RAG steps in right there, playing the friend who says, "hold on, check the right source first, then talk."
+
+As someone who grew up in Bursa, I can't help but mention: around here, "ask first, talk later" is basically in our blood — nobody in the bazaar throws around information without checking with the shopkeeper first. That's the analogy that stuck with me while learning RAG — the model, too, checks in with a "neighbor" (the vector database) before saying anything.
+
+Right now, in my own projects, the thing I've spent the most time tuning while experimenting with RAG architectures is chunk size. I don't want to cut things so small that context gets lost, but I also don't want to dump an entire document in one piece and overwhelm the model. Think of it like cutting a bagel in half: slice it too thin and it falls apart, too thick and it won't fit in your mouth. It took a fair bit of trial and error to find that balance, but it works now — the model actually checks first instead of making things up when it doesn't know something.
