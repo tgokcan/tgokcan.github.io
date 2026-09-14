@@ -1,0 +1,77 @@
+---
+title: "CI/CD Nedir? Sürekli Entegrasyon ve Sürekli Dağıtım Rehberi"
+publishedAt: "2026-09-15"
+image: "/images/gallery/ci-cd-nedir.png"
+summary: "Modern yazılım geliştirmenin temel taşlarından CI/CD'nin ne olduğunu, nasıl çalıştığını ve bir pipeline'ın hangi aşamalardan geçtiğini adım adım inceliyoruz."
+tag: "DevOps"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün CI/CD konusu hakkında konuşacağız.
+
+## CI/CD Nedir?
+
+CI/CD, "Continuous Integration" (Sürekli Entegrasyon) ve "Continuous Delivery/Deployment" (Sürekli Teslimat/Dağıtım) kelimelerinin kısaltmasıdır. Modern yazılım geliştirme süreçlerinde kod değişikliklerinin otomatik olarak test edilip, üretim ortamına kadar güvenli ve tutarlı bir şekilde taşınmasını sağlayan pratikler ve araçlar bütününü ifade eder.
+
+Eskiden bir yazılımı "release" etmek, genellikle günler süren, manuel adımlarla dolu, hataya açık bir süreçti. CI/CD, bu süreci otomatikleştirerek hem hızı hem de güvenilirliği artırmayı hedefler.
+
+## Sürekli Entegrasyon (CI) Nedir?
+
+Sürekli Entegrasyon, geliştiricilerin kod değişikliklerini sık sık (günde birkaç kez bile olabilir) ortak bir depoya (repository) entegre etmesi pratiğidir. Her entegrasyonda otomatik olarak şu adımlar tetiklenir:
+
+- Kodun derlenmesi (build)
+- Otomatik testlerin (unit, integration) çalıştırılması
+- Kod kalitesi ve statik analiz kontrollerinin yapılması
+
+Bu sayede bir hata, üretim ortamına ulaşmadan çok önce, hatta genellikle geliştirici kodu göndermesinden dakikalar sonra fark edilir. "Bende çalışıyordu" sorununun büyük kısmı bu aşamada çözülür.
+
+## Sürekli Teslimat ve Sürekli Dağıtım (CD) Nedir?
+
+CD kısaltması iki farklı ama birbiriyle yakından ilişkili kavramı ifade edebilir:
+
+- **Sürekli Teslimat (Continuous Delivery):** Kod, CI aşamasından başarıyla geçtikten sonra otomatik olarak dağıtıma hazır hale getirilir, ancak üretime alınması için genellikle manuel bir onay adımı beklenir.
+- **Sürekli Dağıtım (Continuous Deployment):** Bir adım daha ileri gidilir; testlerden geçen her değişiklik, insan müdahalesi olmadan otomatik olarak üretim ortamına dağıtılır.
+
+Hangi yaklaşımın seçileceği, ekibin risk toleransına ve üretim ortamının kritikliğine bağlıdır.
+
+## Tipik Bir CI/CD Pipeline'ı Nasıl İşler?
+
+Bir CI/CD pipeline'ı genellikle şu aşamalardan oluşur:
+
+### 1. Kaynak Kod Kontrolü
+
+Süreç, bir geliştiricinin kodu Git gibi bir versiyon kontrol sistemine göndermesiyle (push/commit) başlar. Bu adım, pipeline'ı tetikleyen tetikleyicidir (trigger).
+
+### 2. Build
+
+Kod, çalıştırılabilir veya dağıtılabilir bir forma derlenir. Bağımlılıklar indirilir, gerekiyorsa Docker imajı oluşturulur.
+
+### 3. Test
+
+Birim testler, entegrasyon testleri ve gerekiyorsa uçtan uca (end-to-end) testler otomatik olarak çalıştırılır. Herhangi bir test başarısız olursa pipeline durur ve geliştiriciye geri bildirim verilir.
+
+### 4. Dağıtım (Deploy)
+
+Testlerden başarıyla geçen sürüm, önce bir staging veya test ortamına, ardından (onaya bağlı olarak) üretim ortamına dağıtılır. Bu aşamada genellikle blue-green deployment veya canary release gibi stratejiler kullanılarak riskler azaltılır.
+
+### 5. İzleme (Monitoring)
+
+Dağıtım sonrası, uygulamanın sağlığı loglama ve izleme araçlarıyla takip edilir. Bir sorun tespit edildiğinde geri alma (rollback) mekanizmaları devreye girebilir.
+
+## CI/CD'nin Getirdiği Avantajlar
+
+- **Hızlı geri bildirim:** Hatalar, geliştirme sürecinin en erken aşamasında yakalanır.
+- **Daha az riskli dağıtımlar:** Küçük, sık ve otomatikleştirilmiş değişiklikler, büyük ve nadir dağıtımlara göre çok daha az risklidir.
+- **Tutarlılık:** Manuel adımların azalması, insan hatasını en aza indirir.
+- **Daha hızlı pazara çıkış süresi:** Otomasyon, yeni özelliklerin kullanıcıya ulaşma süresini kısaltır.
+
+## Yaygın Kullanılan Araçlar
+
+Günümüzde CI/CD süreçlerini yönetmek için kullanılan başlıca araçlar arasında GitHub Actions, GitLab CI/CD, Jenkins, CircleCI ve Azure DevOps Pipelines sayılabilir. Konteynerleştirme tarafında Docker, orkestrasyon tarafında ise Kubernetes, çoğu modern CI/CD pipeline'ının ayrılmaz bir parçası haline gelmiştir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bu işi nasıl beceriksizce öğrendim" kısmına. İlk CI/CD pipeline'ımı kurarken aklımdaki tek hedef "bir buton olsun, ona basayım her şey otomatik olsun" gibi saf bir hayaldi. Gerçek hayat tabii ki öyle çalışmadı; ilk denemede pipeline'ı öyle bir yapılandırmışım ki her commit'te sanki üretim hattında yangın var gibi tüm testler baştan sona koşuyordu, build süresi kahve molası verecek kadar uzundu.
+
+Bursa'da fabrika tecrübesi olan biri olarak şunu rahatlıkla söyleyebilirim: CI/CD pipeline'ı kurmak, tam olarak bir üretim hattı kurmaya benziyor. Hattaki her istasyon (build, test, deploy) kendi işini düzgün yapmazsa, sonundaki ürün (yani deploy edilen kod) da kusurlu çıkıyor. Ben de pipeline'ımı düzenlerken kendimi bir bant üzerinde kalite kontrol istasyonu kuran biri gibi hissettim; her adımda "bu parça buradan sağlam geçti mi, geçmedi mi" diye sorgulamak zorunda kaldım.
+
+Şu an pipeline'larımı mümkün olduğunca kademeli (staged) kuruyorum: önce hızlı ve ucuz testler, sonra daha ağır entegrasyon testleri, en sona da dağıtım adımı. Böylece bir hata varsa, en pahalı adıma gelmeden, daha ucuz aşamada yakalanmış oluyor. Tıpkı simidi fırına vermeden önce hamuru yoklamak gibi — bozuksa daha en baştan anlarsın, fırından çıkana kadar beklemene gerek kalmaz.

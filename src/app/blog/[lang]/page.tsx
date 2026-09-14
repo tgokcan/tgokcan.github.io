@@ -19,6 +19,7 @@ export function generateMetadata({ params }: { params: { lang: Lang } }) {
     path: `/blog/${params.lang}`,
   });
 }
+// TODO: Bir blog yazısının içindeyken dil değişimi yapıldığında, kullanıcıyı aynı yazının diğer diline yönlendirecek bir mekanizma ekle.
 
 export default async function LocalizedBlog({
   params,

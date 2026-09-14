@@ -1,0 +1,78 @@
+---
+title: "What Is CI/CD? A Guide to Continuous Integration and Continuous Delivery"
+publishedAt: "2026-09-15"
+image: "/images/gallery/ci-cd-nedir.png"
+summary: "Breaking down CI/CD, one of the cornerstones of modern software development — what it is, how it works, and the stages a typical pipeline goes through."
+tag: "DevOps"
+translationSlug: "ci-cd-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about CI/CD.
+
+## What Is CI/CD?
+
+CI/CD stands for "Continuous Integration" and "Continuous Delivery/Deployment." It refers to the set of practices and tools that let code changes in modern software development be automatically tested and moved safely and consistently all the way to production.
+
+In the past, releasing a piece of software was usually a process that took days, was full of manual steps, and was prone to error. CI/CD aims to automate that process, boosting both speed and reliability.
+
+## What Is Continuous Integration (CI)?
+
+Continuous Integration is the practice of developers merging their code changes into a shared repository frequently — sometimes several times a day. Each integration automatically triggers steps like:
+
+- Compiling the code (build)
+- Running automated tests (unit, integration)
+- Running code quality and static analysis checks
+
+This means a bug is caught long before it ever reaches production — often within minutes of the developer pushing their code. Most instances of the classic "it worked on my machine" problem get resolved right at this stage.
+
+## What Is Continuous Delivery and Continuous Deployment (CD)?
+
+The CD abbreviation can refer to two different but closely related concepts:
+
+- **Continuous Delivery:** Once code passes the CI stage, it's automatically prepared for release, but it usually waits on a manual approval step before going to production.
+- **Continuous Deployment:** This takes it one step further — every change that passes the tests is automatically deployed to production with no human intervention at all.
+
+Which approach a team picks depends on its risk tolerance and how critical its production environment is.
+
+## How Does a Typical CI/CD Pipeline Work?
+
+A CI/CD pipeline generally consists of the following stages:
+
+### 1. Source Control
+
+The process begins when a developer pushes or commits code to a version control system like Git. This step is the trigger that kicks off the pipeline.
+
+### 2. Build
+
+The code is compiled into an executable or deployable form. Dependencies are downloaded, and a Docker image is built if needed.
+
+### 3. Test
+
+Unit tests, integration tests, and end-to-end tests (where applicable) are run automatically. If any test fails, the pipeline stops and feedback is sent back to the developer.
+
+### 4. Deploy
+
+The version that passed all tests is deployed first to a staging or test environment, then — depending on approval — to production. Strategies like blue-green deployment or canary releases are commonly used at this stage to reduce risk.
+
+### 5. Monitoring
+
+After deployment, the application's health is tracked using logging and monitoring tools. If an issue is detected, rollback mechanisms can kick in.
+
+## Advantages of CI/CD
+
+- **Fast feedback:** Bugs are caught at the earliest possible stage of development.
+- **Lower-risk deployments:** Small, frequent, automated changes carry far less risk than large, infrequent releases.
+- **Consistency:** Fewer manual steps means less room for human error.
+- **Faster time to market:** Automation shortens the time it takes for new features to reach users.
+
+## Commonly Used Tools
+
+The tools most commonly used to manage CI/CD processes today include GitHub Actions, GitLab CI/CD, Jenkins, CircleCI, and Azure DevOps Pipelines. On the containerization side, Docker, and on the orchestration side, Kubernetes, have become an inseparable part of most modern CI/CD pipelines.
+
+## What Am I Up To?
+
+Now for the "how I clumsily learned this" part. When I set up my first CI/CD pipeline, my whole mental model was something like: "there'll be a button, I press it, and everything just happens automatically." Real life, of course, didn't work out that way — I configured that first pipeline so poorly that every single commit ran the entire test suite from scratch, like there was a fire on the production line, and the build time was long enough to go grab a coffee.
+
+As someone with factory experience back in Bursa, I can say this with confidence: setting up a CI/CD pipeline is exactly like setting up a production line. If any station on the line — build, test, deploy — doesn't do its job properly, the final product (the deployed code) comes out defective. While putting my pipeline together, I genuinely felt like someone setting up quality-control checkpoints along a conveyor belt, having to ask at every step: "did this part make it through clean, or not?"
+
+These days I try to build my pipelines in stages as much as possible: fast, cheap tests first, then the heavier integration tests, and the deployment step last. That way, if there's a bug, it gets caught at a cheap stage instead of making it all the way to the expensive one. It's a bit like poking the dough before it goes in the oven — if something's off, you find out right away instead of waiting until it comes out of the oven.
