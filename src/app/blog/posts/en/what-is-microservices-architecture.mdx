@@ -1,0 +1,54 @@
+---
+title: "What Is Microservices Architecture? How It Differs from Monolithic Architecture"
+publishedAt: "2026-09-16"
+image: "/images/gallery/mikroservis-mimarisi-nedir.png"
+summary: "Exploring what microservices architecture is, how it differs from a monolithic architecture, and when it actually makes sense to use it."
+tag: "Software Architecture"
+translationSlug: "mikro-servis-mimarisi-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about microservices architecture.
+
+## What Is Microservices Architecture?
+
+Microservices architecture is a software design approach where, instead of building a system as a single, large, tightly coupled unit, you build it as a collection of small, loosely coupled services, each independently handling its own piece of the system. Each microservice owns a specific business capability — order management, payment processing, user management, and so on — and typically has its own database, its own development cycle, and its own deployment process.
+
+Services usually communicate with each other over lightweight protocols such as REST APIs, gRPC, or message queues. This means each service can be developed, tested, and deployed independently of the rest of the system.
+
+## How It Differs from Monolithic Architecture
+
+In a monolithic architecture, all of an application's components — the UI, the business logic, the data access layer — live together in a single codebase and run as a single process. Even a small change usually requires rebuilding and redeploying the entire application.
+
+Microservices architecture breaks that structure apart. The key differences can be summarized as follows:
+
+- **Deployment:** A monolith has a single deployment unit, while each microservice can be deployed independently.
+- **Scalability:** With a monolith, you have to scale the whole application; with microservices, you only need to scale the specific service under heavy load.
+- **Technology independence:** Each microservice can be built with a different programming language or database technology, whichever fits its needs best.
+- **Fault isolation:** In a properly designed system, a failure in one microservice doesn't directly bring down the others; in a monolith, a single bug can affect the entire application.
+
+## Challenges That Come with Microservices
+
+Microservices architecture isn't a magic wand that solves every problem. It brings its own set of new complexities:
+
+- **Distributed systems complexity:** You have to deal with network latency between services, partial failures, and consistency issues.
+- **Data consistency:** Since each service has its own database, maintaining transactional consistency across services becomes harder.
+- **Monitoring and debugging:** In a system where dozens of services depend on each other, tracking down the root cause of a failure is genuinely difficult without centralized logging and distributed tracing tools.
+- **Operational overhead:** Every service having its own deployment pipeline and its own monitoring setup adds extra load on the DevOps side.
+
+## When Should You Choose It?
+
+Microservices architecture tends to make sense in situations like:
+
+- When the application spans multiple business domains that grow at different rates and are owned by different teams
+- When a specific module needs to be scaled independently, at a different rate than the rest of the system
+- When the team has grown large enough that coordinating everyone around a single codebase becomes a bottleneck
+
+For smaller-scale projects, or systems with just a handful of developers, the operational complexity microservices bring often outweighs the benefits. In those cases, a well-structured monolith is usually the far more pragmatic choice.
+
+## What Am I Up To?
+
+Now for the "where I learned this the painful way" part. While building REST APIs integrated with IFS ERP during my internship, my first instinct was: "let's split everything into separate services, it'll be so much more modern." Then I realized that even a single order-management service, which had to talk to three different systems, was already giving me enough of a headache — if I'd split it into five pieces, I'd have ended up running an army of microservices that mostly just talked to each other.
+
+Having grown up around the shopkeeper culture in Bursa, I can't help but put it this way: microservices architecture works a lot like the shops in a covered bazaar. Each shop (service) minds its own business and runs its own counter, but if a bottleneck shows up somewhere along the path a customer (request) has to travel between shops, the whole bazaar feels it. So before saying "split everything into microservices," you really need to work out how many "shops" you actually need to open — otherwise you end up like a naive shopkeeper trying to single-handedly run an entire bazaar.
+
+These days, when I'm trying to strike that balance in my own projects, I start with what's called a "modular monolith" — clear boundaries drawn inside the codebase, but still deployed as a single unit. Only when a module genuinely needs to scale independently do I pull it out into its own service. It's a bit like cutting a bagel in half first instead of straight into eight pieces, and only cutting further if people still can't keep up.

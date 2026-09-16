@@ -1,0 +1,53 @@
+---
+title: "Mikroservis Mimarisi Nedir? Monolitik Mimariden Farkları"
+publishedAt: "2026-09-16"
+image: "/images/gallery/mikroservis-mimarisi-nedir.png"
+summary: "Mikroservis mimarisinin ne olduğunu, monolitik mimariden nasıl farklılaştığını ve hangi durumlarda tercih edilmesi gerektiğini ele alıyoruz."
+tag: "Yazılım Mimarisi"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün mikroservis mimarisi konusu hakkında konuşacağız.
+
+## Mikroservis Mimarisi Nedir?
+
+Mikroservis mimarisi, bir yazılım sistemini tek, büyük ve birbirine sıkı sıkıya bağlı bir yapı yerine, her biri kendi işini bağımsız olarak yürüten, küçük ve gevşek bağlı servislerin bir araya gelmesiyle kurgulanan bir yazılım tasarım yaklaşımıdır. Her mikroservis, belirli bir iş kabiliyetini (örneğin sipariş yönetimi, ödeme işlemleri, kullanıcı yönetimi) üstlenir ve genellikle kendi veritabanına, kendi geliştirme döngüsüne ve kendi dağıtım sürecine sahiptir.
+
+Servisler birbirleriyle genellikle hafif protokoller üzerinden (REST API, gRPC, mesaj kuyrukları) iletişim kurar. Bu sayede her servis, geri kalan sistemden bağımsız olarak geliştirilebilir, test edilebilir ve dağıtılabilir.
+
+## Monolitik Mimariden Farkı
+
+Monolitik mimaride, uygulamanın tüm bileşenleri (kullanıcı arayüzü, iş mantığı, veri erişim katmanı) tek bir kod tabanında ve tek bir çalışma zamanı sürecinde bir arada bulunur. Küçük bir değişiklik bile genellikle tüm uygulamanın yeniden derlenmesini ve yeniden dağıtılmasını gerektirir.
+
+Mikroservis mimarisi bu yapıyı parçalara ayırır. Temel farklar şöyle özetlenebilir:
+
+- **Dağıtım:** Monolitik yapıda tek bir dağıtım birimi varken, mikroservislerde her servis bağımsız olarak dağıtılabilir.
+- **Ölçeklenebilirlik:** Monolitik yapıda tüm uygulamayı ölçeklendirmek gerekirken, mikroservislerde sadece yoğun trafik alan servis ölçeklendirilebilir.
+- **Teknoloji bağımsızlığı:** Her mikroservis, ihtiyaca göre farklı bir programlama dili veya veritabanı teknolojisiyle geliştirilebilir.
+- **Hata izolasyonu:** Bir mikroservisteki hata, doğru tasarlanmış bir sistemde diğer servisleri doğrudan çökertmez; monolitik yapıda ise bir hata tüm uygulamayı etkileyebilir.
+
+## Mikroservislerin Getirdiği Zorluklar
+
+Mikroservis mimarisi her sorunu çözen sihirli bir değnek değildir. Beraberinde yeni karmaşıklıklar da getirir:
+
+- **Dağıtık sistem karmaşıklığı:** Servisler arası ağ gecikmeleri, kısmi hatalar ve tutarlılık sorunlarıyla başa çıkmak gerekir.
+- **Veri tutarlılığı:** Her servisin kendi veritabanına sahip olması, işlemler arası tutarlılığı (transaction) sağlamayı zorlaştırır.
+- **İzleme ve hata ayıklama:** Onlarca servisin birbirine bağlı çalıştığı bir sistemde, bir hatanın kaynağını bulmak, merkezi loglama ve dağıtık izleme (distributed tracing) araçları olmadan oldukça güçtür.
+- **Operasyonel yük:** Her servisin kendi dağıtım hattına, kendi izleme sistemine sahip olması, DevOps tarafında ek bir yük oluşturur.
+
+## Ne Zaman Tercih Edilmeli?
+
+Mikroservis mimarisi genellikle şu durumlarda anlamlı hale gelir:
+
+- Uygulama, farklı hızlarda büyüyen ve farklı ekiplerin sorumluluğunda olan birden fazla iş alanına sahipse
+- Belirli bir modülün diğerlerinden bağımsız olarak, farklı bir hızda ölçeklendirilmesi gerekiyorsa
+- Ekip büyüklüğü, tek bir kod tabanı üzerinde koordinasyonu zorlaştıracak kadar büyümüşse
+
+Küçük ölçekli projelerde ya da az sayıda geliştiricinin çalıştığı sistemlerde, mikroservislerin getirdiği operasyonel karmaşıklık genellikle faydasından fazla olabilir. Bu gibi durumlarda iyi yapılandırılmış bir monolitik mimari, çok daha pragmatik bir tercihtir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu nerede acı çekerek öğrendim" kısmına. Stajım boyunca IFS ERP entegrasyonlu REST API'ler geliştirirken, ilk aklıma gelen "her şeyi ayrı ayrı servislere bölelim, çok modern olur" fikriydi. Sonra fark ettim ki elimde tek bir servis olan sipariş modülü bile, üç farklı sistemle konuşurken yeterince baş ağrıtıyordu; onu bir de beşe bölseydim muhtemelen kendi kendimle konuşan bir mikroservis ordusu kurmuş olacaktım.
+
+Bursa'da esnaflık kültürüyle büyümüş biri olarak şunu rahatlıkla söyleyebilirim: mikroservis mimarisi, tam olarak kapalı çarşıdaki dükkanlar gibi işliyor. Her dükkan (servis) kendi işini yapıyor, kendi tezgahını kendi düzenliyor, ama müşteri (istek) bir dükkandan diğerine geçerken bir yerlerde tıkanma olursa tüm çarşı etkileniyor. O yüzden "her şeyi mikroservise böl" demeden önce, gerçekten kaç tane "dükkan" açmaya ihtiyacın olduğunu iyi hesaplamak lazım — yoksa koca bir çarşıyı tek başına işletmeye çalışan naif bir esnaf durumuna düşüyorsun.
+
+Şu an kendi projelerimde bu dengeyi kurarken önce "modüler monolit" dediğimiz, kod tabanı içinde net sınırlar çizilmiş ama tek parça dağıtılan bir yapıyla başlıyorum. Gerçekten bir modülün bağımsız ölçeklenmesi gerektiğinde onu ayrı bir servise çıkarıyorum. Simidi baştan sekiz parçaya bölmek yerine, önce ortadan ikiye bölüp, kimse yetişemiyorsa dörde bölmeye benziyor biraz.
