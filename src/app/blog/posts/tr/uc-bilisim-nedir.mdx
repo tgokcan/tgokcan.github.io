@@ -1,0 +1,54 @@
+---
+title: "Edge Computing (Uç Bilişim) Nedir, Neden Önemlidir?"
+publishedAt: "2026-09-17"
+image: "/images/gallery/edge-computing-nedir.png"
+summary: "Verinin üretildiği yere yakın yerde işlenmesini sağlayan edge computing yaklaşımını; çalışma prensibini, bulut bilişimden farkını ve kullanım alanlarını inceliyoruz."
+tag: "IoT"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün edge computing (uç bilişim) konusu hakkında konuşacağız.
+
+## Edge Computing Nedir?
+
+Edge computing, verinin üretildiği kaynağa mümkün olduğunca yakın bir noktada, yani ağın "ucunda" (edge) işlenmesini sağlayan bir bilişim yaklaşımıdır. Klasik bulut bilişim modelinde veri, işlenmek üzere genellikle uzak bir veri merkezine gönderilir; edge computing'de ise bu işlem, verinin üretildiği cihaza veya cihaza çok yakın bir yerel sunucuya taşınır.
+
+Bir sensörden, kameradan veya endüstriyel bir makineden gelen veri, önce yerel olarak işlenir; yalnızca gerekli özet veya sonuç bulut sistemine iletilir. Bu, hem ağ trafiğini azaltır hem de tepki süresini ciddi ölçüde kısaltır.
+
+## Bulut Bilişimden Farkı
+
+Bulut bilişim ve edge computing birbirinin rakibi değil, çoğunlukla birbirini tamamlayan yaklaşımlardır. Temel farklar şöyle özetlenebilir:
+
+- **Konum:** Bulut bilişimde işlem merkezi veri merkezlerinde yapılırken, edge computing'de işlem verinin kaynağına yakın yerde gerçekleşir.
+- **Gecikme (Latency):** Veri, uzak bir veri merkezine gidip gelmediği için edge computing çok daha düşük gecikmeyle çalışır.
+- **Bant genişliği kullanımı:** Ham verinin tamamı yerine yalnızca işlenmiş sonuçların iletilmesi, ağ üzerindeki yükü ciddi şekilde azaltır.
+- **Çevrimdışı çalışabilirlik:** Edge cihazları, internet bağlantısı kesildiğinde bile yerel olarak çalışmaya devam edebilir.
+
+## Neden Önemli?
+
+Bulut bilişimin merkezi yapısı, birçok senaryoda yeterlidir; ama gecikmenin kritik olduğu veya sürekli internet bağlantısının garanti edilemediği durumlarda ciddi sınırlamalar getirir. Örneğin otonom bir aracın, önündeki bir engeli fark edip fren yapması gereken anda, kararın bir veri merkezinden dönmesini beklemesi mümkün değildir. Bu kararın milisaniyeler içinde, aracın kendi üzerinde ya da ona çok yakın bir noktada verilmesi gerekir.
+
+Edge computing, tam olarak bu tür gecikmeye duyarlı, veri yoğun ve genellikle gerçek zamanlı karar gerektiren senaryolar için geliştirilmiştir.
+
+## Kullanım Alanları
+
+- **Endüstriyel otomasyon:** Üretim hattındaki sensörlerden gelen verinin anlık olarak işlenip, bir arızanın oluşmadan önce tespit edilmesi.
+- **Otonom araçlar ve İHA'lar:** Çevresel verilerin araç/İHA üzerinde anlık olarak işlenerek, gerçek zamanlı karar alınması.
+- **Akıllı şehir uygulamaları:** Trafik kameralarından gelen görüntülerin yerel olarak işlenip, yalnızca anlamlı olayların merkezi sisteme iletilmesi.
+- **Sağlık cihazları:** Hasta izleme cihazlarının, kritik bir anormalliği anlık olarak tespit edip uyarı üretmesi.
+- **Perakende ve güvenlik kameraları:** Görüntü verisinin, gizlilik ve bant genişliği kaygılarıyla, bulut yerine cihaz üzerinde işlenmesi.
+
+## Edge Computing'in Getirdiği Zorluklar
+
+Edge computing'in avantajlarının yanında bazı zorlukları da vardır:
+
+- **Sınırlı işlem gücü:** Uç cihazlar, genellikle bir veri merkezindeki sunucularla kıyaslanamayacak kadar sınırlı donanım kaynaklarına sahiptir.
+- **Yönetim karmaşıklığı:** Binlerce dağıtık cihazı güncel tutmak, izlemek ve güvenli hale getirmek, merkezi bir sistemi yönetmekten çok daha zordur.
+- **Güvenlik:** Fiziksel olarak erişilebilir, dağıtık cihazlar, merkezi bir veri merkezine kıyasla farklı ve genellikle daha geniş bir saldırı yüzeyi oluşturur.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu sahada nasıl yaşadım" kısmına. TEKNOFEST İHA takımında yazılım geliştirme liderliği yaparken, en çok kafamı yoran konulardan biri tam olarak buydu: İHA havadayken, çevresindeki bir engeli fark edip manevra yapması gerektiği anda, bu kararın yer istasyonundan (ground station) gelmesini beklemek gerçek bir felaketti. Sinyal gecikmesi, bağlantı kopması, hatta rüzgarın anlık değişimi bile o kararı geciktirmeye yetiyordu.
+
+Bursa'da büyümüş biri olarak şunu söylemeden geçemeyeceğim: edge computing'i anlarken kafamda hep şu benzetme oluştu — merkezi bir belediyeye her küçük karar için telefon açan bir mahalle muhtarı yerine, kendi mahallesinde anlık karar alabilen, ama önemli konularda yine de belediyeyle iletişimde kalan bir muhtar düşünün. İHA da tam olarak böyle davranmalıydı; anlık, hayati kararları kendi üzerinde alacak, ama genel görev planlamasını yine merkezi sistemle senkronize edecekti.
+
+O dönem ANSYS Fluent ve Gazebo simülasyonlarıyla çalışırken, işlem gücünün sınırlı olduğu bir kart üzerinde gerçek zamanlı karar almanın ne kadar farklı bir disiplin gerektirdiğini iliklerime kadar hissettim. Bulutta rahatça çalışan bir modeli, uçan bir cihazın üzerine sıkıştırmak, koca bir simidi küçük bir poşete tıkıştırmaya benziyor — önce neyin gerçekten gerekli olduğuna karar verip, geri kalanını cesurca budamak gerekiyor.

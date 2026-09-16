@@ -1,0 +1,54 @@
+---
+title: "What Is Edge Computing and Why Does It Matter?"
+publishedAt: "2026-09-17"
+image: "/images/gallery/edge-computing-nedir.png"
+summary: "Exploring edge computing — the approach that processes data close to where it's generated — how it works, how it differs from cloud computing, and where it's used."
+tag: "IoT"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about edge computing.
+
+## What Is Edge Computing?
+
+Edge computing is a computing approach that processes data as close as possible to where it's actually generated — at the "edge" of the network. In the classic cloud computing model, data is typically sent off to a remote data center to be processed; with edge computing, that processing happens on the device itself, or on a local server very close to it.
+
+Data coming from a sensor, a camera, or an industrial machine is processed locally first; only the necessary summary or result gets sent on to the cloud. This both reduces network traffic and dramatically shortens response times.
+
+## How It Differs from Cloud Computing
+
+Cloud computing and edge computing aren't rivals — most of the time, they complement each other. The key differences can be summarized as follows:
+
+- **Location:** Cloud computing processes data in centralized data centers, while edge computing processes it near the data's source.
+- **Latency:** Since data doesn't have to travel back and forth to a remote data center, edge computing operates with much lower latency.
+- **Bandwidth usage:** Sending only processed results instead of raw data significantly reduces the load on the network.
+- **Offline capability:** Edge devices can keep working locally even when the internet connection drops.
+
+## Why Does It Matter?
+
+The centralized nature of cloud computing is more than sufficient for many scenarios, but it runs into real limitations when latency is critical or a constant internet connection can't be guaranteed. Take an autonomous vehicle that needs to brake the instant it spots an obstacle ahead — there's no way that decision can wait for a round trip to a data center. It has to be made within milliseconds, either on the vehicle itself or at a point very close to it.
+
+Edge computing was built exactly for these kinds of latency-sensitive, data-intensive scenarios that typically require real-time decision-making.
+
+## Use Cases
+
+- **Industrial automation:** Processing sensor data from a production line in real time to catch a failure before it happens.
+- **Autonomous vehicles and UAVs:** Processing environmental data directly on the vehicle/drone to make real-time decisions.
+- **Smart city applications:** Processing footage from traffic cameras locally and only sending meaningful events on to the central system.
+- **Medical devices:** Patient monitoring devices detecting a critical anomaly instantly and raising an alert.
+- **Retail and security cameras:** Processing video data on-device rather than in the cloud, due to privacy and bandwidth concerns.
+
+## Challenges That Come with Edge Computing
+
+Alongside its advantages, edge computing brings its own set of challenges:
+
+- **Limited processing power:** Edge devices typically have hardware resources that are nowhere close to what a data-center server offers.
+- **Management complexity:** Keeping thousands of distributed devices updated, monitored, and secure is far harder than managing a centralized system.
+- **Security:** Physically accessible, distributed devices present a different — and usually much larger — attack surface compared to a centralized data center.
+
+## What Am I Up To?
+
+Now for the "how I actually lived this out in the field" part. While leading software development for the TEKNOFEST UAV team, this was exactly one of the things that kept me up at night: when the drone was in the air and needed to spot an obstacle and maneuver around it right then and there, waiting for that decision to come back from the ground station was a genuine disaster waiting to happen. Signal delay, a dropped connection, even a sudden gust of wind was enough to throw that decision off schedule.
+
+Having grown up in Bursa, I can't help but frame it this way: understanding edge computing kept bringing this analogy to mind — instead of a neighborhood headman calling the central municipality for every single small decision, picture one who can make instant calls within their own neighborhood, but still stays in touch with the municipality on the bigger issues. That's exactly how the drone needed to behave: making instant, life-or-death decisions on its own, while still syncing its overall mission plan with the central system.
+
+Working with ANSYS Fluent and Gazebo simulations back then, I felt down to my bones just how different a discipline real-time decision-making becomes when you're running it on a board with genuinely limited processing power. Squeezing a model that runs comfortably in the cloud onto a flying device is a bit like trying to stuff a whole bagel into a tiny bag — you first have to figure out what's actually essential, and then bravely cut away the rest.
