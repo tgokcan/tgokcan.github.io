@@ -1,0 +1,38 @@
+---
+title: "Homelab Üzerinde Yerel Yapay Zeka: Gizlilik ve Sıfır Maliyet"
+publishedAt: "2026-09-18"
+image: "/images/gallery/local-ai-homelab.png"
+summary: "Büyük dil modellerini (LLM) bulut yerine kendi sunucunuzda çalıştırmanın avantajları. Ollama, Docker ve Cloudflare Tunnels ile güvenli ve yerel yapay zeka mimarisi."
+tag: "Yapay Zeka & DevOps"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün, bulut tabanlı API'lere her ay bütçe ayırmak yerine, yapay zeka modellerini doğrudan kendi sunucumuzda (homelab) nasıl barındırabileceğimiz hakkında konuşacağız.
+
+## Yerel Yapay Zeka (Local AI) Aslında Nedir?
+
+En basit haliyle yerel yapay zeka; bulut servisleri yerine, açık kaynaklı dil modellerini (LLM) doğrudan kendi donanımımızda çalıştırma prensibidir. Bu sayede hem verileriniz ağınızda kalır hem de elinizdeki donanımın sınırlarını sonuna kadar kullanma şansı bulursunuz. 
+
+## Neden Kendi Sunucumuzda Çalıştırmalıyız?
+
+- **Veri Gizliliği:** Özellikle RAG (Retrieval-Augmented Generation) gibi özel veri setleriyle çalışırken, hassas verileri 3. parti sunuculara göndermek büyük bir güvenlik riski. Yerel modellerde veri asla ağınızın dışına çıkmaz.
+- **Maliyet Kontrolü:** Proje geliştirme ve test aşamalarında sürekli API isteği atmak cüzdanı hızla eritebiliyor. Donanım yatırımını bir kez yaptıktan sonra yerel modellerle bu token maliyetlerini tamamen sıfırlıyorsunuz.
+- **Esneklik:** İstediğiniz modeli anında değiştirip, internet bağlantısı dahi olmadan çalışmaya devam edebilirsiniz.
+
+## Hayat Kurtaran Araçlar
+
+Yerel yapay zeka ekosistemi hızla gelişiyor. Kendi kurulumlarımda da sıkça kullandığım bazı favori araçlarım şunlar:
+
+- **Ollama:** Açık kaynaklı modelleri indirip çalıştırmayı inanılmaz basitleştiren bir altyapı. Terminalden tek bir komutla modeli ayağa kaldırıp bir API endpoint'i olarak sunabiliyorsunuz.
+- **LM Studio:** Farklı modelleri hızla test etmek ve donanım tüketimini görsel bir arayüzden takip etmek için harika bir masaüstü çözümü.
+- **Docker:** Gerekli tüm yapay zeka bileşenlerini izole ve temiz bir şekilde ayağa kaldırmak için DevOps süreçlerinin zaten olmazsa olmazı.
+
+## Dışarıdan Güvenli Erişim (Zero Trust Mimarisi)
+
+Modeli evdeki sunucuya kurduk, peki dışarıdayken nasıl güvenli erişeceğiz? Modem üzerinden port yönlendirme gibi tehlikeli ve eski yöntemleri bir kenara bırakmamız gerekiyor.
+
+- **Cloudflare Tunnels:** Sunucunuzu doğrudan internete açmadan, dışarıya doğru kurulan şifreli bir tünel üzerinden modellerinize web üzerinden güvenli erişim sağlayabilirsiniz.
+- **Tailscale veya Zero Trust WARP:** Cihazlarınız arasında şifrelenmiş bir mesh VPN ağı kurarak, yerel ağdaki yapay zeka servislerinize sanki evdeymişsiniz gibi sadece kendi yetkili cihazlarınızdan erişebilirsiniz.
+
+## Sonuç
+
+Açık kaynaklı dil modelleri artık o kadar güçlendi ki, yapay zekayı sadece dışarıdan satın alınan bir hizmet (SaaS) olarak görmek yerine kendi altyapımızın (homelab) bir parçası haline getirmek çok daha mantıklı. Bu tarz bir mimari kurmak; hem verilerinizi korur, hem masrafları kısar hem de sistem yönetimi becerilerinizi ciddi anlamda geliştirir.
