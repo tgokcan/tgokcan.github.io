@@ -154,7 +154,7 @@ const about: About = {
     institutions: [
       {
         name: "Balikesir University - Computer Programming ",
-        /*  timeframe: "2026 - present", */ // TODO: kalıba timeframe ekle
+        /*  timeframe: "2026 - present", */ // TODO: kalıba timeframe ekle content.tsx'de doldur
         description: <>Associate Degree</>,
       },
     ],
