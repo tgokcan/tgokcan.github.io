@@ -1,0 +1,59 @@
+---
+title: "What Is Docker? An Introduction to Containerization"
+publishedAt: "2026-09-19"
+image: "/images/gallery/docker-nedir.png"
+summary: "Exploring Docker and containerization — the technology that runs applications in portable, isolated, and consistent environments — how it differs from virtual machines and its core building blocks."
+tag: "DevOps"
+translationSlug: "docker-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about Docker and containerization.
+
+## What Is Docker?
+
+Docker is a containerization platform that packages an application together with everything it needs to run — libraries, environment variables, runtime settings — into a single unit, and lets that unit run consistently in any environment. Most of the "it worked on my machine but not on the server" problem is exactly what Docker was built to solve.
+
+A Docker container is an isolated runtime environment that shares the host machine's OS kernel but has its own file system, processes, and network configuration. This means an application runs exactly the same way on a developer's laptop, on a test server, and in production.
+
+## How It Differs from Virtual Machines
+
+Docker containers are often confused with virtual machines (VMs), but there's a fundamental architectural difference between them:
+
+- **Virtual machines** include their own OS kernel and simulate physical hardware through a hypervisor. This means every VM takes up gigabytes of disk space and can take minutes to boot.
+- **Docker containers**, on the other hand, share the host's OS kernel and only isolate the application layer. This makes containers much lighter, able to start in seconds, and far less resource-hungry.
+
+This difference is what makes it possible to run hundreds of Docker containers on a single physical server instead of just a handful of virtual machines.
+
+## Core Building Blocks
+
+### Image
+
+A Docker image is a read-only template containing everything needed to run an application — code, libraries, configuration. Images are typically defined layer by layer through a `Dockerfile`.
+
+### Container
+
+A container is a running instance of an image. Multiple containers can be started from the same image, each running in isolation from the others.
+
+### Dockerfile
+
+A text file that defines, step by step, how an image should be built — which base image to use, which dependencies to install, and how the application should start.
+
+### Docker Compose
+
+A tool that lets you spin up an application made up of multiple containers — say, an API, a database, and a caching service — all together with a single configuration file.
+
+## Why Use It?
+
+- **Consistency:** The "it worked on my machine" problem largely disappears, since development, test, and production environments behave identically.
+- **Isolation:** One application's dependencies don't clash with another application's or the host system's dependencies.
+- **Portability:** A container runs the same way on any machine that has Docker installed — a laptop, a cloud server, or a different OS entirely.
+- **Scalability:** Because containers are lightweight, they can be easily replicated and scaled with orchestration tools like Kubernetes.
+- **CI/CD compatibility:** Containerized applications integrate naturally into automated testing and deployment pipelines.
+
+## What Am I Up To?
+
+Now for the "what happened the first time I tried this" part. When I first came across Docker, I was moving kiosk applications and secure file transfer systems into production, and I was thoroughly tired of dealing with "this machine is missing that library, that machine has a different version" every single time. Once I learned Docker and started packaging everything into an image, it felt like I suddenly had a suitcase that unpacked the exact same way no matter where I took it.
+
+Having worked on the OT/IT side of a factory floor in Bursa, I can say this with confidence: Docker containers work a lot like the standardized pallet crates on a production line. Whatever the product inside is, the crate stays the same size, gets stacked the same way, and gets moved by the same forklift. Even if the contents (the code) change, from the outside they all go into the same standard "crate" and get transported the same way.
+
+These days, when I start a new project, one of the first things I do is wire it up to a Dockerfile as early as possible. That way, I never end up in the "why does this work differently on my machine" argument — everyone's pulling the same bagel out of the same oven.

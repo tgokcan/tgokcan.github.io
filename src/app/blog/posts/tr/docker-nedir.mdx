@@ -1,0 +1,58 @@
+---
+title: "Docker Nedir? Konteynerleştirme Kavramına Giriş"
+publishedAt: "2026-09-19"
+image: "/images/gallery/docker-nedir.png"
+summary: "Uygulamaları taşınabilir, izole ve tutarlı ortamlarda çalıştırmayı sağlayan Docker ve konteynerleştirme kavramını; sanal makinelerden farkını ve temel yapı taşlarını ele alıyoruz."
+tag: "DevOps"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün Docker ve konteynerleştirme konusu hakkında konuşacağız.
+
+## Docker Nedir?
+
+Docker, bir uygulamayı ve onun çalışması için gereken tüm bağımlılıkları (kütüphaneler, ortam değişkenleri, çalışma zamanı ayarları) tek bir paket haline getirip, bu paketi herhangi bir ortamda tutarlı bir şekilde çalıştırmayı sağlayan bir konteynerleştirme platformudur. "Bende çalışıyordu ama sunucuda çalışmıyor" sorununun büyük kısmı, tam olarak Docker'ın çözmeye çalıştığı problemdir.
+
+Bir Docker konteyneri, işletim sisteminin çekirdeğini ana makineyle paylaşan, ama kendi dosya sistemine, süreçlerine ve ağ yapılandırmasına sahip izole bir çalışma ortamıdır. Bu sayede bir uygulama, geliştirici bilgisayarında nasıl çalışıyorsa, test sunucusunda ve üretim ortamında da birebir aynı şekilde çalışır.
+
+## Sanal Makinelerden Farkı
+
+Docker konteynerleri, sanal makinelerle (VM) sıkça karıştırılır ama aralarında temel bir mimari fark vardır:
+
+- **Sanal makineler**, kendi işletim sistemi çekirdeğini içerir ve bir hipervizör üzerinden fiziksel donanımı simüle eder. Bu, her VM'in gigabaytlarca disk alanı kaplamasına ve başlaması için dakikalar sürmesine sebep olur.
+- **Docker konteynerleri** ise ana makinenin işletim sistemi çekirdeğini paylaşır, sadece uygulama katmanını izole eder. Bu yüzden konteynerler çok daha hafiftir, saniyeler içinde başlar ve çok daha az kaynak tüketir.
+
+Bu fark sayesinde, tek bir fiziksel sunucu üzerinde onlarca sanal makine yerine, yüzlerce Docker konteyneri çalıştırmak mümkün hale gelir.
+
+## Temel Yapı Taşları
+
+### Image (İmaj)
+
+Bir Docker imajı, bir uygulamayı çalıştırmak için gereken her şeyi (kod, kütüphaneler, ayarlar) içeren salt okunur bir şablondur. İmajlar genellikle bir `Dockerfile` üzerinden, katman katman tanımlanır.
+
+### Container (Konteyner)
+
+Bir imajın çalışan bir örneğidir. Aynı imajdan birden fazla konteyner başlatılabilir; her biri birbirinden izole çalışır.
+
+### Dockerfile
+
+Bir imajın nasıl oluşturulacağını adım adım tanımlayan metin dosyasıdır. Hangi temel imajın kullanılacağı, hangi bağımlılıkların kurulacağı ve uygulamanın nasıl başlatılacağı burada belirtilir.
+
+### Docker Compose
+
+Birden fazla konteynerden oluşan bir uygulamayı (örneğin bir API, bir veritabanı ve bir önbellek servisi) tek bir yapılandırma dosyasıyla birlikte ayağa kaldırmayı sağlayan bir araçtır.
+
+## Neden Kullanılır?
+
+- **Tutarlılık:** "Bende çalışıyordu" sorunu büyük ölçüde ortadan kalkar; geliştirme, test ve üretim ortamları birebir aynı şekilde davranır.
+- **İzolasyon:** Bir uygulamanın bağımlılıkları, diğer uygulamaların veya ana sistemin bağımlılıklarıyla çakışmaz.
+- **Taşınabilirlik:** Bir konteyner, Docker'ın çalıştığı herhangi bir makinede (yerel bilgisayar, bulut sunucusu, farklı işletim sistemi) sorunsuz çalışır.
+- **Ölçeklenebilirlik:** Konteynerler hafif olduğu için, Kubernetes gibi orkestrasyon araçlarıyla kolayca çoğaltılabilir ve ölçeklendirilebilir.
+- **CI/CD ile uyum:** Konteynerleştirilmiş uygulamalar, otomatik test ve dağıtım pipeline'larına doğal olarak entegre olur.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ilk denediğimde neler yaşadım" kısmına. Docker'la ilk tanıştığımda, kiosk uygulamaları ve güvenli dosya transfer sistemlerini üretim ortamına taşırken, her seferinde "bu makinede şu kütüphane eksik, o makinede şu sürüm farklı" diye uğraşmaktan bezmiştim. Docker'ı öğrenip her şeyi bir imaja paketlemeye başladığımda, sanki elimde her yere aynı şekilde kurulan bir bavul varmış gibi hissettim; nereye götürsem içindekiler aynı kalıyordu.
+
+Bursa'da fabrika ortamında OT/IT tarafında çalışmış biri olarak şunu rahatlıkla söyleyebilirim: Docker konteynerleri, tam olarak fabrikadaki standart paletli kasalar gibi çalışıyor. Kasanın içindeki ürün ne olursa olsun, kasa aynı boyutta, aynı şekilde istifleniyor, aynı forklift ile taşınıyor. Uygulamanın içi (kod) değişse bile, dışarıdan bakıldığında hepsi aynı standart "kasaya" giriyor ve aynı şekilde taşınıyor.
+
+Şu an yeni bir proje kurarken ilk yaptığım işlerden biri, uygulamayı mümkün olduğunca erken bir Dockerfile'a bağlamak oluyor. Böylece "bu bende neden farklı çalışıyor" tartışmasına hiç girmeden, herkesin aynı simidi aynı fırından çıkardığından emin oluyorum.
