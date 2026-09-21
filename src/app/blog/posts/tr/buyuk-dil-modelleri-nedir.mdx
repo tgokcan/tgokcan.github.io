@@ -1,0 +1,52 @@
+---
+title: "Büyük Dil Modelleri (LLM) Nedir, Nasıl Çalışır?"
+publishedAt: "2026-09-21"
+image: "/images/gallery/buyuk-dil-modelleri-nedir.png"
+summary: "ChatGPT, Claude gibi asistanların arkasındaki teknoloji olan büyük dil modellerinin (LLM) ne olduğunu, nasıl eğitildiğini ve metin üretirken hangi adımlardan geçtiğini inceliyoruz."
+tag: "Yapay Zeka"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün büyük dil modelleri (LLM) konusu hakkında konuşacağız.
+
+## Büyük Dil Modeli (LLM) Nedir?
+
+Büyük dil modeli (Large Language Model), devasa miktarda metin verisi üzerinde eğitilmiş, bir dizi kelimeden sonra hangi kelimenin gelme olasılığının en yüksek olduğunu tahmin edebilen bir yapay sinir ağı türüdür. Bu basit görünen tahmin mekanizması, yeterince büyük bir veri ve model ölçeğiyle bir araya geldiğinde, dil bilgisi kurallarını, dünya bilgisini ve hatta belirli bir düzeyde akıl yürütme becerisini örtük olarak öğrenebilen sistemler ortaya çıkarır.
+
+Günümüzde birçok yapay zeka asistanının temelinde bu tür modeller yer alır; kullanıcının yazdığı metne (prompt) uygun, anlamlı ve tutarlı bir devam metni üretirler.
+
+## Transformer Mimarisi
+
+Modern LLM'lerin neredeyse tamamı, "Transformer" adı verilen bir mimari üzerine kuruludur. Bu mimarinin en önemli bileşeni "dikkat mekanizması" (attention mechanism) olarak adlandırılır. Dikkat mekanizması, modelin bir cümledeki her kelimeyi işlerken, cümlenin diğer kelimelerinden hangilerinin o an daha "önemli" olduğuna dinamik olarak karar vermesini sağlar.
+
+Örneğin "Masanın üzerindeki kitabı okudum, o çok ilginçti" cümlesinde, modelin "o" zamirinin "kitap"a işaret ettiğini anlaması, dikkat mekanizması sayesinde mümkün olur.
+
+## LLM'ler Nasıl Eğitilir?
+
+Bir LLM'in eğitimi genellikle iki ana aşamadan oluşur:
+
+### 1. Ön Eğitim (Pre-training)
+
+Model, internetten toplanan devasa miktarda metin üzerinde, bir sonraki kelimeyi tahmin etme göreviyle eğitilir. Bu aşamada model herhangi bir spesifik göreve göre değil, genel dil örüntülerini öğrenmeye yönelik eğitilir. Bu süreç, ciddi miktarda hesaplama gücü ve zaman gerektirir.
+
+### 2. İnce Ayar (Fine-tuning) ve Hizalama
+
+Ön eğitimden geçen model, henüz ham bir tahmin motorudur. İnsan geri bildirimiyle pekiştirmeli öğrenme (RLHF) gibi tekniklerle model, kullanıcı talimatlarını daha iyi anlayacak, daha güvenli ve daha yardımcı yanıtlar üretecek şekilde ayarlanır. Bu aşama, modelin bir "asistan" gibi davranmasını sağlayan kısımdır.
+
+## Metin Üretimi Nasıl Gerçekleşir?
+
+Bir LLM, bir defada tüm cevabı üretmez; kelime kelime (daha doğrusu "token" token) üretir. Her adımda model, o ana kadar üretilen metne bakarak bir sonraki token için bir olasılık dağılımı hesaplar ve bu dağılımdan bir token seçilir. Seçilen token, mevcut metne eklenir ve süreç bir sonraki token için tekrarlanır. Bu, cevap tamamlanana kadar devam eder.
+
+## Yaygın Sınırlamalar
+
+- **Halüsinasyon:** Model, bilmediği bir konuda bile kendinden emin görünen, ama gerçeklere dayanmayan cevaplar üretebilir.
+- **Bilgi güncelliği:** Model, yalnızca eğitim verisinin kesildiği tarihe kadar olan bilgiye sahiptir (bu sınırlama, RAG gibi tekniklerle aşılabilir).
+- **Akıl yürütme sınırları:** Model, çok adımlı, karmaşık mantıksal problemlerde tutarsız sonuçlar üretebilir.
+- **Önyargı:** Eğitim verisindeki önyargılar, modelin ürettiği çıktılara da yansıyabilir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu kendi bilgisayarımda nasıl denedim" kısmına. Ollama ve LM Studio ile yerel LLM'ler çalıştırmaya başladığımda, ilk aklıma gelen "koca bir dil modelini kendi bilgisayarımda mı çalıştıracağım" şaşkınlığı oldu. Sonra fark ettim ki model, aslında devasa bir kütüphaneyi ezberlemiş değil; her adımda sadece "şimdi hangi kelime mantıklı olur" sorusuna cevap arıyor, ama bunu inanılmaz sayıda örnekten öğrendiği örüntülerle yapıyor.
+
+Bursa'da büyümüş biri olarak şunu söylemeden geçemeyeceğim: LLM'in token token üretim yapması, bana hep dedemin hikaye anlatma tarzını hatırlatıyor. Dedem hiçbir zaman hikayenin sonunu baştan bilmiyormuş gibi anlatırdı; her cümleden sonra, önceki anlattıklarına bakıp "şimdi ne olsa mantıklı olur" diye devam ederdi. LLM de tam olarak böyle çalışıyor — her kelimeden sonra, o ana kadar söylediklerine bakıp bir sonraki kelimeye karar veriyor.
+
+Şu an kendi projelerimde küçük ölçekli modelleri yerel olarak çalıştırıp, RAG ile bilgi tabanına bağlayarak denemeler yapıyorum. En çok keyif aldığım kısım, modelin "bilmiyorum, ama şuna bakayım" diyebilecek şekilde davranmasını sağlamak. Tıpkı dedemin bir noktada "dur bakayım, gerçekten öyle miydi" diyip konuyu doğrulamaya gitmesi gibi — model de böyle "dur, önce kontrol edeyim" diyebildiğinde, ortaya çok daha güvenilir bir sonuç çıkıyor.

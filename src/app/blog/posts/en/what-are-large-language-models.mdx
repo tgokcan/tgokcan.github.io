@@ -1,0 +1,53 @@
+---
+title: "What Are Large Language Models (LLMs) and How Do They Work?"
+publishedAt: "2026-09-21"
+image: "/images/gallery/buyuk-dil-modelleri-nedir.png"
+summary: "Exploring large language models (LLMs), the technology behind assistants like ChatGPT and Claude — what they are, how they're trained, and the steps they go through to generate text."
+tag: "AI"
+translationSlug: "buyuk-dil-modelleri-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about large language models (LLMs).
+
+## What Is a Large Language Model (LLM)?
+
+A large language model is a type of neural network trained on a massive amount of text data, capable of predicting which word is most likely to come next after a given sequence of words. This seemingly simple prediction mechanism, when combined with a large enough scale of data and model size, gives rise to systems that implicitly learn grammar, world knowledge, and even a certain level of reasoning ability.
+
+Many AI assistants today are built on top of models like this; they take the text a user writes (a prompt) and generate a coherent, meaningful continuation of it.
+
+## The Transformer Architecture
+
+Nearly all modern LLMs are built on an architecture called the "Transformer." The most important component of this architecture is the "attention mechanism." Attention lets the model dynamically decide, as it processes each word in a sentence, which of the other words in that sentence matter most at that moment.
+
+For example, in the sentence "I read the book on the table, it was really interesting," the attention mechanism is what allows the model to figure out that "it" refers to "book."
+
+## How Are LLMs Trained?
+
+Training an LLM generally consists of two main stages:
+
+### 1. Pre-training
+
+The model is trained on a massive amount of text gathered from the internet, with the task of predicting the next word. At this stage, the model isn't trained for any specific task — it's learning general language patterns. This process requires a serious amount of compute and time.
+
+### 2. Fine-tuning and Alignment
+
+A model that has only gone through pre-training is still a raw prediction engine. Using techniques like reinforcement learning from human feedback (RLHF), the model is further adjusted so it can better understand user instructions and produce safer, more helpful responses. This is the stage that turns the model into something that behaves like an "assistant."
+
+## How Does Text Generation Actually Happen?
+
+An LLM doesn't generate its entire answer all at once — it generates it token by token (roughly, word by word). At each step, the model looks at the text generated so far, computes a probability distribution over the possible next tokens, and picks one from that distribution. The chosen token gets appended to the text, and the process repeats for the next token. This continues until the response is complete.
+
+## Common Limitations
+
+- **Hallucination:** The model can produce answers that sound confident even when it doesn't actually know the answer, without those answers being grounded in fact.
+- **Knowledge staleness:** The model only knows what was in its training data up to a certain cutoff date (a limitation that techniques like RAG can help work around).
+- **Reasoning limits:** The model can produce inconsistent results on complex, multi-step logical problems.
+- **Bias:** Biases present in the training data can show up in the model's outputs as well.
+
+## What Am I Up To?
+
+Now for the "how I tried this out on my own machine" part. When I started running local LLMs with Ollama and LM Studio, my first reaction was pure disbelief — "wait, I'm going to run an entire language model on my own computer?" Then I realized the model hasn't actually memorized some giant library; at every step, it's just answering the question "what word makes sense right now," using patterns it learned from an unbelievable number of examples.
+
+Having grown up in Bursa, I can't help but mention: the way an LLM generates text token by token always reminds me of the way my grandfather used to tell stories. He never told a story as if he already knew the ending from the start; after every sentence, he'd look back at what he'd already said and continue with whatever made sense next. That's exactly how an LLM works — after every word, it looks at everything said so far and decides on the next one.
+
+These days, in my own projects, I've been running small-scale models locally and experimenting with connecting them to a knowledge base through RAG. The part I enjoy most is getting the model to behave in a way where it can say "I don't know, but let me check." It reminds me of my grandfather pausing mid-story to say "hold on, was that really how it happened" and going to verify it — when a model can do the same, pause and say "let me check first," what comes out the other end is a lot more trustworthy.
