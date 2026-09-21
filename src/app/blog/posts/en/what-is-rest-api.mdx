@@ -1,0 +1,56 @@
+---
+title: "What Is a REST API? Core Principles and Good Design Practices"
+publishedAt: "2026-09-20"
+image: "/images/gallery/rest-api-nedir.png"
+summary: "Exploring REST APIs, one of the cornerstones of web services — what they are, the principles they're built on, and what makes for good API design."
+tag: "Backend"
+translationSlug: "rest-api-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about REST APIs.
+
+## What Is a REST API?
+
+REST (Representational State Transfer) is an architectural style used for communication between systems. A REST API is a web service built around these principles, operating over the HTTP protocol. Today, you'll run into REST APIs almost everywhere — from mobile apps to web interfaces, from integrations between different systems to communication between microservices.
+
+At its core, REST is about representing resources through URLs and manipulating those resources using standard HTTP methods (GET, POST, PUT, DELETE, etc.). In an e-commerce system, for instance, `/products/42` represents the product with ID 42; a GET request to that address returns the product's details, while a DELETE request removes it.
+
+## Core Principles of REST
+
+### Client-Server Separation
+
+The client and the server can be developed and scaled independently of one another. The client deals only with the interface, while the server handles the data and business logic.
+
+### Statelessness
+
+Every request must carry all the information the server needs within itself. The server doesn't keep any session state about the client between requests, which makes the system much easier to scale.
+
+### Cacheability
+
+Responses should be cacheable whenever appropriately marked as such. This improves performance by avoiding unnecessary repeat requests.
+
+### Layered System
+
+The client doesn't need to know whether it's talking directly to the server or to a load balancer or gateway in between. This lets the system be extended with additional layers without breaking anything.
+
+### Uniform Interface
+
+Access to resources happens in a standard, consistent way — through URIs, HTTP methods, and standard status codes. This consistency is what makes an API easy to learn and use.
+
+## What Makes for Good REST API Design
+
+- **Resource-oriented URLs:** URLs should contain nouns, not verbs. `/products/42` is preferred over something like `/getProduct`.
+- **Using the right HTTP methods:** GET for reading data, POST for creating, PUT/PATCH for updating, and DELETE for removing.
+- **Meaningful status codes:** Use 200/201 consistently for success, the 400 series for client errors, and the 500 series for server errors.
+- **Versioning:** Since an API will inevitably change over time, a versioning strategy — like `/v1/`, `/v2/` — should be planned from the start to avoid breaking backward compatibility.
+- **Clear error messages:** When a request fails, the client should get back a clear, structured error body that actually explains what went wrong.
+- **Pagination:** When returning large datasets, use pagination instead of sending every record at once.
+- **Authentication and authorization:** Access to sensitive resources should be protected by a token-based authentication mechanism, such as JWT.
+
+## What Am I Up To?
+
+Now for the "how I learned this the hard way on the ERP side" part. When I first started building REST APIs integrated with IFS ERP, I honestly didn't think that hard about how to structure my URLs. The result, a few months later, was staring at my own API and thinking "what on earth did this endpoint even do?" From that day on, I learned the hard way that consistent, resource-oriented naming isn't a luxury — it's a necessity.
+
+Having grown up around the shopkeeper culture in Bursa, I'll put it this way: a good REST API should be like a well-organized bazaar. Every shop (resource) has a clear sign, it's obvious what's sold where, and price tags (status codes) are standardized. A badly designed API, on the other hand, is like a shop with no sign at all, where you can't tell what's being sold without walking in and asking — the customer (developer) has to step in and ask every single time.
+
+Nowadays, before writing a new endpoint, I always ask myself: "Could someone looking at this URL guess what it does without ever checking the documentation?" If the answer is no, I probably named it wrong. Just like glancing at a street vendor's cart tells you what they're selling, an API needs to be able to explain itself too.

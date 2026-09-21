@@ -1,0 +1,55 @@
+---
+title: "REST API Nedir? Temel Prensipler ve İyi Tasarım Pratikleri"
+publishedAt: "2026-09-20"
+image: "/images/gallery/rest-api-nedir.png"
+summary: "Web servislerinin temel taşlarından REST API'nin ne olduğunu, dayandığı prensipleri ve iyi bir API tasarımında dikkat edilmesi gereken noktaları inceliyoruz."
+tag: "Backend"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün REST API konusu hakkında konuşacağız.
+
+## REST API Nedir?
+
+REST (Representational State Transfer), sistemler arası iletişim için kullanılan bir mimari stildir. Bir REST API, bu prensiplere uygun şekilde tasarlanmış, HTTP protokolü üzerinden çalışan bir web servisidir. Günümüzde mobil uygulamalardan web arayüzlerine, farklı sistemlerin birbirleriyle entegrasyonundan mikroservisler arası iletişime kadar hemen her yerde REST API'lerle karşılaşılır.
+
+REST'in temelinde, kaynakların (resource) URL'ler üzerinden temsil edilmesi ve bu kaynaklar üzerinde standart HTTP metotları (GET, POST, PUT, DELETE vb.) ile işlem yapılması yatar. Örneğin bir e-ticaret sisteminde `/products/42` adresi, kimliği 42 olan ürünü temsil eder; bu adrese GET isteği gönderildiğinde ürünün bilgisi döner, DELETE isteği gönderildiğinde ise ürün silinir.
+
+## REST'in Temel Prensipleri
+
+### İstemci-Sunucu Ayrımı
+
+İstemci (client) ve sunucu (server), birbirinden bağımsız olarak geliştirilebilir ve ölçeklendirilebilir. İstemci yalnızca arayüzle, sunucu ise veri ve iş mantığıyla ilgilenir.
+
+### Durumsuzluk (Statelessness)
+
+Her istek, sunucunun ihtiyaç duyduğu tüm bilgiyi kendi içinde taşımalıdır. Sunucu, istekler arasında istemciye dair bir oturum bilgisi tutmaz; bu da sistemin ölçeklenmesini kolaylaştırır.
+
+### Önbelleğe Alınabilirlik (Cacheability)
+
+Yanıtlar, uygun şekilde işaretlendiğinde önbelleğe alınabilir olmalıdır. Bu, gereksiz tekrar isteklerin önüne geçerek performansı artırır.
+
+### Katmanlı Sistem
+
+İstemci, doğrudan sunucuyla mı yoksa aradaki bir yük dengeleyici veya ağ geçidiyle mi konuştuğunu bilmek zorunda değildir. Bu, sistemin farklı katmanlar eklenerek genişletilebilmesini sağlar.
+
+### Tekdüze Arayüz (Uniform Interface)
+
+Kaynaklara erişim, standart ve tutarlı bir şekilde (URI'ler, HTTP metotları, standart durum kodları üzerinden) yapılır. Bu tutarlılık, API'yi öğrenmeyi ve kullanmayı kolaylaştırır.
+
+## İyi Bir REST API Tasarımında Dikkat Edilmesi Gerekenler
+
+- **Kaynak odaklı URL'ler:** URL'ler fiil değil, isim içermelidir. `/getProduct` yerine `/products/42` gibi bir yapı tercih edilmelidir.
+- **Doğru HTTP metotlarının kullanımı:** Veri okumak için GET, oluşturmak için POST, güncellemek için PUT/PATCH, silmek için DELETE kullanılmalıdır.
+- **Anlamlı durum kodları:** Başarılı bir işlem için 200/201, istemci hatası için 400 serisi, sunucu hatası için 500 serisi kodlar tutarlı bir şekilde kullanılmalıdır.
+- **Versiyonlama:** API zamanla değişeceği için, geriye dönük uyumluluğu bozmamak adına `/v1/`, `/v2/` gibi bir versiyonlama stratejisi baştan planlanmalıdır.
+- **Anlaşılır hata mesajları:** Bir istek başarısız olduğunda, istemcinin sorunu anlayabileceği açık ve yapılandırılmış bir hata gövdesi dönülmelidir.
+- **Sayfalama (Pagination):** Büyük veri kümeleri döndürülürken, tüm kayıtları tek seferde göndermek yerine sayfalama mekanizmaları kullanılmalıdır.
+- **Kimlik doğrulama ve yetkilendirme:** Hassas kaynaklara erişim, token tabanlı (örneğin JWT) bir kimlik doğrulama mekanizmasıyla korunmalıdır.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ERP tarafında nasıl acı çekerek öğrendim" kısmına. IFS ERP entegrasyonlu REST API'ler geliştirirken ilk başta URL yapılarını nasıl kurgulayacağıma çok kafa yormamıştım; sonuç, birkaç ay sonra kendi yazdığım API'ye bakıp "bu endpoint ne iş yapıyordu ya" diye düşünmek oldu. O günden sonra kaynak odaklı, tutarlı bir isimlendirmenin lüks değil, zorunluluk olduğunu acı bir şekilde öğrendim.
+
+Bursa'da esnaflık kültürüyle büyümüş biri olarak şunu söyleyebilirim: iyi bir REST API, düzenli bir çarşı gibi olmalı. Her dükkanın (kaynağın) bir tabelası var, nerede ne satıldığı belli, fiyat etiketleri (durum kodları) standart. Kötü tasarlanmış bir API ise, tabelası olmayan, içine girmeden ne sattığını anlayamadığın bir dükkan gibi; müşteri (geliştirici) her seferinde içeri girip sormak zorunda kalıyor.
+
+Şu an yeni bir endpoint yazmadan önce kendime hep şu soruyu soruyorum: "Bu URL'e bakan biri, dokümantasyona hiç bakmadan ne yaptığını tahmin edebilir mi?" Cevap hayırsa, muhtemelen ismi yanlış koymuşumdur. Tıpkı simitçinin tezgahına bakınca ne sattığını anlaman gibi, API'nin de kendini açıklaması gerekiyor.
