@@ -1,0 +1,60 @@
+---
+title: "Clean Architecture Nedir? Katmanlı Yazılım Mimarisine Giriş"
+publishedAt: "2026-09-23"
+image: "/images/gallery/clean-architecture-nedir.png"
+summary: "Robert C. Martin'in ortaya koyduğu Clean Architecture yaklaşımının ne olduğunu, katmanlarını ve bağımlılık kuralının neden bu kadar önemli olduğunu inceliyoruz."
+tag: "Yazılım Mimarisi"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün Clean Architecture konusu hakkında konuşacağız.
+
+## Clean Architecture Nedir?
+
+Clean Architecture, Robert C. Martin (Uncle Bob) tarafından ortaya konmuş, bir yazılım sistemini iş mantığını merkeze alacak şekilde katmanlara ayıran bir mimari yaklaşımdır. Temel amacı, uygulamanın en değerli parçası olan iş kurallarını; veritabanı, kullanıcı arayüzü, framework gibi dış dünyaya ait teknik detaylardan tamamen bağımsız hale getirmektir.
+
+Bu yaklaşımın arkasındaki fikir basittir: bir e-ticaret sisteminin "bir siparişin nasıl onaylandığı" kuralı, kullanılan veritabanının MSSQL mi PostgreSQL mi olduğuyla, ya da arayüzün React mi Next.js mi olduğuyla ilgilenmemelidir. İş kuralları, bu teknik detaylar değişse bile aynı kalmaya devam etmelidir.
+
+## Katmanlar
+
+Clean Architecture, genellikle iç içe geçmiş halkalar şeklinde tasvir edilir. Merkeze gidildikçe soyutlama artar, dışa çıkıldıkça teknik detaylar artar.
+
+### Entities (Varlıklar)
+
+En merkezdeki katmandır. Uygulamanın en temel iş kurallarını ve nesnelerini içerir. Bu katman, herhangi bir framework'e, veritabanına ya da kullanıcı arayüzüne bağımlı değildir; teorik olarak farklı bir uygulamada bile yeniden kullanılabilir.
+
+### Use Cases (Uygulama İş Kuralları)
+
+Uygulamaya özgü iş akışlarını tanımlar. "Bir siparişin nasıl oluşturulacağı", "bir kullanıcının nasıl kaydolacağı" gibi senaryolar burada yer alır. Bu katman, Entities katmanına bağımlıdır ama dış katmanlardan habersizdir.
+
+### Interface Adapters
+
+Use Cases katmanı ile dış dünya (veritabanı, web, kullanıcı arayüzü) arasında çeviri yapan katmandır. Controller'lar, presenter'lar ve repository arayüzlerinin implementasyonları genellikle burada bulunur.
+
+### Frameworks & Drivers
+
+En dıştaki katmandır. Veritabanı, web framework'ü, harici servisler gibi teknik detayların yaşadığı yerdir. Bu katman, en değişken katmandır ve iş mantığından tamamen izole edilmiştir.
+
+## Bağımlılık Kuralı
+
+Clean Architecture'ın kalbinde "bağımlılık kuralı" (dependency rule) yatar: kaynak kod bağımlılıkları yalnızca içe doğru işaret edebilir. Dıştaki bir katman, içteki bir katmana bağımlı olabilir; ama içteki bir katman, dışarıdaki hiçbir şeyi bilemez.
+
+Bu kural sayesinde, örneğin veritabanı teknolojisi değiştirildiğinde, sadece en dıştaki katmanda değişiklik yapmak yeterli olur; iş mantığı katmanlarına dokunmaya gerek kalmaz. Bu, "bağımlılığın tersine çevrilmesi" (Dependency Inversion) prensibinin mimari seviyede uygulanmasıdır.
+
+## Neden Kullanılır?
+
+- **Test edilebilirlik:** İş mantığı, veritabanı veya framework'e bağımlı olmadığı için, dış bağımlılıklar sahte (mock) nesnelerle değiştirilerek kolayca test edilebilir.
+- **Framework bağımsızlığı:** Kullanılan web framework'ü ya da ORM değiştirilmek istendiğinde, iş mantığı katmanlarına dokunmaya gerek kalmaz.
+- **Sürdürülebilirlik:** Sorumluluklar net bir şekilde ayrıldığı için, büyüyen bir kod tabanında yön bulmak ve değişiklik yapmak kolaylaşır.
+- **Veritabanı bağımsızlığı:** İş kuralları, hangi veritabanı teknolojisinin kullanıldığından habersiz olduğu için, veritabanı değişikliği daha az riskli hale gelir.
+
+## Getirdiği Zorluklar
+
+Clean Architecture, her projeye uygun bir çözüm değildir. Küçük, kısa ömürlü projelerde, bu kadar çok katman ve soyutlama, gereksiz bir karmaşıklık olarak geri dönebilir. Basit bir CRUD uygulaması için dört ayrı katman kurmak, çoğu zaman "aşırı mühendislik" (over-engineering) olarak değerlendirilir. Bu yaklaşım, iş mantığının zamanla büyüyeceği ve uzun ömürlü olacağı, orta-büyük ölçekli projelerde asıl değerini gösterir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ERP entegrasyonunda nasıl deneyimledim" kısmına. IFS ERP entegrasyonlu REST API'ler geliştirirken Clean Architecture'ı kullanmamın asıl sebebi, ERP tarafının kendi içinde zaten yeterince karmaşık ve değişken olmasıydı. IFS'in bir alanının adı ya da bir entegrasyon endpoint'i değiştiğinde, bunun tüm sistemi baştan aşağı etkilemesini istemiyordum. Katmanları doğru ayırınca, değişiklik sadece en dıştaki adaptör katmanında kalıyordu; iş kuralları yerinde duruyordu.
+
+Bursa'da fabrika ortamında büyümüş biri olarak şunu rahatlıkla söyleyebilirim: Clean Architecture, tam olarak bir fabrikadaki üretim hattı ile idari ofis arasındaki ayrıma benziyor. Üretim hattındaki temel kurallar (bir ürünün nasıl imal edileceği) sabit kalır; ama o ürünü hangi yazılımla takip ettiğiniz, hangi ERP'yi kullandığınız zamanla değişebilir. Üretim hattını (iş mantığını), hangi yazılımı kullandığınızdan (framework, veritabanı) bağımsız tutmazsanız, her yazılım değişikliğinde koca hattı yeniden kurmak zorunda kalırsınız.
+
+Şu an yeni bir proje kurarken kendime hep şunu soruyorum: "Bu kararı, framework'ü ya da veritabanını değiştirsem bile aynı kalması gereken bir yere mi yazıyorum, yoksa değişmesi normal olan bir yere mi?" Tıpkı simidin tarifini (iş mantığını) hangi fırında pişirdiğinizden (teknik detaylardan) bağımsız tutmak gibi — tarif aynı kaldığı sürece, fırını değiştirmek sorun olmuyor.

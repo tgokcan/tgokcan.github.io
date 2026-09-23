@@ -1,0 +1,61 @@
+---
+title: "What Is Clean Architecture? An Introduction to Layered Software Design"
+publishedAt: "2026-09-23"
+image: "/images/gallery/clean-architecture-nedir.png"
+summary: "Exploring Clean Architecture, the approach popularized by Robert C. Martin — its layers, and why the dependency rule matters so much."
+tag: "Software Architecture"
+translationSlug: "clean-architecture-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about Clean Architecture.
+
+## What Is Clean Architecture?
+
+Clean Architecture is an architectural approach introduced by Robert C. Martin (Uncle Bob) that organizes a software system into layers built around the business logic at its center. Its core goal is to keep the most valuable part of an application — its business rules — completely independent from technical details belonging to the outside world, like the database, the user interface, or the framework.
+
+The idea behind this approach is simple: an e-commerce system's rule for "how an order gets approved" shouldn't care whether the database is MSSQL or PostgreSQL, or whether the UI is built with React or Next.js. The business rules should stay the same even if all of those technical details change.
+
+## The Layers
+
+Clean Architecture is usually depicted as a set of concentric rings. The closer you get to the center, the more abstract things become; the closer you get to the outside, the more technical details there are.
+
+### Entities
+
+The innermost layer. It contains the application's most fundamental business rules and objects. This layer has no dependency on any framework, database, or UI — in theory, it could even be reused in a completely different application.
+
+### Use Cases (Application Business Rules)
+
+This layer defines workflows specific to the application — scenarios like "how an order gets created" or "how a user registers." It depends on the Entities layer, but knows nothing about the layers outside it.
+
+### Interface Adapters
+
+This is the layer that translates between the Use Cases layer and the outside world — the database, the web, the UI. Controllers, presenters, and repository implementations typically live here.
+
+### Frameworks & Drivers
+
+The outermost layer. This is where technical details like the database, the web framework, and external services live. It's the most volatile layer, and it's kept completely isolated from the business logic.
+
+## The Dependency Rule
+
+At the heart of Clean Architecture lies the "dependency rule": source code dependencies can only point inward. An outer layer can depend on an inner layer, but an inner layer can never know anything about what's outside it.
+
+This rule means that, for example, if you change your database technology, you only need to modify the outermost layer — the business logic layers don't need to be touched at all. This is the Dependency Inversion principle applied at the architectural level.
+
+## Why Use It?
+
+- **Testability:** Since business logic doesn't depend on the database or the framework, external dependencies can be swapped out with mocks, making it easy to test.
+- **Framework independence:** If you want to switch the web framework or the ORM you're using, you don't need to touch the business logic layers.
+- **Maintainability:** Because responsibilities are clearly separated, it becomes easier to navigate and change a growing codebase.
+- **Database independence:** Since the business rules have no awareness of which database technology is used, switching databases becomes far less risky.
+
+## Challenges It Brings
+
+Clean Architecture isn't the right fit for every project. In small, short-lived projects, this many layers and this much abstraction can come back around as unnecessary complexity. Setting up four separate layers for a simple CRUD app is often considered over-engineering. This approach shows its real value in medium-to-large projects where the business logic is expected to grow and live for a long time.
+
+## What Am I Up To?
+
+Now for the "how I actually experienced this in ERP integration" part. When I was building REST APIs integrated with IFS ERP, the real reason I reached for Clean Architecture was that the ERP side was already complicated and volatile enough on its own. When an IFS field name or an integration endpoint changed, I didn't want that ripple through the entire system from top to bottom. Once I split the layers properly, a change stayed contained to the outermost adapter layer — the business rules stayed right where they were.
+
+Having grown up around factory culture in Bursa, I'll put it this way: Clean Architecture is a lot like the separation between a factory's production line and its administrative office. The core rules on the production line — how a product actually gets manufactured — stay fixed, but which software you use to track that product, which ERP system you run, can change over time. If you don't keep the production line (the business logic) independent from which software you're using (the framework, the database), you end up having to rebuild the entire line from scratch every time the software changes.
+
+These days, when I'm setting up a new project, I always ask myself: "Am I writing this decision somewhere that should stay the same even if I swap out the framework or the database, or somewhere that's expected to change?" It's a bit like keeping a bagel's recipe (the business logic) independent from which oven (the technical details) you bake it in — as long as the recipe stays the same, changing the oven is never a problem.
