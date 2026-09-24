@@ -1,0 +1,75 @@
+---
+title: "What Is Kubernetes? An Introduction to Container Orchestration"
+publishedAt: "2026-09-24"
+image: "/images/gallery/kubernetes-nedir.jpg"
+summary: "Exploring Kubernetes, the platform that manages, scales, and keeps Docker containers running at scale — its core components and how it actually works."
+tag: "DevOps"
+translationSlug: "kubernetes-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about Kubernetes.
+
+## What Is Kubernetes?
+
+Kubernetes (K8s for short) is an open-source orchestration platform that automates the deployment, scaling, and management of containerized applications. It was built drawing on Google's own internal systems, and today it has become the de facto industry standard for container-based systems.
+
+Running one or a handful of Docker containers is relatively easy; but keeping hundreds, even thousands, of containers running reliably and consistently across different servers is not something you can manage by hand. This is exactly where Kubernetes comes in: it decides which container runs where, how a new one gets started when one crashes, and how traffic gets distributed across all these containers.
+
+## Why Is It Needed?
+
+Docker is a great solution for packaging an application and running it consistently, but on its own, it doesn't answer questions like:
+
+- When a server goes down, how do the containers on it automatically get moved to another server?
+- When traffic increases, who decides — and how — how many copies of the same application need to be running?
+- When a new version is being rolled out, how do you make that transition without users experiencing any downtime?
+- How do you manage network traffic and service discovery across hundreds of containers?
+
+Kubernetes answers these questions in an automated, declarative way: the developer defines "how the system should look," and Kubernetes continuously works to bring the current state closer to that desired state.
+
+## Core Components
+
+### Pod
+
+The smallest deployable unit in Kubernetes. It usually contains a single container, though multiple tightly coupled containers can also run together inside the same Pod.
+
+### Node
+
+A physical or virtual server that Pods run on. A Kubernetes cluster consists of multiple Nodes.
+
+### Deployment
+
+A resource that defines how many copies (replicas) of a given application should be running and how those copies should be updated. If a Pod crashes, the Deployment automatically starts a new one in its place.
+
+### Service
+
+An abstraction layer that provides a stable network address for a group of Pods, independent of their changing IP addresses. Even as Pods come and go, access through a Service stays consistent.
+
+### Control Plane
+
+Think of this as the cluster's "brain." It decides which Pod runs on which Node, continuously compares the cluster's current state against the desired state, and takes corrective action whenever needed.
+
+## How Does Kubernetes Work?
+
+A developer declares something like "run 5 copies of this application, each using this much CPU and memory" as a YAML file and submits it to Kubernetes. The Control Plane picks up this definition and distributes the Pods across the available Nodes accordingly.
+
+The system continuously monitors the gap between the "desired state" and the "current state." If a Pod crashes, the Control Plane notices and automatically starts a new one to get back to the desired state. This self-healing ability is one of Kubernetes' most powerful features.
+
+## Advantages It Brings
+
+- **Automatic scaling:** The number of Pods can be automatically increased or decreased based on traffic.
+- **Self-healing:** A crashed Pod gets automatically restarted with no human intervention.
+- **Zero-downtime deployment:** New versions can be rolled out using strategies like rolling updates without any interruption for users.
+- **Resource efficiency:** Kubernetes distributes applications across Nodes efficiently, making better use of available hardware.
+- **Cloud independence:** Kubernetes can run consistently across different cloud providers, or even on-premises.
+
+## Challenges It Brings
+
+Kubernetes' power comes with a serious learning curve and a fair amount of operational complexity. For small-scale, low-traffic applications, setting up Kubernetes is often more engineering than the situation calls for. A simple Docker Compose setup is still more than enough for many small projects, and requires far less maintenance.
+
+## What Am I Up To?
+
+Now for the "how I learned this step by step" part. Once I learned Docker and figured out how to package applications into a single container, the natural next question started nagging at me: "okay, but what happens if dozens of these containers crash at the same time?" When I first looked into Kubernetes, the sheer number of concepts was intimidating — but once I grasped the core idea, "I define the state I want, and the system keeps working to maintain it," everything clicked into place.
+
+Having worked on the OT/IT side of a production floor in Bursa, I can say this with confidence: Kubernetes behaves exactly like a shift supervisor on a factory floor. A shift supervisor knows how many workers should be at each station on the line; if someone calls in sick, they put someone else in that spot and never let the line stop. Kubernetes works the same way — it enforces a rule like "5 copies of this app should always be running," and if one crashes, it puts a new one in its place. The line doesn't stop even while you're asleep.
+
+For my smaller projects, I'm still getting by just fine with Docker Compose; but in a scenario where traffic and scale grow significantly, I really do think Kubernetes' "self-healing shift supervisor" logic earns its keep. It's a bit like how a single street vendor is enough for a small stand, but once production volume grows large enough, you genuinely need a shift supervisor — orchestration — to keep things running.

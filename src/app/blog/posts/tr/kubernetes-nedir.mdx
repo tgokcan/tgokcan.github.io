@@ -1,0 +1,74 @@
+---
+title: "Kubernetes Nedir? Konteyner Orkestrasyonuna Giriş"
+publishedAt: "2026-09-24"
+image: "/images/gallery/kubernetes-nedir.png"
+summary: "Docker konteynerlerini büyük ölçekte yönetmeyi, ölçeklendirmeyi ve ayakta tutmayı sağlayan Kubernetes'in ne olduğunu, temel bileşenlerini ve çalışma mantığını inceliyoruz."
+tag: "DevOps"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün Kubernetes konusu hakkında konuşacağız.
+
+## Kubernetes Nedir?
+
+Kubernetes (kısaca K8s), konteynerleştirilmiş uygulamaların dağıtımını, ölçeklendirilmesini ve yönetimini otomatikleştiren, açık kaynaklı bir orkestrasyon platformudur. Google'ın kendi iç sistemlerinden ilham alınarak geliştirilmiş ve günümüzde konteyner tabanlı sistemlerin fiili endüstri standardı haline gelmiştir.
+
+Bir ya da birkaç Docker konteyneri çalıştırmak nispeten kolaydır; ama yüzlerce, hatta binlerce konteyneri, farklı sunucular üzerinde, kesintisiz ve tutarlı bir şekilde ayakta tutmak, elle yönetilebilecek bir iş değildir. Kubernetes, tam olarak bu noktada devreye girer: hangi konteynerin nerede çalışacağına, bir konteyner çöktüğünde onun yerine yenisinin nasıl başlatılacağına ve trafiğin bu konteynerler arasında nasıl dağıtılacağına karar verir.
+
+## Neden İhtiyaç Duyulur?
+
+Docker, bir uygulamayı paketlemek ve tutarlı şekilde çalıştırmak için harika bir çözümdür; ama tek başına şu sorulara cevap vermez:
+
+- Bir sunucu çöktüğünde, üzerindeki konteynerler otomatik olarak başka bir sunucuya nasıl taşınır?
+- Trafik arttığında, aynı uygulamanın kaç kopyasının çalışması gerektiğine kim, nasıl karar verir?
+- Yeni bir sürüm dağıtılırken, kullanıcılar kesinti yaşamadan bu geçiş nasıl sağlanır?
+- Yüzlerce konteyner arasında ağ trafiği ve servis keşfi (service discovery) nasıl yönetilir?
+
+Kubernetes, bu sorulara otomatik ve deklaratif (bildirimsel) bir şekilde cevap verir: geliştirici, "sistemin nasıl olmasını istediğini" tanımlar, Kubernetes de mevcut durumu sürekli bu hedef duruma yaklaştırmaya çalışır.
+
+## Temel Bileşenler
+
+### Pod
+
+Kubernetes'te dağıtılabilen en küçük birimdir. Genellikle tek bir konteyner içerir, ama birbirine sıkı bağlı birden fazla konteyner de aynı Pod içinde birlikte çalışabilir.
+
+### Node
+
+Pod'ların üzerinde çalıştığı fiziksel veya sanal bir sunucudur. Bir Kubernetes kümesi (cluster), birden fazla Node'dan oluşur.
+
+### Deployment
+
+Belirli bir uygulamanın kaç kopyasının (replica) çalışması gerektiğini ve bu kopyaların nasıl güncelleneceğini tanımlayan bir kaynaktır. Bir Pod çökerse, Deployment onun yerine otomatik olarak yenisini başlatır.
+
+### Service
+
+Bir grup Pod'a, değişen IP adreslerinden bağımsız, sabit bir ağ adresi üzerinden erişim sağlayan soyutlama katmanıdır. Pod'lar sürekli oluşup yok olsa bile, Service üzerinden erişim tutarlı kalır.
+
+### Control Plane
+
+Kümenin "beyni" olarak düşünülebilir. Hangi Pod'un hangi Node üzerinde çalışacağına karar verir, kümenin mevcut durumunu istenen durumla sürekli karşılaştırır ve gerektiğinde düzeltici aksiyonlar alır.
+
+## Kubernetes Nasıl Çalışır?
+
+Bir geliştirici, "bu uygulamanın 5 kopyası çalışsın, her biri şu kadar CPU ve bellek kullansın" gibi bir tanımı YAML dosyası olarak Kubernetes'e bildirir. Kubernetes'in Control Plane bileşeni, bu tanımı alır ve kümedeki mevcut Node'lara göre Pod'ları uygun şekilde dağıtır.
+
+Sistem sürekli olarak "istenen durum" ile "mevcut durum" arasındaki farkı izler. Bir Pod çökerse, Control Plane bunu fark eder ve otomatik olarak yeni bir Pod başlatarak istenen duruma geri döner. Bu kendi kendini onarma (self-healing) yeteneği, Kubernetes'in en güçlü özelliklerinden biridir.
+
+## Getirdiği Avantajlar
+
+- **Otomatik ölçeklendirme:** Trafiğe göre Pod sayısı otomatik olarak artırılıp azaltılabilir.
+- **Kendi kendini onarma:** Çöken bir Pod, insan müdahalesi olmadan otomatik olarak yeniden başlatılır.
+- **Kesintisiz dağıtım:** Yeni sürümler, rolling update gibi stratejilerle kullanıcı kesintisi yaşanmadan dağıtılabilir.
+- **Kaynak verimliliği:** Kubernetes, uygulamaları Node'lar arasında verimli şekilde dağıtarak donanım kaynaklarının daha iyi kullanılmasını sağlar.
+- **Bulut bağımsızlığı:** Kubernetes, farklı bulut sağlayıcıları arasında (hatta yerel sunucularda) tutarlı bir şekilde çalışabilir.
+
+## Getirdiği Zorluklar
+
+Kubernetes'in gücü, beraberinde ciddi bir öğrenme eğrisi ve operasyonel karmaşıklık getirir. Küçük ölçekli, düşük trafikli uygulamalar için Kubernetes kurmak, çoğu zaman gereğinden fazla mühendisliktir. Basit bir Docker Compose kurulumu, birçok küçük proje için hâlâ yeterli ve çok daha az bakım gerektiren bir çözümdür.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bu işi nasıl kademeli öğrendim" kısmına. Docker'ı öğrenip uygulamaları tek bir konteynerde paketlemeyi çözdükten sonra, doğal olarak "peki ya bu konteynerlerden onlarcası aynı anda çökerse" sorusu kafamı kurcalamaya başladı. Kubernetes'e ilk baktığımda kavram sayısının çokluğu gözümü korkuttu; ama işin özünde, "istediğim durumu tanımlıyorum, sistem onu sürekli sağlamaya çalışıyor" fikrini kavrayınca her şey oturdu.
+
+Bursa'da üretim hattı ortamında OT/IT tarafında çalışmış biri olarak şunu rahatlıkla söyleyebilirim: Kubernetes, tam olarak bir fabrikadaki vardiya amiri gibi davranıyor. Vardiya amiri, hattaki her istasyonda kaç işçinin olması gerektiğini bilir; biri hastalanıp ayrılırsa, yerine başka birini koyar, hattın durmasına izin vermez. Kubernetes de aynı şekilde, "bu uygulamanın her zaman 5 kopyası ayakta olsun" kuralını koyup, biri çökerse yerine yenisini koyuyor; siz uykuya dalarken bile hat durmuyor.
+
+Şu an küçük projelerimde hâlâ Docker Compose ile idare ediyorum; ama trafiğin ve ölçeğin ciddi anlamda büyüdüğü bir senaryoda, Kubernetes'in bu "kendi kendini onaran vardiya amiri" mantığının gerçekten değerli olduğunu düşünüyorum. Tıpkı küçük bir fırında tek simitçinin yetmesi gibi, büyük bir üretim hacminde artık bir vardiya amirine, yani orkestrasyona ihtiyaç duyuyorsunuz.
