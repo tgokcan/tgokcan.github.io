@@ -1,0 +1,53 @@
+---
+title: "What Is Computer Vision and How Does It Work?"
+publishedAt: "2026-09-25"
+image: "/images/gallery/bilgisayarla-goru-nedir.png"
+summary: "Exploring computer vision, the field that lets machines extract meaningful information from images — its core approaches and how it's used across industry."
+tag: "AI"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about computer vision.
+
+## What Is Computer Vision?
+
+Computer vision is a subfield of AI that lets computers extract meaningful information from images and videos, understand that visual data, and make decisions based on it. As natural as it seems for the human eye and brain to interpret a scene instantly, an image is, to a computer, really just an array of numbers made up of pixels. Computer vision aims to draw meaningful conclusions from that array of numbers — "this is a cat," "this is a stop sign," or "this product has a defect."
+
+## How Does It Work?
+
+### Traditional Approaches
+
+Before deep learning, computer vision systems generally relied on hand-crafted feature extractors — edge detection, color histograms, texture analysis, and the like. An engineer would manually code the answer to "which visual features should we look at to recognize an object." While this approach worked in controlled environments, it quickly fell short in the face of real-world variability — different lighting, angles, and backgrounds.
+
+### Deep Learning–Based Approaches
+
+Today, computer vision is largely built on Convolutional Neural Networks (CNNs) and, more recently, architectures like Vision Transformers. Instead of hand-coding the answer to "which features to look at," these models learn it themselves from thousands, even millions, of labeled images. A model discovers how to recognize edges, textures, shapes, and eventually whole objects, on its own, by building up layers of abstraction.
+
+## Core Tasks
+
+- **Image classification:** Determining what an image represents overall ("this is a photo of a dog").
+- **Object detection:** Identifying both what multiple objects in an image are and where they're located (bounding box).
+- **Segmentation (semantic/instance):** Labeling every pixel in an image according to the object or category it belongs to.
+- **Object tracking:** Following a specific object's position over time in a video stream.
+- **Optical character recognition (OCR):** Recognizing written text within an image and converting it to digital text.
+
+## Use Cases
+
+- **Industrial quality control:** Detecting defects in products on a production line based on their images.
+- **Autonomous vehicles:** Real-time detection of surrounding objects, pedestrians, and traffic signs.
+- **Retail and inventory management:** Automatically determining stock levels from shelf images.
+- **Medical imaging:** Helping detect anomalies in medical images such as X-rays and MRIs.
+- **Security and access control:** Facial recognition and motion detection systems.
+
+## Challenges
+
+- **Data requirements:** A model that produces accurate results usually needs a large, well-labeled dataset, and building that dataset takes real time and effort.
+- **Variable conditions:** Different lighting, angles, resolutions, and backgrounds can cause a model to perform far worse in the real world than expected.
+- **Computational cost:** Especially in real-time applications, getting a model to run fast enough on limited hardware is its own engineering problem.
+
+## What Am I Up To?
+
+Now for the "how I tried this out in industry" part. While working on PyTorch-based industrial image processing at İbraş Kauçuk, our goal was to build a system (Visual Sampling) that could match catalog photos to the correct OEM code. At first, "look at a photo and find the right code" sounded simple enough — but once I started dealing with dozens of photos of the same product, taken from different angles, in different lighting, against different backgrounds, I realized this was a far more delicate problem than it looked.
+
+Having grown up around factory culture in Bursa, I'll put it this way: computer vision is a lot like the eye of an experienced quality-control worker. That worker can glance at a part and immediately say "this one's fine, this one's defective" — but they earned that skill by looking at thousands of parts over years. An image-processing model is no different; without seeing enough examples, it can never reach that "recognize it in a single glance" level of skill.
+
+What I actually spent the most effort on in that project wasn't the model architecture — it was preparing the data properly. Showing the model photos taken from different angles and under different lighting conditions was a lot like teaching a young street vendor to recognize a bagel in every season, in every kind of light; if you only train them on photos taken on a sunny day, they'll get thrown off the moment it's cloudy.

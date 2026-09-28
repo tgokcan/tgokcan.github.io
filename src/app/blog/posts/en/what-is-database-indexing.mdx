@@ -1,0 +1,49 @@
+---
+title: "What Is Database Indexing? How Does It Speed Up Your Queries?"
+publishedAt: "2026-09-26"
+image: "/images/gallery/veritabani-indeksleme-nedir.png"
+summary: "Exploring database indexing, the most common fix for slow queries — how it works, and where using it carelessly can actually hurt you."
+tag: "Database"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about database indexing.
+
+## What Is a Database Index?
+
+A database index is an additional data structure created to speed up access to the data in a table. In its simplest form, it's like the index at the back of a book: instead of scanning the entire book from front to back to find a topic, you check the index and jump straight to the right page. A database index does exactly this — when a search is run against a specific column, it lets the database engine reach the relevant rows directly instead of scanning the entire table (a full table scan).
+
+Without an index, when a query runs, the database engine has to check every single row in the table one by one to find the matching ones. This isn't a problem when the table is small, but on a table with millions of rows, an unindexed query can take seconds, even minutes.
+
+## How Does It Work?
+
+Most relational databases store indexes internally using a balanced tree structure called a B-tree. This structure keeps data sorted and makes it possible to perform search, insert, and delete operations in logarithmic time complexity (O(log n)). This means that even if the table size grows tenfold, the search time grows far more slowly than linearly.
+
+When an index is added to a column, the database keeps that column's values in a separate sorted structure and stores a reference pointing to the actual row for each value. When a search runs, the engine first quickly searches this sorted structure, then jumps straight to the matching row using the reference it found.
+
+## Types of Indexes
+
+- **Single-column index:** The most common type of index, built on a single column.
+- **Composite index:** An index covering multiple columns together; typically used for columns that are filtered on together.
+- **Unique index:** An index type that guarantees the values in a column are unique, while also improving search performance.
+- **Covering index:** An index that contains every column a query needs, letting the query be answered entirely from the index without ever touching the table.
+
+## When Is Indexing Useful?
+
+- On columns frequently used in a `WHERE` clause
+- On columns used as join keys in `JOIN` operations
+- On columns frequently used in `ORDER BY` and `GROUP BY` operations
+- On columns where uniqueness needs to be enforced at the database level
+
+## The Cost of Indexing
+
+Indexing isn't a free performance boost. Every index takes up additional disk space, and more importantly, every `INSERT`, `UPDATE`, and `DELETE` operation has to update the relevant indexes too. This means indexing brings major benefits in read-heavy systems, but in write-heavy systems, too many indexes can seriously hurt write performance.
+
+Adding an index to a rarely queried, low-cardinality column (one that, say, only takes "yes/no" values) is often pointless too — the database engine may not even choose to use that index in the first place.
+
+## What Am I Up To?
+
+Now for the "how I learned this the hard way on the ERP side" part. While building REST APIs integrated with IFS ERP, I once dug into a query's execution plan to figure out why it was taking several seconds, and I noticed the problem was almost always in the same place: a frequently filtered column had no index, and the database engine was forced to scan the whole table from start to finish. Adding an index brought some queries down from seconds to milliseconds — the first time it happened, I was genuinely surprised that such a simple change could make that big a difference.
+
+Having grown up around the shopkeeper culture in Bursa, I can't help but put it this way: searching an unindexed table is like looking for a product in a disorganized warehouse — you have to walk down every single shelf every single time. An index is like a shelf-labeling system installed in that warehouse; it tells you directly "this product is on that shelf," and you never have to walk the whole place end to end.
+
+But at some point, I also learned that labeling every single shelf comes with its own cost. Every time a new product arrives (every INSERT), you have to update the labels too; if you've got too many labels, that update process itself starts eating up time. So now, before adding an index to a column, I always ask myself: "Is this column actually searched frequently, or am I just adding it because 'it might come in handy'?" Keeping a bagel within arm's reach is great, but stocking way more bagels than you need eventually just clutters up the warehouse.

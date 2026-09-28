@@ -1,0 +1,47 @@
+---
+title: "Mesaj Kuyrukları ve Olay Odaklı Mimari Nedir?"
+publishedAt: "2026-09-27"
+image: "/images/gallery/mesaj-kuyruklari-nedir.png"
+summary: "Sistemleri birbirinden bağımsızlaştırarak daha dayanıklı ve ölçeklenebilir hale getiren mesaj kuyrukları ve olay odaklı mimari yaklaşımını inceliyoruz."
+tag: "Yazılım Mimarisi"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün mesaj kuyrukları ve olay odaklı mimari (event-driven architecture) konusu hakkında konuşacağız.
+
+## Mesaj Kuyruğu Nedir?
+
+Bir mesaj kuyruğu, bir sistemin bir parçasının (gönderici) ürettiği bir mesajı, başka bir parçasının (alıcı) hemen değil, kendi uygun olduğu zamanda işleyebilmesi için geçici olarak sakladığı bir ara katmandır. Gönderici, mesajı kuyruğa bırakıp işine devam eder; alıcı ise kuyruktan sırasıyla mesajları çekip işler. Bu iki taraf, birbirinin o an ayakta olup olmadığını bilmek zorunda değildir.
+
+Bu basit fikir, sistemleri birbirinden ayrıştırmanın (decoupling) en etkili yollarından biridir. Klasik bir senaryoda, A servisi B servisini doğrudan çağırdığında, B servisi çökmüşse veya yavaşsa, bu durum doğrudan A servisini de etkiler. Mesaj kuyruğu araya girdiğinde, A servisi mesajı bırakır bırakmaz işine devam edebilir; B servisi ayağa kalktığında, bekleyen mesajları sırasıyla işler.
+
+## Olay Odaklı Mimari Nedir?
+
+Olay odaklı mimari, sistemin bileşenlerinin birbirini doğrudan çağırmak yerine, gerçekleşen "olaylara" (event) tepki verecek şekilde tasarlandığı bir yaklaşımdır. Bir olay, sistemde gerçekleşmiş bir durumu ifade eder: "sipariş oluşturuldu", "ödeme alındı", "kullanıcı kaydoldu" gibi.
+
+Bu mimaride bir servis, bir işlemi tamamladığında bunu bir olay olarak yayınlar (publish); bu olayla ilgilenen diğer servisler, bu olaya abone olur (subscribe) ve olay gerçekleştiğinde kendi işlerini yaparlar. Yayıncı servis, olayı kimin dinlediğini bilmek zorunda değildir; bu da sistemin yeni dinleyiciler eklenerek genişletilebilmesini sağlar.
+
+## Neden Kullanılır?
+
+- **Sistemlerin ayrıştırılması (decoupling):** Servisler birbirine doğrudan bağımlı olmadığı için, biri değiştiğinde veya geçici olarak çöktüğünde diğerleri etkilenmez.
+- **Dayanıklılık (resilience):** Bir alıcı servis geçici olarak ayakta değilse, mesajlar kuyrukta bekler; servis ayağa kalktığında kaldığı yerden devam eder, veri kaybı yaşanmaz.
+- **Yük dengeleme:** Ani bir istek artışında, mesajlar kuyrukta birikir ve alıcı servis kendi kapasitesine göre bu mesajları işler; bu da sistemin aniden çökmesini engeller.
+- **Ölçeklenebilirlik:** Bir kuyruğu dinleyen birden fazla tüketici (consumer) çalıştırılarak, işlem kapasitesi yatay olarak artırılabilir.
+
+## Yaygın Kullanılan Araçlar
+
+Mesaj kuyrukları ve olay akışları için günümüzde en yaygın kullanılan araçlar arasında RabbitMQ, Apache Kafka, Amazon SQS ve Azure Service Bus sayılabilir. RabbitMQ, klasik kuyruk tabanlı senaryolar için sıkça tercih edilirken; Kafka, yüksek hacimli, sürekli akan olay verisini işlemek için daha çok tercih edilir.
+
+## Karşılaşılan Zorluklar
+
+- **Mesaj sıralaması:** Bazı senaryolarda mesajların üretildiği sırayla işlenmesi gerekir; bu, dağıtık bir sistemde her zaman kolay garanti edilemez.
+- **Yinelenen mesajlar (duplicate messages):** Ağ sorunları nedeniyle bir mesaj birden fazla kez işlenebilir; bu yüzden alıcı tarafın işlemleri "idempotent" (aynı mesajı birden fazla işlese bile aynı sonucu üretecek) şekilde tasarlanması gerekir.
+- **İzlenebilirlik:** Bir isteğin sistem içinde hangi yoldan geçtiğini takip etmek, senkron bir çağrı zincirine göre çok daha zordur; dağıtık izleme (distributed tracing) araçları burada kritik hale gelir.
+- **Karmaşıklık artışı:** Basit senaryolarda, mesaj kuyruğu eklemek, doğrudan bir API çağrısına göre gereksiz bir karmaşıklık olarak geri dönebilir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ERP tarafında nasıl deneyimledim" kısmına. IFS ERP entegrasyonunda Hangfire ile arka plan otomasyonu kurarken, aslında küçük ölçekte bu mantığın bir benzerini kullanıyordum: bir işlemi (örneğin bir dosya transferini ya da bir senkronizasyon görevini) anlık olarak, isteği yapan tarafı bekletmeden arka plana atıyor, sırası geldiğinde işletiyordum. O deneyimden sonra, "bir işlemi hemen yapmak zorunda değilim, sırasını bekleyebilir" fikrinin, sistemleri ne kadar rahatlattığını gördüm.
+
+Bursa'da fabrika ortamında büyümüş biri olarak şunu rahatlıkla söyleyebilirim: mesaj kuyruğu, tam olarak bir üretim hattındaki ara stok alanı gibi çalışıyor. Bir istasyon parçayı üretip bırakıyor, bir sonraki istasyon kendi hızında o parçayı alıp işliyor. İki istasyon birbirine doğrudan bağlı olsaydı, biri yavaşladığında diğeri de durmak zorunda kalırdı; ama aradaki ara stok alanı sayesinde her istasyon kendi temposunda çalışabiliyor.
+
+Şu an yeni bir sistem tasarlarken, iki servisin birbirini doğrudan ve senkron olarak çağırması gerekip gerekmediğini kendime hep soruyorum. Cevap "hayır, bu işlem hemen sonuçlanmak zorunda değil" ise, aralarına bir kuyruk koymayı ciddi ciddi düşünüyorum. Tıpkı fırından çıkan simidi hemen müşteriye koşturmak yerine, tezgaha koyup müşterinin kendi sırasında almasına izin vermek gibi — fırın da, müşteri de birbirini beklemek zorunda kalmıyor.

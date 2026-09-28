@@ -1,0 +1,47 @@
+---
+title: "What Are Message Queues and Event-Driven Architecture?"
+publishedAt: "2026-09-27"
+image: "/images/gallery/mesaj-kuyruklari-nedir.png"
+summary: "Exploring message queues and event-driven architecture — the approach that decouples systems from one another to make them more resilient and scalable."
+tag: "Software Architecture"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about message queues and event-driven architecture.
+
+## What Is a Message Queue?
+
+A message queue is an intermediary layer that temporarily holds a message produced by one part of a system (the sender) so that another part (the receiver) can process it — not immediately, but whenever it's ready. The sender drops the message into the queue and moves on with its work; the receiver pulls messages off the queue and processes them in order. Neither side needs to know whether the other is currently up and running.
+
+This simple idea is one of the most effective ways to decouple systems from one another. In a classic scenario, if Service A calls Service B directly and B is down or slow, that directly affects A too. Once a message queue sits between them, A can move on with its work the moment it drops off the message; when B comes back up, it works through the waiting messages in order.
+
+## What Is Event-Driven Architecture?
+
+Event-driven architecture is an approach where a system's components are designed to react to "events" that occur, rather than calling each other directly. An event represents something that has happened in the system: "order created," "payment received," "user registered," and so on.
+
+In this architecture, when a service finishes a task, it publishes that as an event; other services interested in that event subscribe to it and do their own work whenever the event occurs. The publishing service doesn't need to know who's listening, which means the system can be extended by simply adding new listeners.
+
+## Why Use It?
+
+- **Decoupling systems:** Since services aren't directly dependent on one another, a change or a temporary outage in one doesn't affect the others.
+- **Resilience:** If a receiving service is temporarily down, messages just wait in the queue; when the service comes back up, it picks up where it left off with no data loss.
+- **Load balancing:** During a sudden spike in requests, messages pile up in the queue and the receiving service processes them at its own capacity, preventing the system from crashing outright.
+- **Scalability:** Running multiple consumers listening on the same queue lets you scale processing capacity horizontally.
+
+## Commonly Used Tools
+
+Some of the most widely used tools for message queues and event streams today include RabbitMQ, Apache Kafka, Amazon SQS, and Azure Service Bus. RabbitMQ is often the go-to choice for classic queue-based scenarios, while Kafka tends to be preferred for processing high-volume, continuously flowing event data.
+
+## Challenges
+
+- **Message ordering:** Some scenarios require messages to be processed in the exact order they were produced, and that's not always easy to guarantee in a distributed system.
+- **Duplicate messages:** Network issues can cause a message to be processed more than once, which is why receiving-side operations need to be designed to be idempotent — producing the same result even if the same message is processed multiple times.
+- **Traceability:** Tracking the path a request takes through the system is far harder than with a synchronous call chain, which is exactly where distributed tracing tools become critical.
+- **Added complexity:** In simple scenarios, adding a message queue can come back around as unnecessary complexity compared to a direct API call.
+
+## What Am I Up To?
+
+Now for the "how I experienced this on the ERP side" part. While setting up background automation with Hangfire in our IFS ERP integration, I was actually already using a small-scale version of this same logic: instead of running a task — say, a file transfer or a sync job — immediately and making the requesting side wait, I'd push it to the background and let it run in its own turn. That experience showed me just how much relief the idea of "I don't have to do this right now, it can wait its turn" brings to a system.
+
+Having grown up around factory culture in Bursa, I'll put it this way: a message queue works exactly like the buffer stock area between stations on a production line. One station produces a part and sets it down; the next station picks it up and works on it at its own pace. If the two stations were directly wired to each other, one slowing down would force the other to stop too — but thanks to that buffer area in between, each station can work at its own tempo.
+
+These days, when I'm designing a new system, I always ask myself whether two services genuinely need to call each other directly and synchronously. If the answer is "no, this doesn't need to resolve immediately," I seriously consider putting a queue between them. It's a bit like not rushing a fresh bagel straight to the customer the moment it comes out of the oven, but setting it on the counter and letting the customer grab it whenever their turn comes — neither the oven nor the customer ever has to wait on the other.
