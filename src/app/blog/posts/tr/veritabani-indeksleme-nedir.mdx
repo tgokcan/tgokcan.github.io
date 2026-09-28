@@ -1,0 +1,49 @@
+---
+title: "Veritabanı İndeksleme Nedir? Sorgularınızı Nasıl Hızlandırır?"
+publishedAt: "2026-09-26"
+image: "/images/gallery/veritabani-indeksleme-nedir.png"
+summary: "Yavaş sorguların en yaygın çözümü olan veritabanı indekslemenin ne olduğunu, nasıl çalıştığını ve nerede yanlış kullanıldığında zarar verebileceğini inceliyoruz."
+tag: "Veritabanı"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün veritabanı indeksleme konusu hakkında konuşacağız.
+
+## Veritabanı İndeksi Nedir?
+
+Bir veritabanı indeksi, bir tablodaki verilere daha hızlı erişim sağlamak amacıyla oluşturulan ek bir veri yapısıdır. En temel haliyle, bir kitabın sonundaki dizine benzer: bir konuyu aramak için kitabın tamamını baştan sona taramak yerine, dizine bakıp doğrudan ilgili sayfaya gidebilirsiniz. Veritabanı indeksi de tam olarak bunu yapar; belirli bir sütuna göre arama yapıldığında, veritabanı motorunun tüm tabloyu taramak (full table scan) yerine, doğrudan ilgili satırlara ulaşmasını sağlar.
+
+İndeks olmadan, bir sorgu çalıştırıldığında veritabanı motoru, eşleşen satırları bulmak için tablodaki her satırı tek tek kontrol etmek zorunda kalır. Tablo küçükken bu sorun yaratmaz; ama milyonlarca satırlık bir tabloda, indekssiz bir sorgu saniyeler, hatta dakikalar sürebilir.
+
+## Nasıl Çalışır?
+
+Çoğu ilişkisel veritabanı, indeksleri dahili olarak B-ağacı (B-tree) adı verilen dengeli bir ağaç yapısıyla saklar. Bu yapı, verileri sıralı bir şekilde tutar ve arama, ekleme, silme işlemlerini logaritmik zaman karmaşıklığında (O(log n)) gerçekleştirmeyi mümkün kılar. Bu, tablo büyüklüğü on kat artsa bile, arama süresinin doğrusal olarak değil, çok daha yavaş bir şekilde artması anlamına gelir.
+
+Bir sütuna indeks eklendiğinde, veritabanı bu sütunun değerlerini sıralı bir yapıda ayrıca tutar ve her değerin gerçek satıra işaret eden bir referansını saklar. Bir arama yapıldığında, motor önce bu sıralı yapı üzerinde hızlıca arama yapar, ardından bulduğu referans üzerinden doğrudan ilgili satıra ulaşır.
+
+## İndeks Türleri
+
+- **Tekli sütun indeksi (Single-column index):** Tek bir sütun üzerinde oluşturulan, en yaygın indeks türüdür.
+- **Bileşik indeks (Composite index):** Birden fazla sütunu birlikte kapsayan indekstir; genellikle birlikte filtrelenen sütunlar için kullanılır.
+- **Benzersiz indeks (Unique index):** Bir sütundaki değerlerin benzersiz olmasını garanti eden, aynı zamanda arama performansını artıran indeks türüdür.
+- **Kapsayan indeks (Covering index):** Bir sorgunun ihtiyaç duyduğu tüm sütunları içeren, bu sayede sorgunun tabloya hiç dokunmadan yalnızca indeks üzerinden yanıtlanabildiği indeks türüdür.
+
+## İndeksleme Ne Zaman Faydalıdır?
+
+- Sıkça `WHERE` koşulunda kullanılan sütunlarda
+- `JOIN` işlemlerinde birleştirme anahtarı olarak kullanılan sütunlarda
+- `ORDER BY` ve `GROUP BY` işlemlerinde sıkça kullanılan sütunlarda
+- Benzersizliğin (unique) veritabanı seviyesinde garanti edilmesi gereken sütunlarda
+
+## İndekslemenin Bedeli
+
+İndeksleme, bedelsiz bir performans artışı değildir. Her indeks, ek disk alanı kaplar ve daha da önemlisi, her `INSERT`, `UPDATE` ve `DELETE` işleminde ilgili indekslerin de güncellenmesi gerekir. Bu yüzden, okuma ağırlıklı (read-heavy) sistemlerde indeksleme büyük fayda sağlarken, yazma ağırlıklı (write-heavy) sistemlerde gereğinden fazla indeks, yazma performansını ciddi şekilde düşürebilir.
+
+Az kullanılan, kardinalitesi düşük (örneğin sadece "evet/hayır" gibi iki değer alan) bir sütuna indeks eklemek de çoğu zaman anlamsızdır; veritabanı motoru bu durumda indeksi kullanmayı bile tercih etmeyebilir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ERP tarafında nasıl acı çekerek öğrendim" kısmına. IFS ERP entegrasyonlu REST API'ler geliştirirken, bir sorgunun neden birkaç saniye sürdüğünü anlamak için çalıştırma planına (execution plan) baktığımda, sorunun neredeyse her zaman aynı yerde olduğunu fark ettim: sık sık filtrelenen bir sütunda indeks yoktu ve veritabanı motoru koca tabloyu baştan sona taramak zorunda kalıyordu. Bir indeks eklemek, bazı sorguları saniyelerden milisaniyelere indirdi; ilk seferinde bu kadar basit bir değişikliğin bu kadar büyük fark yaratması beni gerçekten şaşırtmıştı.
+
+Bursa'da esnaflık kültürüyle büyümüş biri olarak şunu söylemeden geçemeyeceğim: indekssiz bir tabloda arama yapmak, düzensiz bir depoda ürün aramaya benziyor; her seferinde bütün rafları tek tek dolaşmak zorunda kalıyorsunuz. İndeks ise, o depoya konan bir raf etiketleme sistemi gibi; "bu ürün şu rafta" diye direkt söylüyor, baştan sona dolaşmanıza gerek kalmıyor.
+
+Ama bir noktada, her rafa etiket asma isteğinin de bir bedeli olduğunu öğrendim. Her yeni ürün geldiğinde (her INSERT işleminde) etiketleri de güncellemeniz gerekiyor; çok fazla etiketiniz varsa, bu güncelleme işi zaman kaybına dönüşebiliyor. O yüzden şimdi bir sütuna indeks eklemeden önce kendime hep şunu soruyorum: "Bu sütun gerçekten sık sık aranıyor mu, yoksa ben sadece 'belki lazım olur' diye mi ekliyorum?" Simidi her zaman elinin altında tutmak güzel ama gereksiz yere fazla simit stoklamak da bir noktada depoyu şişiriyor.

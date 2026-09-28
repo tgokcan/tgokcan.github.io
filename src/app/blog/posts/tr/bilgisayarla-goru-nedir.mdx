@@ -1,0 +1,53 @@
+---
+title: "Bilgisayarla Görü (Computer Vision) Nedir? Nasıl Çalışır?"
+publishedAt: "2026-09-25"
+image: "/images/gallery/bilgisayarla-goru-nedir.png"
+summary: "Görüntülerden anlamlı bilgi çıkarmayı sağlayan bilgisayarla görü alanının ne olduğunu, temel yaklaşımlarını ve endüstrideki kullanım alanlarını inceliyoruz."
+tag: "Yapay Zeka"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün bilgisayarla görü (computer vision) konusu hakkında konuşacağız.
+
+## Bilgisayarla Görü Nedir?
+
+Bilgisayarla görü, bilgisayarların görüntü ve videolardan anlamlı bilgi çıkarabilmesini, bu görsel veriyi anlayabilmesini ve buna dayalı kararlar alabilmesini sağlayan yapay zeka alt dalıdır. İnsan gözünün ve beyninin bir sahneyi anında yorumlayabilmesi kadar doğal görünse de, bir bilgisayar için görüntü, aslında yalnızca piksellerden oluşan bir sayı dizisidir. Bilgisayarla görü, bu sayı dizisinden "bu bir kedi", "bu bir dur işareti" ya da "bu üründe bir hasar var" gibi anlamlı çıkarımlar yapabilmeyi hedefler.
+
+## Nasıl Çalışır?
+
+### Geleneksel Yaklaşımlar
+
+Derin öğrenmeden önce, bilgisayarla görü sistemleri genellikle elle tasarlanmış özellik çıkarıcılara (kenar tespiti, renk histogramları, doku analizi gibi) dayanıyordu. Bir mühendis, "bir nesneyi tanımak için hangi görsel özelliklere bakılmalı" sorusunun cevabını elle kodluyordu. Bu yaklaşım, kontrollü ortamlarda işe yarasa da, gerçek dünyanın değişkenliği karşısında (farklı ışık, açı, arka plan) hızla yetersiz kalıyordu.
+
+### Derin Öğrenme Tabanlı Yaklaşımlar
+
+Günümüzde bilgisayarla görü, büyük ölçüde evrişimli sinir ağları (Convolutional Neural Networks - CNN) ve son dönemde Vision Transformer gibi mimarilere dayanır. Bu modeller, "hangi özelliklere bakılmalı" sorusunun cevabını elle kodlamak yerine, binlerce, hatta milyonlarca etiketli görüntüden kendileri öğrenir. Bir model, kenarları, dokuları, şekilleri ve nihayetinde nesneleri tanımayı, katman katman soyutlama yaparak kendiliğinden keşfeder.
+
+## Temel Görevler
+
+- **Görüntü sınıflandırma (Image Classification):** Bir görüntünün genel olarak neyi temsil ettiğini belirleme ("bu bir köpek fotoğrafı").
+- **Nesne tespiti (Object Detection):** Bir görüntüdeki birden fazla nesnenin hem ne olduğunu hem de görüntü üzerindeki konumunu (bounding box) belirleme.
+- **Semantik/örnek segmentasyonu (Segmentation):** Bir görüntüdeki her pikseli, ait olduğu nesne veya kategoriye göre etiketleme.
+- **Nesne takibi (Object Tracking):** Bir video akışında belirli bir nesnenin zaman içindeki konumunu takip etme.
+- **Optik karakter tanıma (OCR):** Görüntü içindeki yazılı metni tanıyıp dijital metne dönüştürme.
+
+## Kullanım Alanları
+
+- **Endüstriyel kalite kontrol:** Üretim hattındaki ürünlerin görüntüleri üzerinden kusur tespiti yapılması.
+- **Otonom araçlar:** Araç çevresindeki nesnelerin, yayaların ve trafik işaretlerinin gerçek zamanlı algılanması.
+- **Perakende ve envanter yönetimi:** Raf görüntülerinden stok durumunun otomatik olarak tespit edilmesi.
+- **Sağlık görüntüleme:** Röntgen, MR gibi tıbbi görüntüler üzerinden anormalliklerin tespit edilmesine yardımcı olunması.
+- **Güvenlik ve erişim kontrolü:** Yüz tanıma ve hareket algılama sistemleri.
+
+## Karşılaşılan Zorluklar
+
+- **Veri ihtiyacı:** Doğru sonuçlar üreten bir model için genellikle büyük ve iyi etiketlenmiş bir veri kümesi gerekir; bu veri kümesini oluşturmak zaman ve emek gerektirir.
+- **Değişken koşullar:** Farklı ışık, açı, çözünürlük ve arka plan koşulları, bir modelin gerçek dünyada beklenenden daha düşük performans göstermesine yol açabilir.
+- **Hesaplama maliyeti:** Özellikle gerçek zamanlı uygulamalarda, modelin sınırlı donanım kaynakları üzerinde yeterince hızlı çalışması ayrı bir mühendislik problemidir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu endüstride nasıl denedim" kısmına. İbraş Kauçuk'ta PyTorch tabanlı endüstriyel görüntü işleme üzerinde çalışırken, amacımız katalog fotoğraflarından OEM kodu eşleştirme yapabilen bir sistem kurmaktı (Visual Sampling). İlk başta "bir fotoğrafa bakıp doğru kodu bulmak" kulağa basit geliyordu; ama aynı ürünün farklı açılardan, farklı ışıkta, farklı arka planlarda çekilmiş onlarca fotoğrafıyla uğraşınca, işin göründüğünden çok daha ince bir mesele olduğunu anladım.
+
+Bursa'da fabrika ortamında büyümüş biri olarak şunu rahatlıkla söyleyebilirim: bilgisayarla görü, tam olarak deneyimli bir kalite kontrol işçisinin gözüne benziyor. O işçi, bir parçaya tek bakışta "bu tamam, bu kusurlu" diyebilir; ama bu beceriyi yıllarca binlerce parçaya bakarak kazanmıştır. Bir görüntü işleme modeli de aynı şekilde, yeterince örnek görmeden o "tek bakışta anlama" becerisine ulaşamıyor.
+
+O projede en çok emek verdiğim kısım, aslında modelin mimarisinden çok, veriyi doğru şekilde hazırlamak oldu. Farklı açılardan, farklı ışık koşullarında çekilmiş fotoğrafları modele göstermek, tıpkı simitçi çırağına simidi her mevsimde, her ışıkta tanımayı öğretmek gibiydi; sadece güneşli bir günde çekilmiş fotoğraflarla eğitirseniz, model bulutlu bir günde şaşırıp kalıyor.
