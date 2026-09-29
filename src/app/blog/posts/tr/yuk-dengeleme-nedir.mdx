@@ -1,0 +1,48 @@
+---
+title: "Yük Dengeleme (Load Balancing) Nedir, Nasıl Çalışır?"
+publishedAt: "2026-09-29"
+image: "/images/gallery/yuk-dengeleme-nedir.png"
+summary: "Gelen trafiği birden fazla sunucuya dağıtarak sistemlerin hem hızlı hem de dayanıklı kalmasını sağlayan yük dengeleme kavramını, algoritmalarını ve türlerini inceliyoruz."
+tag: "DevOps"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün yük dengeleme (load balancing) konusu hakkında konuşacağız.
+
+## Yük Dengeleme Nedir?
+
+Yük dengeleme, gelen ağ trafiğinin veya isteklerin, tek bir sunucuya değil, birden fazla sunucu arasında dengeli bir şekilde dağıtılmasını sağlayan tekniktir. Bir uygulamanın tek bir sunucu üzerinde çalıştığı senaryoda, o sunucu hem tek başarısızlık noktası (single point of failure) olur hem de artan trafik karşısında bir noktadan sonra yetersiz kalır. Yük dengeleyici, tam olarak bu iki sorunu çözmek için devreye girer.
+
+Bir yük dengeleyici, istemci ile sunucular arasına yerleşir; gelen her isteği, önceden belirlenmiş bir algoritmaya göre uygun bir sunucuya yönlendirir. İstemci, isteğinin hangi sunucu tarafından karşılandığını bilmez ve bilmesine de gerek yoktur.
+
+## Neden Gereklidir?
+
+- **Ölçeklenebilirlik:** Trafik arttığında, tek bir sunucuyu büyütmek (dikey ölçekleme) yerine, aynı uygulamanın birden fazla kopyasını çalıştırıp (yatay ölçekleme) aralarında yük dağıtmak, çoğu zaman çok daha esnek ve maliyet etkin bir çözümdür.
+- **Yüksek erişilebilirlik:** Sunuculardan biri çökerse, yük dengeleyici bunu fark eder ve trafiği otomatik olarak ayaktaki diğer sunuculara yönlendirir; kullanıcı bu arızayı fark etmez bile.
+- **Performans:** İstekler birden fazla sunucuya dağıldığı için, hiçbir sunucu tek başına aşırı yüklenmez, bu da genel yanıt sürelerini iyileştirir.
+- **Bakım kolaylığı:** Bir sunucu güncellenmek veya yeniden başlatılmak istendiğinde, önce trafiği o sunucudan çekip diğerlerine yönlendirmek mümkündür; bu sayede kullanıcılar kesinti yaşamaz.
+
+## Yaygın Yük Dengeleme Algoritmaları
+
+- **Round Robin:** İstekler, sunucular arasında sırayla, eşit şekilde dağıtılır.
+- **Least Connections:** İstek, o anda en az aktif bağlantıya sahip sunucuya yönlendirilir; farklı isteklerin farklı sürelerde işlendiği sistemlerde daha adil bir dağılım sağlar.
+- **IP Hash:** İstemcinin IP adresi bir hash fonksiyonundan geçirilerek, aynı istemcinin isteklerinin genellikle aynı sunucuya yönlendirilmesi sağlanır; oturum tutarlılığı (session persistence) gerektiren senaryolarda tercih edilir.
+- **Weighted algorithms:** Sunucular arasındaki donanım farkları göz önünde bulundurularak, daha güçlü sunuculara orantılı olarak daha fazla istek yönlendirilir.
+
+## Yük Dengeleme Katmanları
+
+Yük dengeleme, OSI modelinin farklı katmanlarında gerçekleştirilebilir:
+
+- **Katman 4 (Transport Layer):** Yönlendirme kararı, IP adresi ve port bilgisi gibi ağ seviyesindeki bilgilere göre verilir. Daha hızlıdır ama isteğin içeriğini (örneğin URL yolunu) dikkate alamaz.
+- **Katman 7 (Application Layer):** Yönlendirme kararı, HTTP başlıkları, URL yolu, çerezler gibi uygulama seviyesindeki bilgilere göre verilir. Daha esnektir; örneğin `/api/` ile başlayan istekleri bir sunucu grubuna, `/images/` ile başlayanları başka bir gruba yönlendirebilir.
+
+## Sağlık Kontrolleri (Health Checks)
+
+Bir yük dengeleyicinin trafiği doğru sunuculara yönlendirebilmesi için, arkadaki sunucuların o an sağlıklı olup olmadığını bilmesi gerekir. Bu amaçla yük dengeleyici, düzenli aralıklarla her sunucuya küçük kontrol istekleri (health check) gönderir. Bir sunucu bu kontrollere yanıt vermeyi bırakırsa, yük dengeleyici o sunucuyu trafik havuzundan geçici olarak çıkarır.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu üretim ortamında nasıl gördüm" kısmına. Kiosk uygulamaları ve güvenli dosya transfer sistemlerini üretim ortamına deploy ederken, tek bir sunucuya bağımlı kalmanın ne kadar kırılgan bir nokta olduğunu doğrudan yaşadım; o sunucuda küçük bir bakım penceresi bile, sistemin tamamen erişilemez hale gelmesi anlamına geliyordu. O deneyimden sonra "bu isteği karşılayan tek nokta ne, orası çökerse ne olur" sorusunu her sistemde sormaya başladım.
+
+Bursa'da fabrika ortamında OT/IT tarafında çalışmış biri olarak şunu rahatlıkla söyleyebilirim: yük dengeleyici, tam olarak bir üretim hattındaki sevkiyat sorumlusu gibi davranıyor. Gelen siparişleri (istekleri) tek bir tezgaha yığmak yerine, o an hangi tezgahın müsait olduğuna bakıp işi ona yönlendiriyor. Bir tezgah arızalanırsa, sevkiyat sorumlusu bunu fark edip yeni siparişleri oraya göndermeyi kesiyor; müşteri, arka planda hangi tezgahın çalıştığını hiç bilmiyor.
+
+Şu an küçük ölçekli projelerde bile, uygulamayı en az iki kopya çalışacak şekilde tasarlamayı ve önlerine basit bir yük dengeleyici koymayı önemsiyorum. Tıpkı tek bir simitçiyle koca bir mahalleye hizmet vermeye çalışmak yerine, birkaç tezgah açıp müşteriyi en boş olana yönlendirmek gibi; bir tezgah tıkandığında bile mahalle simitsiz kalmıyor.

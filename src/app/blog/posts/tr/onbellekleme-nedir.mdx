@@ -1,0 +1,57 @@
+---
+title: "Önbellekleme (Caching) Nedir? Uygulamaları Nasıl Hızlandırır?"
+publishedAt: "2026-09-28"
+image: "/images/gallery/onbellekleme-nedir.png"
+summary: "Sık erişilen verileri hızlı bir katmanda saklayarak uygulama performansını artıran önbelleklemenin ne olduğunu, türlerini ve doğru kullanımını inceliyoruz."
+tag: "Backend"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün önbellekleme (caching) konusu hakkında konuşacağız.
+
+## Önbellekleme Nedir?
+
+Önbellekleme, sık erişilen veya üretilmesi maliyetli olan verilerin, orijinal kaynağa göre çok daha hızlı erişilebilen geçici bir depoda saklanması tekniğidir. Aynı veriye tekrar ihtiyaç duyulduğunda, pahalı bir veritabanı sorgusunu ya da harici bir servis çağrısını yeniden yapmak yerine, veri doğrudan bu hızlı depodan okunur.
+
+Günlük hayattaki karşılığı basittir: sık kullandığınız bir kaynağı her seferinde kütüphaneden çıkarmak yerine, masanızın üzerinde tutarsınız. Yazılımda da aynı mantık işler; tek fark, "masanın üzerinin" genellikle bellek (RAM) gibi çok hızlı bir katman olmasıdır.
+
+## Nasıl Çalışır?
+
+Önbellekleme genellikle şu akışla işler:
+
+1. Uygulama bir veriye ihtiyaç duyduğunda, önce önbelleğe bakar.
+2. Veri önbellekte varsa (**cache hit**), doğrudan oradan döner; kaynak sisteme hiç gidilmez.
+3. Veri önbellekte yoksa (**cache miss**), veri asıl kaynaktan (veritabanı, API vb.) çekilir, önbelleğe yazılır ve istemciye döndürülür.
+4. Sonraki isteklerde aynı veri artık önbellekten sunulur.
+
+Bir önbelleğin başarısı, büyük ölçüde "hit oranı" (cache hit ratio) ile ölçülür. Hit oranı ne kadar yüksekse, önbellek o kadar fayda sağlıyor demektir.
+
+## Önbellekleme Türleri
+
+- **Tarayıcı önbelleği:** Görseller, stil dosyaları gibi statik kaynakların kullanıcının tarayıcısında saklanması.
+- **CDN önbelleği:** Statik içeriklerin, kullanıcıya coğrafi olarak yakın sunucularda saklanması.
+- **Uygulama içi (in-memory) önbellek:** Verinin uygulamanın kendi belleğinde tutulması; en hızlı ama uygulama yeniden başladığında kaybolan seçenektir.
+- **Dağıtık önbellek (Distributed cache):** Redis veya Memcached gibi ayrı bir servis üzerinde, birden fazla uygulama örneğinin ortak kullanabildiği önbellek.
+- **Veritabanı önbelleği:** Veritabanı motorunun kendi içinde sıkça çalıştırılan sorgu sonuçlarını veya veri sayfalarını saklaması.
+
+## Önbelleği Geçersiz Kılma (Cache Invalidation)
+
+Önbelleklemenin en zor kısmı, saklanan verinin ne zaman "bayatladığına" karar vermektir. Yazılım dünyasında sıkça tekrarlanan bir söz vardır: bilgisayar biliminde iki zor şey vardır; önbelleği geçersiz kılmak ve isimlendirme. Sık kullanılan yaklaşımlar şunlardır:
+
+- **TTL (Time To Live):** Her kayda bir yaşam süresi verilir; süre dolduğunda kayıt otomatik olarak silinir.
+- **Olay tabanlı geçersiz kılma:** Kaynak veri değiştiğinde, ilgili önbellek kaydı açıkça silinir veya güncellenir.
+- **Yazma stratejileri:** Write-through (veri hem önbelleğe hem kaynağa aynı anda yazılır) veya write-back (veri önce önbelleğe yazılır, kaynağa sonra aktarılır) gibi yaklaşımlarla tutarlılık ve performans arasında denge kurulur.
+
+## Getirdiği Riskler
+
+- **Bayat veri:** Önbellek, kaynak veriden farklı olabilir; bu, kullanıcıya güncelliğini yitirmiş bilgi gösterilmesine yol açabilir.
+- **Ek karmaşıklık:** Önbellek katmanı, sisteme yeni bir hata kaynağı ve yönetilmesi gereken yeni bir bileşen ekler.
+- **Bellek maliyeti:** Önbellek sınırsız değildir; hangi verilerin tutulacağına ve dolduğunda hangilerinin atılacağına (örneğin LRU politikasıyla) karar vermek gerekir.
+- **Soğuk başlangıç (cold start):** Önbellek boşken gelen ilk istekler, yine yavaş kaynağa gitmek zorunda kalır.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu ERP tarafında nasıl düşündüm" kısmına. IFS ERP entegrasyonlu REST API'ler geliştirirken, dış sisteme yapılan çağrıların hem yavaş hem de sık tekrarlanan türden olduğunu fark ettim. Aynı referans verisi için defalarca aynı çağrıyı yapmak, hem ERP tarafını gereksiz yere yoruyor hem de kendi API'mizin yanıt süresini uzatıyordu. "Bu veri gerçekten her seferinde taze olmak zorunda mı" sorusunu sormaya başlamak, işin dönüm noktası oldu.
+
+Bursa'da esnaflık kültürüyle büyümüş biri olarak şunu söylemeden geçemeyeceğim: önbellekleme, tam olarak tezgahın önüne çıkarılan çok satan ürünler gibi. Esnaf, en çok sorulan ürünü her seferinde arka depoya gidip getirmez; tezgahın önünde hazır tutar. Ama tezgahtaki ürünün raf ömrünü de takip etmesi gerekir; yoksa bayatlamış ürünü müşteriye satmış olur. TTL dediğimiz şey de tam olarak bu, tezgahtaki ürünün son kullanma tarihi.
+
+Şu an bir önbellek eklemeden önce kendime hep aynı soruyu soruyorum: "Bu veri ne kadar sık okunuyor, ne kadar sık değişiyor ve bayat olması ne kadar sorun yaratır?" Cevaplar tatmin edici değilse, önbellek eklememek daha doğru olabiliyor. Tıpkı sabah fırından çıkan simidi öğlene kadar tezgahta tutmak gibi; bir noktaya kadar fayda sağlıyor, ama sonrasında müşteriye bayat simit sunmuş oluyorsunuz.

@@ -1,0 +1,58 @@
+---
+title: "What Is Caching? How Does It Speed Up Applications?"
+publishedAt: "2026-09-28"
+image: "/images/gallery/onbellekleme-nedir.jpg"
+summary: "Exploring caching, the technique of storing frequently accessed data in a fast layer to boost application performance — its types and how to use it well."
+tag: "Backend"
+translationSlug: "onbellekleme-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about caching.
+
+## What Is Caching?
+
+Caching is the technique of storing data that's frequently accessed or expensive to produce in a temporary store that's much faster to reach than the original source. When the same data is needed again, instead of repeating an expensive database query or an external service call, the data is read directly from this fast store.
+
+Its everyday equivalent is simple: instead of pulling a frequently used reference off the library shelf every single time, you keep it on your desk. Software works on the same logic; the only difference is that "the desk" is usually a very fast layer like memory (RAM).
+
+## How Does It Work?
+
+Caching generally follows this flow:
+
+1. When an application needs a piece of data, it checks the cache first.
+2. If the data is in the cache (a **cache hit**), it's returned directly from there; the source system is never touched.
+3. If the data isn't in the cache (a **cache miss**), it's fetched from the original source (a database, an API, etc.), written into the cache, and returned to the client.
+4. On subsequent requests, the same data is now served from the cache.
+
+A cache's success is largely measured by its "hit ratio." The higher the hit ratio, the more benefit the cache is providing.
+
+## Types of Caching
+
+- **Browser cache:** Static resources like images and stylesheets stored in the user's browser.
+- **CDN cache:** Static content stored on servers geographically close to the user.
+- **In-memory cache:** Data kept in the application's own memory; the fastest option, but lost when the application restarts.
+- **Distributed cache:** A cache running as a separate service, like Redis or Memcached, that multiple application instances can share.
+- **Database cache:** The database engine itself storing frequently run query results or data pages internally.
+
+## Cache Invalidation
+
+The hardest part of caching is deciding when stored data has gone "stale." There's a saying in software that gets repeated a lot: there are only two hard things in computer science — cache invalidation and naming things. Common approaches include:
+
+- **TTL (Time To Live):** Each entry is given a lifespan; once it expires, the entry is automatically removed.
+- **Event-based invalidation:** When the source data changes, the relevant cache entry is explicitly deleted or updated.
+- **Write strategies:** Approaches like write-through (data is written to both the cache and the source at the same time) or write-back (data is written to the cache first and transferred to the source later) balance consistency against performance.
+
+## The Risks It Brings
+
+- **Stale data:** The cache can drift out of sync with the source data, which can lead to users being shown out-of-date information.
+- **Added complexity:** A caching layer adds a new source of bugs and a new component that needs to be managed.
+- **Memory cost:** A cache isn't unlimited; you have to decide which data to keep and which to evict when it fills up (with a policy like LRU, for example).
+- **Cold start:** The first requests that arrive while the cache is empty still have to go to the slow source.
+
+## What Am I Up To?
+
+Now for the "how I thought about this on the ERP side" part. While building REST APIs integrated with IFS ERP, I noticed that the calls being made to the external system were both slow and frequently repeated. Making the same call over and over for the same reference data was needlessly straining the ERP side and stretching out my own API's response times. Starting to ask "does this data really need to be fresh every single time?" was the turning point.
+
+Having grown up around the shopkeeper culture in Bursa, I can't help but say: caching works exactly like the best-selling items a shopkeeper puts out front on the counter. A shopkeeper doesn't run to the back storeroom every time someone asks for their most popular item; they keep it ready up front. But they also have to keep an eye on how long that item stays fresh — otherwise they end up selling a stale product to a customer. That's exactly what TTL is: the expiration date on the item sitting on the counter.
+
+These days, before adding a cache, I always ask myself the same question: "How often is this data read, how often does it change, and how much of a problem would it be if it went stale?" If the answers aren't convincing, not adding a cache is sometimes the better call. It's a bit like leaving the morning's bagels out on the counter until noon — up to a point it pays off, but after that you're serving the customer a stale bagel.

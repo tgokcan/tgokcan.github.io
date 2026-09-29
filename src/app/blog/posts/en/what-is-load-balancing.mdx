@@ -1,0 +1,49 @@
+---
+title: "What Is Load Balancing and How Does It Work?"
+publishedAt: "2026-09-29"
+image: "/images/gallery/yuk-dengeleme-nedir.png"
+summary: "Exploring load balancing — the technique that distributes incoming traffic across multiple servers to keep systems fast and resilient — its algorithms and types."
+tag: "DevOps"
+translationSlug: "yuk-dengeleme-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about load balancing.
+
+## What Is Load Balancing?
+
+Load balancing is the technique of distributing incoming network traffic or requests evenly across multiple servers instead of a single one. When an application runs on just one server, that server becomes both a single point of failure and, past a certain point, unable to keep up with rising traffic. A load balancer exists to solve exactly these two problems.
+
+A load balancer sits between the client and the servers; it routes every incoming request to an appropriate server based on a predetermined algorithm. The client never knows — and never needs to know — which server actually handled its request.
+
+## Why Is It Needed?
+
+- **Scalability:** When traffic grows, running multiple copies of the same application and distributing load between them (horizontal scaling) is usually a far more flexible and cost-effective solution than making a single server bigger (vertical scaling).
+- **High availability:** If one server goes down, the load balancer notices and automatically routes traffic to the remaining healthy servers — users may never even notice the failure.
+- **Performance:** Since requests are spread across multiple servers, no single server gets overwhelmed on its own, which improves overall response times.
+- **Easier maintenance:** When a server needs to be updated or restarted, traffic can be drained away from it and routed to the others first, so users experience no downtime.
+
+## Common Load Balancing Algorithms
+
+- **Round Robin:** Requests are distributed evenly across servers in turn.
+- **Least Connections:** A request is routed to whichever server currently has the fewest active connections; this gives a fairer distribution in systems where different requests take different amounts of time to process.
+- **IP Hash:** The client's IP address is passed through a hash function so that the same client's requests are usually routed to the same server; preferred in scenarios that require session persistence.
+- **Weighted algorithms:** Taking hardware differences between servers into account, proportionally more requests are routed to more powerful servers.
+
+## Layers of Load Balancing
+
+Load balancing can happen at different layers of the OSI model:
+
+- **Layer 4 (Transport Layer):** The routing decision is made based on network-level information like IP address and port. It's faster, but it can't take the content of the request (like the URL path) into account.
+- **Layer 7 (Application Layer):** The routing decision is made based on application-level information like HTTP headers, the URL path, or cookies. It's more flexible — for instance, it can route requests starting with `/api/` to one group of servers and requests starting with `/images/` to another.
+
+## Health Checks
+
+For a load balancer to route traffic to the right servers, it needs to know whether the backend servers are currently healthy. To do this, it sends small check requests (health checks) to each server at regular intervals. If a server stops responding to these checks, the load balancer temporarily pulls it out of the traffic pool.
+
+## What Am I Up To?
+
+Now for the "how I saw this play out in production" part. While deploying kiosk applications and secure file transfer systems to production, I experienced firsthand just how fragile it is to depend on a single server — even a small maintenance window on that server meant the entire system became completely unreachable. From that point on, I started asking, for every system I built: "what's the single point handling this request, and what happens if it goes down?"
+
+Having worked on the OT/IT side of a factory floor in Bursa, I can say this with confidence: a load balancer behaves exactly like a dispatch supervisor on a production line. Instead of piling incoming orders (requests) onto a single workstation, the supervisor checks which station is currently free and routes the job there. If a station breaks down, the supervisor notices and stops sending new orders to it; the customer never has to know which station is actually working behind the scenes.
+
+These days, even on small-scale projects, I care about designing the application to run at least two copies and putting a simple load balancer in front of them. It's a bit like, instead of trying to serve an entire neighborhood with a single street vendor, opening a few stands and directing the customer to whichever one is free — even if one stand gets stuck, the neighborhood is never left without its bagels.
