@@ -1,0 +1,60 @@
+---
+title: "OAuth2 ve JWT ile Kimlik Doğrulama Nedir?"
+publishedAt: "2026-09-30"
+image: "/images/gallery/oauth2-jwt-nedir.jpg"
+summary: "Modern web uygulamalarında kimlik doğrulama ve yetkilendirme için kullanılan OAuth2 ve JWT'nin ne olduğunu, aralarındaki farkı ve nasıl birlikte çalıştıklarını inceliyoruz."
+tag: "Backend"
+---
+
+Ben Tolga, dijital okur-yazarlığa ilgi besleyen bir yazılımcıyım. Bugün OAuth2 ve JWT ile kimlik doğrulama konusu hakkında konuşacağız.
+
+## Kimlik Doğrulama ve Yetkilendirme Arasındaki Fark
+
+OAuth2 ve JWT'yi anlamadan önce, sıkça birbirine karıştırılan iki kavramı netleştirmek gerekir:
+
+- **Kimlik doğrulama (Authentication):** "Sen kimsin?" sorusunun cevabıdır. Kullanıcının iddia ettiği kişi olduğunu doğrulama sürecidir.
+- **Yetkilendirme (Authorization):** "Bunu yapmaya iznin var mı?" sorusunun cevabıdır. Kimliği doğrulanmış bir kullanıcının, hangi kaynaklara erişebileceğini belirleme sürecidir.
+
+Bu iki kavram genellikle bir arada kullanılsa da, farklı problemleri çözerler ve bu farkı anlamak, doğru bir güvenlik mimarisi kurmanın ilk adımıdır.
+
+## OAuth2 Nedir?
+
+OAuth2, bir kullanıcının, kendi kimlik bilgilerini (kullanıcı adı/şifre) üçüncü bir uygulamayla doğrudan paylaşmadan, o uygulamaya sınırlı erişim yetkisi vermesini sağlayan bir yetkilendirme protokolüdür. "Google ile giriş yap" veya "bir uygulamanın takvim bilgilerinize erişmesine izin ver" gibi senaryoların arkasında genellikle OAuth2 vardır.
+
+OAuth2'nin temel akışında dört taraf yer alır:
+
+- **Resource Owner:** Genellikle kullanıcının kendisidir; korunan kaynağın sahibidir.
+- **Client:** Kullanıcı adına kaynağa erişmek isteyen uygulamadır.
+- **Authorization Server:** Kullanıcıyı doğrulayan ve erişim izinlerini (token) veren sunucudur.
+- **Resource Server:** Korunan verinin veya API'nin bulunduğu sunucudur.
+
+Kullanıcı, Authorization Server üzerinden kimliğini doğrular ve Client uygulamaya belirli izinler verir; bunun karşılığında Client, bir erişim tokenı (access token) alır ve bu tokenı kullanarak Resource Server'a istek gönderir.
+
+## JWT Nedir?
+
+JWT (JSON Web Token), taraflar arasında güvenli bir şekilde bilgi taşımak için kullanılan, kompakt ve kendi kendini doğrulayabilen bir token formatıdır. Bir JWT, üç bölümden oluşur ve bu bölümler nokta ile ayrılarak birleştirilir:
+
+- **Header:** Tokenın türünü ve kullanılan imzalama algoritmasını belirtir.
+- **Payload:** Kullanıcıya veya oturuma dair bilgileri (claim) içerir; örneğin kullanıcı kimliği, roller, geçerlilik süresi.
+- **Signature:** Header ve payload'ın, bir gizli anahtar (secret) veya özel anahtar (private key) kullanılarak imzalanmasıyla oluşturulur; tokenın değiştirilmediğini doğrulamak için kullanılır.
+
+JWT'nin en önemli özelliği, kendi kendini doğrulayabilmesidir (self-contained). Sunucu, bir isteği doğrulamak için veritabanına gidip "bu token geçerli mi" diye sormak zorunda değildir; imzayı kontrol ederek tokenın bütünlüğünü ve geçerliliğini anlayabilir.
+
+## OAuth2 ve JWT Birlikte Nasıl Çalışır?
+
+OAuth2 bir protokol, JWT ise bir token formatıdır; birbirlerinin rakibi değil, sıkça birlikte kullanılan iki farklı kavramdır. OAuth2 akışı sonucunda üretilen erişim tokenı, çoğu modern sistemde JWT formatında olur. Bu sayede Resource Server, gelen isteği doğrulamak için Authorization Server'a her seferinde sormak zorunda kalmaz; JWT'nin imzasını kontrol ederek isteği hızlıca değerlendirebilir.
+
+## Dikkat Edilmesi Gereken Noktalar
+
+- **Token süresi:** Erişim tokenlarının ömrü kısa tutulmalı, uzun süreli oturumlar için ayrı bir "refresh token" mekanizması kullanılmalıdır.
+- **İmza doğrulama:** Bir JWT'nin imzası mutlaka doğrulanmalıdır; imza kontrolü atlanırsa, kötü niyetli biri tokenın içeriğini değiştirebilir.
+- **Hassas veri saklamama:** JWT'nin payload kısmı şifrelenmez, yalnızca imzalanır; bu yüzden payload içine şifre gibi hassas veriler asla yazılmamalıdır.
+- **İptal edilebilirlik:** JWT'ler doğası gereği kendi kendini doğruladığı için, bir tokenı süresi dolmadan iptal etmek (örneğin kullanıcı şifresini değiştirdiğinde) ek bir mekanizma gerektirir.
+
+## Ben Ne Yapıyorum?
+
+Gelelim işin "ben bunu güvenlik tarafında nasıl deneyimledim" kısmına. ISO 27001 uyumlu iç/dış güvenlik denetimlerine destek verirken ve bir phishing testi yürütürken, kimlik doğrulama mekanizmalarının ne kadar kritik bir nokta olduğunu yakından gördüm. Bir sistemde en sağlam kod bile, kimlik doğrulama katmanı zayıfsa, tüm o emek boşa gidebiliyor.
+
+Bursa'da esnaflık kültürüyle büyümüş biri olarak şunu söylemeden geçemeyeceğim: JWT, tam olarak imzalı bir teslimat fişi gibi çalışıyor. Fişin üzerinde "bu ürünü teslim alma yetkisi şu kişiye ait" yazıyor ve fiş, esnafın kendi kaşesiyle onaylanmış. Kargo görevlisi, her seferinde depoya dönüp "bu fiş gerçek mi" diye sormak zorunda değil; kaşeye bakıp fişin geçerliliğini anlayabiliyor. Ama tabii, o fişin içine kimse hassas bilgi (örneğin dükkanın kasa şifresini) yazmıyor; çünkü fiş herkesin okuyabileceği bir belge.
+
+Şu an bir API'de kimlik doğrulama kurgularken, kendime hep şunu soruyorum: "Bu tokenı ele geçiren biri, onunla ne kadar süre ve ne kadar yetkiyle dolaşabilir?" Cevap "çok uzun süre, çok fazla yetkiyle" ise, tokenın ömrünü kısaltmayı ya da yetkilerini daraltmayı ciddi ciddi düşünüyorum. Tıpkı bir müşteriye açık uçlu bir yetki belgesi vermek yerine, sadece o günkü teslimat için geçerli bir fiş kesmek gibi.

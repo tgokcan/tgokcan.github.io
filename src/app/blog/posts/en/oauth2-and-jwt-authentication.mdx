@@ -1,0 +1,61 @@
+---
+title: "What Is Authentication with OAuth2 and JWT?"
+publishedAt: "2026-09-30"
+image: "/images/gallery/oauth2-jwt-nedir.jpg"
+summary: "Exploring OAuth2 and JWT, the technologies behind authentication and authorization in modern web applications — what they are, how they differ, and how they work together."
+tag: "Backend"
+translationSlug: "oauth2-jwt-nedir"
+---
+
+I'm Tolga, a software developer with a strong interest in digital literacy. Today we're going to talk about authentication with OAuth2 and JWT.
+
+## The Difference Between Authentication and Authorization
+
+Before getting into OAuth2 and JWT, it's worth clearing up two concepts that often get mixed up:
+
+- **Authentication:** Answers the question "who are you?" It's the process of verifying that a user is who they claim to be.
+- **Authorization:** Answers the question "are you allowed to do this?" It's the process of determining which resources an already-authenticated user can access.
+
+These two concepts are often used together, but they solve different problems, and understanding that difference is the first step toward building a sound security architecture.
+
+## What Is OAuth2?
+
+OAuth2 is an authorization protocol that lets a user grant a third-party application limited access without ever sharing their credentials (username/password) directly with that application. Scenarios like "sign in with Google" or "allow this app to access your calendar" are almost always built on top of OAuth2.
+
+OAuth2's core flow involves four parties:
+
+- **Resource Owner:** Usually the user themselves; the owner of the protected resource.
+- **Client:** The application that wants to access the resource on the user's behalf.
+- **Authorization Server:** The server that authenticates the user and issues access permissions (tokens).
+- **Resource Server:** The server hosting the protected data or API.
+
+The user authenticates through the Authorization Server and grants the Client application certain permissions; in return, the Client receives an access token, which it then uses to send requests to the Resource Server.
+
+## What Is JWT?
+
+JWT (JSON Web Token) is a compact, self-verifying token format used to securely carry information between parties. A JWT consists of three parts, joined together with dots:
+
+- **Header:** Specifies the token's type and the signing algorithm used.
+- **Payload:** Contains claims about the user or the session — for example, a user ID, roles, or an expiration time.
+- **Signature:** Created by signing the header and payload using a secret key or a private key; used to verify that the token hasn't been tampered with.
+
+JWT's most important property is that it's self-contained. The server doesn't need to go back to a database and ask "is this token valid?" to verify a request — it can check the signature and determine the token's integrity and validity on its own.
+
+## How Do OAuth2 and JWT Work Together?
+
+OAuth2 is a protocol, and JWT is a token format — they're not competitors, but two different concepts that are frequently used together. In most modern systems, the access token produced by an OAuth2 flow is itself in JWT format. This means the Resource Server doesn't have to ask the Authorization Server about every single incoming request — it can quickly evaluate the request just by checking the JWT's signature.
+
+## Things to Watch Out For
+
+- **Token lifetime:** Access tokens should have a short lifespan, with a separate "refresh token" mechanism used for longer-lived sessions.
+- **Signature verification:** A JWT's signature must always be verified; if signature checking is skipped, a malicious actor can tamper with the token's contents.
+- **Avoid storing sensitive data:** A JWT's payload is signed, not encrypted, so sensitive data like passwords should never be put inside it.
+- **Revocability:** Because JWTs are self-verifying by nature, revoking a token before it expires (for example, when a user changes their password) requires an additional mechanism.
+
+## What Am I Up To?
+
+Now for the "how I experienced this on the security side" part. While supporting ISO 27001–compliant internal and external security audits, and while running a phishing test myself, I saw up close just how critical authentication mechanisms really are. Even the most solid code in a system can have all that effort go to waste if the authentication layer is weak.
+
+Having grown up around the shopkeeper culture in Bursa, I can't help but put it this way: a JWT works exactly like a signed delivery slip. The slip says "this person is authorized to pick up this product," and it's stamped with the shopkeeper's own seal. The delivery person doesn't need to run back to the warehouse every single time and ask "is this slip real?" — they can just check the seal and know it's valid. But of course, nobody writes sensitive information (like the shop's cash register code) on that slip, because it's a document anyone could read.
+
+These days, when I'm setting up authentication for an API, I always ask myself: "If someone got their hands on this token, how long and with how much authority could they walk around with it?" If the answer is "a very long time, with a lot of authority," I seriously consider shortening the token's lifespan or narrowing its permissions. It's a bit like issuing a customer a slip that's only valid for that day's delivery, instead of handing them an open-ended authorization document.
